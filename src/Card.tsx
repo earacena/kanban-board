@@ -1,15 +1,27 @@
-import { CSSProperties, FC } from "react";
+import { CSSProperties } from "react";
 import { useDrag } from "react-dnd";
-import { SymbolDisplayPartKind } from "typescript";
 import { ItemTypes } from "./ItemTypes";
+import { Record as RtRecord, String as RtString, Array as RtArray } from 'runtypes';
 
 const style: CSSProperties = {
   border: '1px black solid',
+  backgroundColor: 'white',
+  padding: '0.5rem 1rem',
+  marginRight: '1.5rem',
+  marginBottom: '1.5rem',
+  cursor: 'move',
+  float: 'left',
 };
 
 interface CardProps {
   label: string;
 }
+
+export const CardType = RtRecord({
+  label: RtString,
+});
+
+export const Cards = RtArray(CardType);
 
 interface DropResult {
   label: string;
@@ -19,12 +31,6 @@ function Card({ label }: CardProps) {
   const [{ isDragging }, drag] = useDrag(() => ({
     type: ItemTypes.CARD,
     item: { label },
-    end: (item, monitor) => {
-      const dropResult = monitor.getDropResult<DropResult>();
-      if (item && dropResult) {
-        alert(`Dropped card labelled ${item.label} in ${dropResult.label}`);
-      }
-    },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
       handlerId: monitor.getHandlerId(),
@@ -35,7 +41,7 @@ function Card({ label }: CardProps) {
   return (
     <div
       ref={drag}
-      role="Card"
+      role='listitem'
       style={{ ...style, opacity }}
       data-testid={`card-${label}`}
     >
