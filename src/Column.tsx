@@ -7,8 +7,9 @@ import { String as RtString, Number as RtNumber, Array as RtArray, Record as RtR
 
 const style: CSSProperties = {
   border: '1px red solid',
-  height: '12rem',
-  width: '12rem',
+  height: '100%',
+  minHeight: '15rem',
+  minWidth: '20rem',
   marginRight: '1.5rem',
   marginBottom: '1.5rem',
   color: 'white',
