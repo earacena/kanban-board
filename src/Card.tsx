@@ -1,9 +1,9 @@
-import { CSSProperties } from 'react';
+import React, { CSSProperties } from 'react';
 import { useDrag } from 'react-dnd';
 import {
   Number as RtNumber, Record as RtRecord, String as RtString, Array as RtArray,
 } from 'runtypes';
-import { ItemTypes } from './ItemTypes';
+import ItemTypes from './ItemTypes';
 
 const style: CSSProperties = {
   border: '1px black solid',
@@ -26,9 +26,9 @@ export const CardType = RtRecord({
 
 export const Cards = RtArray(CardType);
 
-interface DropResult {
-  label: string;
-}
+// interface DropResult {
+//   label: string;
+// }
 
 function Card({ label }: CardProps) {
   const [{ isDragging }, drag] = useDrag(() => ({
