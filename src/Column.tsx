@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import type { CSSProperties, FC } from 'react';
+import React, { useState } from 'react';
+import type { CSSProperties } from 'react';
 import { useDrop } from 'react-dnd';
 import {
   String as RtString, Number as RtNumber, Array as RtArray, Record as RtRecord, Static as RtStatic,
 } from 'runtypes';
-import { ItemTypes } from './ItemTypes';
+import ItemTypes from './ItemTypes';
 import { CardType, Cards } from './Card';
 
 const style: CSSProperties = {
@@ -34,14 +34,16 @@ interface ColumnProps {
   label: string;
 }
 
-const findLargestIdValue = (cards: RtStatic<typeof Cards>) => cards.reduce((prev, curr) => Math.max(prev, curr.id), 0);
+const findLargestIdValue = (cards: RtStatic<typeof Cards>) => (
+  cards.reduce((prev, curr) => Math.max(prev, curr.id), 0)
+);
 
 function Column({ label }: ColumnProps) {
   const [cards, setCards] = useState<RtStatic<typeof Cards>>([]);
   const [{ canDrop, isOver }, drop] = useDrop(
     () => ({
       accept: ItemTypes.CARD,
-      drop: (item, _monitor) => {
+      drop: (item) => {
         if (CardType.guard(item)) {
           setCards(cards.concat(item));
         }
@@ -79,13 +81,14 @@ function Column({ label }: ColumnProps) {
       role="list"
       style={{ ...style, backgroundColor, color }}
     >
+      {label}
       {isActive ? 'release to drop' : 'drag a card here'}
       <ul>
         {cards.map((card) => (
           <div key={card.id} style={{ border: '1px white solid' }}>{card.label}</div>
         ))}
       </ul>
-      <button onClick={handleAddCard}>Add Card</button>
+      <button type="button" onClick={handleAddCard}>Add Card</button>
     </div>
   );
 }
