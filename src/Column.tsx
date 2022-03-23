@@ -3,7 +3,7 @@ import type { CSSProperties, FC } from "react";
 import { useDrop } from 'react-dnd';
 import { ItemTypes } from './ItemTypes';
 import { CardType, Cards } from "./Card";
-import { Static as RtStatic } from 'runtypes';
+import { String as RtString, Number as RtNumber, Array as RtArray, Record as RtRecord, Static as RtStatic } from 'runtypes';
 
 const style: CSSProperties = {
   border: '1px red solid',
@@ -19,7 +19,19 @@ const style: CSSProperties = {
   float: 'left',
 };
 
-function Column() {
+export const ColumnType = RtRecord({
+  id: RtNumber,
+  label: RtString,
+  cards: Cards,
+});
+
+export const Columns = RtArray(ColumnType);
+
+interface ColumnProps {
+  label: string;
+};
+
+function Column({ label }: ColumnProps) {
   const [cards, setCards] = useState<RtStatic<typeof Cards>>([]);
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
     accept: ItemTypes.CARD,
