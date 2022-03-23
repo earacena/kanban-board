@@ -1,7 +1,9 @@
-import { CSSProperties } from "react";
-import { useDrag } from "react-dnd";
-import { ItemTypes } from "./ItemTypes";
-import { Number as RtNumber, Record as RtRecord, String as RtString, Array as RtArray } from 'runtypes';
+import { CSSProperties } from 'react';
+import { useDrag } from 'react-dnd';
+import {
+  Number as RtNumber, Record as RtRecord, String as RtString, Array as RtArray,
+} from 'runtypes';
+import { ItemTypes } from './ItemTypes';
 
 const style: CSSProperties = {
   border: '1px black solid',
@@ -36,19 +38,19 @@ function Card({ label }: CardProps) {
       isDragging: monitor.isDragging(),
       handlerId: monitor.getHandlerId(),
     }),
-  }))
+  }));
 
-  const opacity = isDragging ? 0.6: 1;
+  const opacity = isDragging ? 0.6 : 1;
   return (
     <div
       ref={drag}
-      role='listitem'
+      role="listitem"
       style={{ ...style, opacity }}
       data-testid={`card-${label}`}
     >
       {label}
     </div>
-  )
+  );
 }
 
 export default Card;
