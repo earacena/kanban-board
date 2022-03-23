@@ -6,7 +6,7 @@ import { maxHeaderSize } from 'http';
 
 const ContainerStyle: CSSProperties = {
   display: 'flex',
-  flexDirection: 'column',
+  flexDirection: 'row',
   overflow: 'auto',
   clear: 'both',
 };
