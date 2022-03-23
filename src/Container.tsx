@@ -1,7 +1,6 @@
 import React, { CSSProperties, useState } from 'react';
 import { Static as RtStatic } from 'runtypes';
-import { maxHeaderSize } from 'http';
-import Card from './Card';
+// import Card from './Card';
 import Column, { Columns } from './Column';
 
 const ContainerStyle: CSSProperties = {
@@ -15,7 +14,9 @@ const ButtonStyle: CSSProperties = {
   width: '4rem',
 };
 
-const findLargestIdValue = (columns: RtStatic<typeof Columns>) => columns.reduce((prev, curr) => Math.max(prev, curr.id), 0);
+const findLargestIdValue = (columns: RtStatic<typeof Columns>) => (
+  columns.reduce((prev, curr) => Math.max(prev, curr.id), 0)
+);
 
 function Container() {
   const [columns, setColumns] = useState<RtStatic<typeof Columns>>([]);
@@ -35,7 +36,7 @@ function Container() {
         {columns.map((column) => (
           <Column key={column.id} label={column.label} />
         ))}
-        <button style={ButtonStyle} onClick={handleAddColumn}>Add Column</button>
+        <button type="button" style={ButtonStyle} onClick={handleAddColumn}>Add Column</button>
       </div>
     </div>
   );
