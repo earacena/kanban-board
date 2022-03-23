@@ -1,9 +1,11 @@
-import { useState } from "react";
-import type { CSSProperties, FC } from "react";
+import { useState } from 'react';
+import type { CSSProperties, FC } from 'react';
 import { useDrop } from 'react-dnd';
+import {
+  String as RtString, Number as RtNumber, Array as RtArray, Record as RtRecord, Static as RtStatic,
+} from 'runtypes';
 import { ItemTypes } from './ItemTypes';
-import { CardType, Cards } from "./Card";
-import { String as RtString, Number as RtNumber, Array as RtArray, Record as RtRecord, Static as RtStatic } from 'runtypes';
+import { CardType, Cards } from './Card';
 
 const style: CSSProperties = {
   border: '1px red solid',
@@ -30,27 +32,27 @@ export const Columns = RtArray(ColumnType);
 
 interface ColumnProps {
   label: string;
-};
+}
 
-const findLargestIdValue = (cards: RtStatic<typeof Cards>) => {
-  return cards.reduce((prev, curr) => Math.max(prev, curr.id), 0);
-};
+const findLargestIdValue = (cards: RtStatic<typeof Cards>) => cards.reduce((prev, curr) => Math.max(prev, curr.id), 0);
 
 function Column({ label }: ColumnProps) {
   const [cards, setCards] = useState<RtStatic<typeof Cards>>([]);
-  const [{ canDrop, isOver }, drop] = useDrop(() => ({
-    accept: ItemTypes.CARD,
-    drop: (item, _monitor) => {
-      if (CardType.guard(item)) {
-        setCards(cards.concat(item));
-      }
-    },
-    collect: (monitor) => ({
-      isOver: monitor.isOver(),
-      canDrop: monitor.canDrop(),
+  const [{ canDrop, isOver }, drop] = useDrop(
+    () => ({
+      accept: ItemTypes.CARD,
+      drop: (item, _monitor) => {
+        if (CardType.guard(item)) {
+          setCards(cards.concat(item));
+        }
+      },
+      collect: (monitor) => ({
+        isOver: monitor.isOver(),
+        canDrop: monitor.canDrop(),
+      }),
     }),
-  }),
-  [cards])
+    [cards],
+  );
 
   const handleAddCard = () => {
     const newId = findLargestIdValue(cards) + 1;
@@ -74,7 +76,7 @@ function Column({ label }: ColumnProps) {
   return (
     <div
       ref={drop}
-      role='list'
+      role="list"
       style={{ ...style, backgroundColor, color }}
     >
       {isActive ? 'release to drop' : 'drag a card here'}
@@ -85,7 +87,7 @@ function Column({ label }: ColumnProps) {
       </ul>
       <button onClick={handleAddCard}>Add Card</button>
     </div>
-  )
+  );
 }
 
 export default Column;
