@@ -1,7 +1,7 @@
 import { CSSProperties } from "react";
 import { useDrag } from "react-dnd";
 import { ItemTypes } from "./ItemTypes";
-import { Record as RtRecord, String as RtString, Array as RtArray } from 'runtypes';
+import { Number as RtNumber, Record as RtRecord, String as RtString, Array as RtArray } from 'runtypes';
 
 const style: CSSProperties = {
   border: '1px black solid',
@@ -18,6 +18,7 @@ interface CardProps {
 }
 
 export const CardType = RtRecord({
+  id: RtNumber,
   label: RtString,
 });
 
