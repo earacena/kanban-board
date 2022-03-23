@@ -12,7 +12,7 @@ const style: CSSProperties = {
   minWidth: '20rem',
   marginRight: '1.5rem',
   marginBottom: '1.5rem',
-  color: 'white',
+  color: 'black',
   padding: '1rem',
   textAlign: 'center',
   fontSize: '1rem',
@@ -32,6 +32,10 @@ interface ColumnProps {
   label: string;
 };
 
+const findLargestIdValue = (cards: RtStatic<typeof Cards>) => {
+  return cards.reduce((prev, curr) => Math.max(prev, curr.id), 0);
+};
+
 function Column({ label }: ColumnProps) {
   const [cards, setCards] = useState<RtStatic<typeof Cards>>([]);
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
@@ -48,15 +52,23 @@ function Column({ label }: ColumnProps) {
   }),
   [cards])
 
+  const handleAddCard = () => {
+    const newId = findLargestIdValue(cards) + 1;
+    setCards(cards.concat({
+      id: newId,
+      label: `Card ${newId}`,
+    }));
+  };
+
   const isActive = canDrop && isOver;
-  let backgroundColor = 'black';
-  let color = 'white';
+  let backgroundColor = 'white';
+  let color = 'black';
   if (isActive) {
-    backgroundColor = 'lightgrey';
-    color = 'black';
-  } else {
-    backgroundColor = 'black';
+    backgroundColor = 'darkgrey';
     color = 'white';
+  } else {
+    backgroundColor = 'white';
+    color = 'black';
   }
 
   return (
@@ -68,9 +80,10 @@ function Column({ label }: ColumnProps) {
       {isActive ? 'release to drop' : 'drag a card here'}
       <ul>
         {cards.map((card) => (
-          <div style={{ border: '1px white solid' }} key={card.label}>{card.label}</div>
+          <div key={card.id} style={{ border: '1px white solid' }}>{card.label}</div>
         ))}
       </ul>
+      <button onClick={handleAddCard}>Add Card</button>
     </div>
   )
 }
