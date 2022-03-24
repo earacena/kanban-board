@@ -34,7 +34,7 @@ function Container() {
     <div>
       <div style={ContainerStyle}>
         {columns.map((column) => (
-          <Column key={column.id} label={column.label} />
+          <Column key={column.id} id={column.id} label={column.label} />
         ))}
         <button type="button" style={ButtonStyle} onClick={handleAddColumn}>Add Column</button>
       </div>

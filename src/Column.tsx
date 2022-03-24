@@ -31,6 +31,7 @@ export const ColumnType = RtRecord({
 export const Columns = RtArray(ColumnType);
 
 interface ColumnProps {
+  id: number;
   label: string;
 }
 
@@ -38,7 +39,7 @@ const findLargestIdValue = (cards: RtStatic<typeof Cards>) => (
   cards.reduce((prev, curr) => Math.max(prev, curr.id), 0)
 );
 
-function Column({ label }: ColumnProps) {
+function Column({ id, label }: ColumnProps) {
   const [cards, setCards] = useState<RtStatic<typeof Cards>>([]);
   const [{ canDrop, isOver }, drop] = useDrop(
     () => ({
@@ -57,10 +58,11 @@ function Column({ label }: ColumnProps) {
   );
 
   const handleAddCard = () => {
-    const newId = findLargestIdValue(cards) + 1;
+    const newCardId = findLargestIdValue(cards) + 1;
     setCards(cards.concat({
-      id: newId,
-      label: `Card ${newId}`,
+      id: newCardId,
+      columnId: id,
+      label: `Card ${newCardId}`,
     }));
   };
 
