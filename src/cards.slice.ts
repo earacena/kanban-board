@@ -26,6 +26,13 @@ const cardsSlice = createSlice({
         label: action.payload.label,
       }),
     }),
+    setCardColumnId: (state, action) => {
+      const { id, newColumnId } = action.payload;
+      return {
+        ...state,
+        allCards: state.allCards.map((c) => (c.id === id ? { ...c, columnId: newColumnId } : c)),
+      };
+    },
     resetCards: () => initialState,
   },
 });
@@ -33,6 +40,7 @@ const cardsSlice = createSlice({
 export const {
   setCards,
   addCard,
+  setCardColumnId,
   resetCards,
 } = cardsSlice.actions;
 
