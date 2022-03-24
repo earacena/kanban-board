@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { Static as RtStatic } from 'runtypes';
-import { Columns } from './Column';
+import { Columns } from './column.types';
 
 interface ColumnsState {
   highestId: number,
