@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { Static as RtStatic } from 'runtypes';
-import { Cards } from './Card';
+import { Cards } from './card.types';
 
 interface CardsState {
   highestId: number,
