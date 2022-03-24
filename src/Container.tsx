@@ -1,7 +1,7 @@
-import React, { CSSProperties, useState } from 'react';
-import { Static as RtStatic } from 'runtypes';
-// import Card from './Card';
-import Column, { Columns } from './Column';
+import React, { CSSProperties } from 'react';
+import Column from './Column';
+import { useAppDispatch, useAppSelector } from './hooks';
+import { addColumn } from './columns.slice';
 
 const ContainerStyle: CSSProperties = {
   display: 'flex',
@@ -14,21 +14,11 @@ const ButtonStyle: CSSProperties = {
   width: '4rem',
 };
 
-const findLargestIdValue = (columns: RtStatic<typeof Columns>) => (
-  columns.reduce((prev, curr) => Math.max(prev, curr.id), 0)
-);
-
 function Container() {
-  const [columns, setColumns] = useState<RtStatic<typeof Columns>>([]);
+  const columns = useAppSelector((state) => state.columns.allColumns);
+  const dispatch = useAppDispatch();
 
-  const handleAddColumn = () => {
-    const newId = findLargestIdValue(columns) + 1;
-    setColumns(columns.concat({
-      id: newId,
-      label: `Column ${newId}`,
-      cards: [],
-    }));
-  };
+  const handleAddColumn = () => dispatch(addColumn({ label: 'Column' }));
 
   return (
     <div>
