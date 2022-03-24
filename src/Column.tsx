@@ -5,7 +5,7 @@ import {
   String as RtString, Number as RtNumber, Array as RtArray, Record as RtRecord, Static as RtStatic,
 } from 'runtypes';
 import ItemTypes from './ItemTypes';
-import { CardType, Cards } from './Card';
+import Card, { CardType, Cards } from './Card';
 
 const style: CSSProperties = {
   border: '1px red solid',
@@ -75,6 +75,18 @@ function Column({ label }: ColumnProps) {
     color = 'black';
   }
 
+  if (isActive) {
+    return (
+      <div
+        ref={drop}
+        role="list"
+        style={{ ...style, backgroundColor, color }}
+      >
+        release to drop
+      </div>
+    );
+  }
+
   return (
     <div
       ref={drop}
@@ -82,10 +94,9 @@ function Column({ label }: ColumnProps) {
       style={{ ...style, backgroundColor, color }}
     >
       {label}
-      {isActive ? 'release to drop' : 'drag a card here'}
       <ul>
         {cards.map((card) => (
-          <div key={card.id} style={{ border: '1px white solid' }}>{card.label}</div>
+          <Card key={card.id} label={card.label} />
         ))}
       </ul>
       <button type="button" onClick={handleAddCard}>Add Card</button>
