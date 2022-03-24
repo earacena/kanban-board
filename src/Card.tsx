@@ -21,6 +21,7 @@ interface CardProps {
 
 export const CardType = RtRecord({
   id: RtNumber,
+  columnId: RtNumber,
   label: RtString,
 });
 
