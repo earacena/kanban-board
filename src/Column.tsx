@@ -1,11 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import type { CSSProperties } from 'react';
-import { useDrop } from 'react-dnd';
+// import { useDrop } from 'react-dnd';
 import {
-  String as RtString, Number as RtNumber, Array as RtArray, Record as RtRecord, Static as RtStatic,
+  String as RtString,
+  Number as RtNumber,
+  Array as RtArray,
+  Record as RtRecord,
+  /* Static as RtStatic */
 } from 'runtypes';
-import ItemTypes from './ItemTypes';
-import Card, { CardType, Cards } from './Card';
+import { addCard } from './cards.slice';
+import { useAppDispatch, useAppSelector } from './hooks';
+import Card from './Card';
+// import ItemTypes from './ItemTypes';
 
 const style: CSSProperties = {
   border: '1px red solid',
@@ -25,7 +31,6 @@ const style: CSSProperties = {
 export const ColumnType = RtRecord({
   id: RtNumber,
   label: RtString,
-  cards: Cards,
 });
 
 export const Columns = RtArray(ColumnType);
@@ -35,72 +40,60 @@ interface ColumnProps {
   label: string;
 }
 
-const findLargestIdValue = (cards: RtStatic<typeof Cards>) => (
-  cards.reduce((prev, curr) => Math.max(prev, curr.id), 0)
-);
-
 function Column({ id, label }: ColumnProps) {
-  const [cards, setCards] = useState<RtStatic<typeof Cards>>([]);
-  const [{ canDrop, isOver }, drop] = useDrop(
-    () => ({
-      accept: ItemTypes.CARD,
-      drop: (item) => {
-        if (CardType.guard(item)) {
-          setCards(cards.concat(item));
-        }
-      },
-      collect: (monitor) => ({
-        isOver: monitor.isOver(),
-        canDrop: monitor.canDrop(),
-      }),
-    }),
-    [cards],
+  const dispatch = useAppDispatch();
+  const cards = useAppSelector(
+    (state) => state.cards.allCards.filter((c) => c.columnId === id),
   );
+  // const [cards, setCards] = useState<RtStatic<typeof Cards>>([]);
+  // const [{ canDrop, isOver }, drop] = useDrop(
+  //   () => ({
+  //     accept: ItemTypes.CARD,
+  //     drop: (item) => {
+  //       if (CardType.guard(item)) {
+  //         setCards(cards.concat(item));
+  //       }
+  //     },
+  //     collect: (monitor) => ({
+  //       isOver: monitor.isOver(),
+  //       canDrop: monitor.canDrop(),
+  //     }),
+  //   }),
+  //   [cards],
+  // );
 
-  const handleAddCard = () => {
-    const newCardId = findLargestIdValue(cards) + 1;
-    setCards(cards.concat({
-      id: newCardId,
-      columnId: id,
-      label: `Card ${newCardId}`,
-    }));
-  };
+  const handleAddCard = () => dispatch(addCard({ columnId: id, label: 'Card' }));
 
-  const isActive = canDrop && isOver;
-  let backgroundColor = 'white';
-  let color = 'black';
-  if (isActive) {
-    backgroundColor = 'darkgrey';
-    color = 'white';
-  } else {
-    backgroundColor = 'white';
-    color = 'black';
-  }
+  // const isActive = canDrop && isOver;
+  // let backgroundColor = 'white';
+  // let color = 'black';
+  // if (isActive) {
+  //   backgroundColor = 'darkgrey';
+  //   color = 'white';
+  // } else {
+  //   backgroundColor = 'white';
+  //   color = 'black';
+  // }
 
-  if (isActive) {
-    return (
-      <div
-        ref={drop}
-        role="list"
-        style={{ ...style, backgroundColor, color }}
-      >
-        release to drop
-      </div>
-    );
-  }
+  // if (isActive) {
+  //   return (
+  //     <div
+  //       ref={drop}
+  //       role="list"
+  //       style={{ ...style, backgroundColor, color }}
+  //     >
+  //       release to drop
+  //     </div>
+  //   );
+  // }
 
   return (
     <div
-      ref={drop}
       role="list"
-      style={{ ...style, backgroundColor, color }}
+      style={{ ...style }}
     >
-      {label}
-      <ul>
-        {cards.map((card) => (
-          <Card key={card.id} label={card.label} />
-        ))}
-      </ul>
+      {`${label} ${id}`}
+      {cards.map((card) => <Card key={card.id} label={card.label} />)}
       <button type="button" onClick={handleAddCard}>Add Card</button>
     </div>
   );
