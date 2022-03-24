@@ -1,8 +1,7 @@
 import React, { CSSProperties } from 'react';
 import { useDrag } from 'react-dnd';
-import {
-  Number as RtNumber, Record as RtRecord, String as RtString, Array as RtArray,
-} from 'runtypes';
+import { setCardColumnId } from './cards.slice';
+import { useAppDispatch } from './hooks';
 import ItemTypes from './ItemTypes';
 
 const style: CSSProperties = {
@@ -16,25 +15,26 @@ const style: CSSProperties = {
 };
 
 interface CardProps {
+  id: number;
+  // columnId: number;
   label: string;
 }
 
-export const CardType = RtRecord({
-  id: RtNumber,
-  columnId: RtNumber,
-  label: RtString,
-});
+interface DropResult {
+  columnId: number;
+}
 
-export const Cards = RtArray(CardType);
-
-// interface DropResult {
-//   label: string;
-// }
-
-function Card({ label }: CardProps) {
+function Card({ id, label }: CardProps) {
+  const dispatch = useAppDispatch();
   const [{ isDragging }, drag] = useDrag(() => ({
     type: ItemTypes.CARD,
-    item: { label },
+    item: { id },
+    end: (item, monitor) => {
+      const dropResult = monitor.getDropResult<DropResult>();
+      if (item && dropResult) {
+        dispatch(setCardColumnId({ id, newColumnId: dropResult.columnId }));
+      }
+    },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
       handlerId: monitor.getHandlerId(),
