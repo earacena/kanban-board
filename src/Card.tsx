@@ -8,10 +8,10 @@ const style: CSSProperties = {
   border: '1px black solid',
   backgroundColor: 'white',
   padding: '0.5rem 1rem',
-  marginRight: '1.5rem',
-  marginBottom: '1.5rem',
+  alignSelf: 'stretch',
   cursor: 'move',
   float: 'left',
+  margin: '0.5rem',
 };
 
 interface CardProps {
