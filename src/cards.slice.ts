@@ -3,12 +3,12 @@ import { Static as RtStatic } from 'runtypes';
 import { Cards } from './card.types';
 
 interface CardsState {
-  highestId: number,
+  nextAvailableId: number,
   allCards: RtStatic<typeof Cards>,
 }
 
 const initialState: CardsState = {
-  highestId: 0,
+  nextAvailableId: 1,
   allCards: [],
 };
 
@@ -19,9 +19,9 @@ const cardsSlice = createSlice({
     setCards: (state, action) => action.payload,
     addCard: (state, action) => ({
       ...state,
-      highestId: state.highestId + 1,
+      nextAvailableId: state.nextAvailableId + 1,
       allCards: state.allCards.concat({
-        id: state.highestId + 1,
+        id: state.nextAvailableId,
         columnId: action.payload.columnId,
         label: action.payload.label,
       }),
