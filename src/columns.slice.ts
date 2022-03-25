@@ -3,12 +3,12 @@ import { Static as RtStatic } from 'runtypes';
 import { Columns } from './column.types';
 
 interface ColumnsState {
-  highestId: number,
+  nextAvailableId: number,
   allColumns: RtStatic<typeof Columns>,
 }
 
 const initialState: ColumnsState = {
-  highestId: 0,
+  nextAvailableId: 1,
   allColumns: [],
 };
 
@@ -19,9 +19,9 @@ const columnsSlice = createSlice({
     setColumns: (state, action) => action.payload,
     addColumn: (state, action) => ({
       ...state,
-      highestId: state.highestId + 1,
+      highestId: state.nextAvailableId,
       allColumns: state.allColumns.concat({
-        id: state.highestId + 1,
+        id: state.nextAvailableId + 1,
         label: action.payload.label,
       }),
     }),
