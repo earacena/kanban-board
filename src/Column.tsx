@@ -7,6 +7,8 @@ import Card from './Card';
 import ItemTypes from './ItemTypes';
 
 const style: CSSProperties = {
+  display: 'flex',
+  flexDirection: 'column',
   border: '1px red solid',
   height: '100%',
   minHeight: '15rem',
