@@ -19,9 +19,9 @@ const columnsSlice = createSlice({
     setColumns: (state, action) => action.payload,
     addColumn: (state, action) => ({
       ...state,
-      highestId: state.nextAvailableId,
+      nextAvailableId: state.nextAvailableId + 1,
       allColumns: state.allColumns.concat({
-        id: state.nextAvailableId + 1,
+        id: state.nextAvailableId,
         label: action.payload.label,
       }),
     }),
