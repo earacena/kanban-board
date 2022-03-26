@@ -16,7 +16,10 @@ const cardsSlice = createSlice({
   name: 'cards',
   initialState,
   reducers: {
-    setCards: (state, action) => action.payload,
+    setCards: (state, action) => ({
+      ...state,
+      allCards: action.payload,
+    }),
     addCard: (state, action) => ({
       ...state,
       nextAvailableId: state.nextAvailableId + 1,
