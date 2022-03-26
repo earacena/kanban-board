@@ -1,10 +1,7 @@
-import React, { CSSProperties } from 'react';
-import { useDrag } from 'react-dnd';
-import { setCardColumnId } from './cards.slice';
-import { useAppDispatch } from './hooks';
-import ItemTypes from './ItemTypes';
+import React from 'react';
+import type { CSSProperties } from 'react';
 
-const style: CSSProperties = {
+const cardStyle: CSSProperties = {
   border: '1px black solid',
   backgroundColor: 'white',
   padding: '0.5rem 1rem',
@@ -16,40 +13,18 @@ const style: CSSProperties = {
 
 interface CardProps {
   id: number;
-  // columnId: number;
   label: string;
+  columnId: number,
 }
 
-interface DropResult {
-  columnId: number;
-}
-
-function Card({ id, label }: CardProps) {
-  const dispatch = useAppDispatch();
-  const [{ isDragging }, drag] = useDrag(() => ({
-    type: ItemTypes.CARD,
-    item: { id },
-    end: (item, monitor) => {
-      const dropResult = monitor.getDropResult<DropResult>();
-      if (item && dropResult) {
-        dispatch(setCardColumnId({ id, newColumnId: dropResult.columnId }));
-      }
-    },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-      handlerId: monitor.getHandlerId(),
-    }),
-  }));
-
-  const opacity = isDragging ? 0.6 : 1;
+function Card({
+  id,
+  label,
+  columnId,
+}: CardProps) {
   return (
-    <div
-      ref={drag}
-      role="listitem"
-      style={{ ...style, opacity }}
-      data-testid={`card-${label}`}
-    >
-      {label}
+    <div role="listitem" style={cardStyle}>
+      {`[${columnId}] ${label} - ${id}`}
     </div>
   );
 }
