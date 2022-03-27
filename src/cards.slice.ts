@@ -5,11 +5,13 @@ import { Cards } from './card.types';
 interface CardsState {
   nextAvailableId: number,
   allCards: RtStatic<typeof Cards>,
+  activeCardId: number,
 }
 
 const initialState: CardsState = {
   nextAvailableId: 1,
   allCards: [],
+  activeCardId: 0,
 };
 
 const cardsSlice = createSlice({
@@ -36,6 +38,14 @@ const cardsSlice = createSlice({
         allCards: state.allCards.map((c) => (c.id === id ? { ...c, columnId: newColumnId } : c)),
       };
     },
+    setActiveCardId: (state, action) => ({
+      ...state,
+      activeCardId: action.payload,
+    }),
+    resetActiveCardId: (state) => ({
+      ...state,
+      activeCardId: initialState.activeCardId,
+    }),
     resetCards: () => initialState,
   },
 });
@@ -44,6 +54,8 @@ export const {
   setCards,
   addCard,
   setCardColumnId,
+  setActiveCardId,
+  resetActiveCardId,
   resetCards,
 } = cardsSlice.actions;
 
