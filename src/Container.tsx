@@ -5,6 +5,8 @@ import { addColumn } from './columns.slice';
 
 const ContainerStyle: CSSProperties = {
   display: 'flex',
+  width: '100%',
+  height: '100%',
   flexDirection: 'row',
   overflow: 'auto',
   clear: 'both',
