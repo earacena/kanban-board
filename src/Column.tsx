@@ -3,6 +3,7 @@ import type { CSSProperties } from 'react';
 import { addCard } from './cards.slice';
 import { useAppDispatch, useAppSelector } from './hooks';
 import Card from './Card';
+import Droppable from './Droppable';
 
 const style: CSSProperties = {
   display: 'flex',
@@ -35,7 +36,7 @@ function Column({ id, label }: ColumnProps) {
   const handleAddCard = () => dispatch(addCard({ columnId: id, label: 'Card' }));
 
   return (
-    <div role="list" style={{ ...style }}>
+    <Droppable style={style} key={id} id={id}>
       {`${label} ${id}`}
       {cards.map((card) => (
         <Card
@@ -46,7 +47,7 @@ function Column({ id, label }: ColumnProps) {
         />
       ))}
       <button type="button" onClick={handleAddCard}>Add Card</button>
-    </div>
+    </Droppable>
   );
 }
 
