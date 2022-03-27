@@ -20,13 +20,20 @@ function Draggable({ id, children }: DraggableProps) {
   } = useDraggable({ id: id.toString() });
 
   const style = {
+    border: '1px lightgrey solid',
+    backgroundColor: 'white',
+    padding: '1rem',
+    margin: '0.2em',
+    borderRadius: '8px',
+    boxShadow: '0px 3px 10px rgb(0, 0, 0, 0.2)',
+    listStyleType: 'none',
     transform: CSS.Translate.toString(transform),
   };
 
   return (
-    <button type="button" ref={setNodeRef} style={style} {...listeners} {...attributes}>
+    <li ref={setNodeRef} style={style} {...listeners} {...attributes}>
       {children}
-    </button>
+    </li>
   );
 }
 
