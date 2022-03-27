@@ -1,15 +1,16 @@
 import React from 'react';
-import type { CSSProperties } from 'react';
+// import type { CSSProperties } from 'react';
+import Draggable from './Draggable';
 
-const cardStyle: CSSProperties = {
-  border: '1px black solid',
-  backgroundColor: 'white',
-  padding: '0.5rem 1rem',
-  alignSelf: 'stretch',
-  cursor: 'move',
-  float: 'left',
-  margin: '0.5rem',
-};
+// const cardStyle: CSSProperties = {
+//   border: '1px black solid',
+//   backgroundColor: 'white',
+//   padding: '0.5rem 1rem',
+//   alignSelf: 'stretch',
+//   cursor: 'move',
+//   float: 'left',
+//   margin: '0.5rem',
+// };
 
 interface CardProps {
   id: number;
@@ -23,9 +24,9 @@ function Card({
   columnId,
 }: CardProps) {
   return (
-    <div role="listitem" style={cardStyle}>
+    <Draggable key={id} id={id}>
       {`[${columnId}] ${label} - ${id}`}
-    </div>
+    </Draggable>
   );
 }
 
