@@ -1,6 +1,5 @@
 import React from 'react';
 // import type { CSSProperties } from 'react';
-import Draggable from './Draggable';
 
 // const cardStyle: CSSProperties = {
 //   border: '1px black solid',
@@ -24,9 +23,9 @@ function Card({
   columnId,
 }: CardProps) {
   return (
-    <Draggable key={id} id={id}>
+    <div>
       {`[${columnId}] ${label} - ${id}`}
-    </Draggable>
+    </div>
   );
 }
 
