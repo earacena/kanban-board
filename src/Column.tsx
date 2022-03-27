@@ -3,6 +3,7 @@ import type { CSSProperties } from 'react';
 import { addCard } from './cards.slice';
 import { useAppDispatch, useAppSelector } from './hooks';
 import Card from './Card';
+import Draggable from './Draggable';
 import Droppable from './Droppable';
 
 const style: CSSProperties = {
@@ -39,12 +40,14 @@ function Column({ id, label }: ColumnProps) {
     <Droppable style={style} key={id} id={id}>
       {`${label} ${id}`}
       {cards.map((card) => (
-        <Card
-          key={card.id}
-          id={card.id}
-          label={card.label}
-          columnId={card.columnId}
-        />
+        <Draggable key={card.id} id={card.id}>
+          <Card
+            key={card.id}
+            id={card.id}
+            label={card.label}
+            columnId={card.columnId}
+          />
+        </Draggable>
       ))}
       <button type="button" onClick={handleAddCard}>Add Card</button>
     </Droppable>
