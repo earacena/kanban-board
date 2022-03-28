@@ -3,7 +3,7 @@ import { CSS } from '@dnd-kit/utilities';
 import { useDraggable } from '@dnd-kit/core';
 
 interface DraggableProps {
-  id: number,
+  id: string,
   children?: React.ReactNode,
 }
 
@@ -17,7 +17,7 @@ function Draggable({ id, children }: DraggableProps) {
     listeners,
     setNodeRef,
     transform,
-  } = useDraggable({ id: id.toString() });
+  } = useDraggable({ id });
 
   const style = {
     border: '1px lightgrey solid',
