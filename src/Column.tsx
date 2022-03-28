@@ -1,10 +1,13 @@
 import React from 'react';
+import {
+  SortableContext,
+  verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
 import type { CSSProperties } from 'react';
 import { addCard } from './cards.slice';
 import { useAppDispatch, useAppSelector } from './hooks';
 import Card from './Card';
-import Draggable from './Draggable';
-import Droppable from './Droppable';
+import SortableItem from './SortableItem';
 
 const style: CSSProperties = {
   display: 'flex',
@@ -23,6 +26,15 @@ const style: CSSProperties = {
   float: 'left',
 };
 
+const cardStyle: CSSProperties = {
+  border: '1px lightgrey solid',
+  backgroundColor: 'white',
+  padding: '1rem',
+  margin: '0.2em',
+  borderRadius: '8px',
+  boxShadow: '0px 3px 10px rgb(0, 0, 0, 0.2)',
+};
+
 interface ColumnProps {
   id: number;
   label: string;
@@ -30,27 +42,31 @@ interface ColumnProps {
 
 function Column({ id, label }: ColumnProps) {
   const dispatch = useAppDispatch();
-  const cards = useAppSelector(
-    (state) => state.cards.allCards.filter((c) => c.columnId === id),
-  );
+  const cards = useAppSelector((state) => state.cards.allCards);
+  const cardsInThisColumn = cards.filter((card) => card.columnId === id);
+  const cardIds = cardsInThisColumn.map((card) => card.id.toString());
 
   const handleAddCard = () => dispatch(addCard({ columnId: id, label: 'Card' }));
 
   return (
-    <Droppable style={style} key={id} id={id}>
-      {`${label} ${id}`}
-      {cards.map((card) => (
-        <Draggable key={card.id} id={card.id}>
-          <Card
-            key={card.id}
-            id={card.id}
-            label={card.label}
-            columnId={card.columnId}
-          />
-        </Draggable>
-      ))}
-      <button type="button" onClick={handleAddCard}>Add Card</button>
-    </Droppable>
+    <SortableContext items={cardIds} strategy={verticalListSortingStrategy}>
+      <div key={id} style={style}>
+        {`${label} ${id}`}
+        {cardsInThisColumn.map((card) => (
+          <SortableItem key={card.id} id={card.id} style={cardStyle}>
+            <Card
+              key={card.id}
+              id={card.id}
+              label={card.label}
+              columnId={card.columnId}
+            />
+          </SortableItem>
+        ))}
+        <button type="button" onClick={handleAddCard}>
+          Add Card
+        </button>
+      </div>
+    </SortableContext>
   );
 }
 
