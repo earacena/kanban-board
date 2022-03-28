@@ -29,29 +29,27 @@ function App() {
   );
 
   const handleDragStart = (event: DragStartEvent) => {
-    dispatch(setActiveCardId(Number(event.active.id)));
+    dispatch(setActiveCardId(event.active.id));
   };
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
 
-    if (over && active.id !== over.id) {
-      dispatch(setCardColumnId({ id: Number(active.id), newColumnId: Number(over.id) }));
-
-      const oldCard = cards.find((card) => card.id === Number(active.id));
-      const newCard = cards.find((card) => card.id === Number(over.id));
-      if (oldCard && newCard) {
-        const oldIndex = cards.indexOf(oldCard);
-        const newIndex = cards.indexOf(newCard);
-        const cardsCopy = [...cards];
-        dispatch(setCards(arrayMove(cardsCopy, oldIndex, newIndex)));
+    if (over) {
+      if (over.id.includes('column')) {
+        dispatch(setCardColumnId({ id: active.id, newColumnId: over.id }));
+      }
+      if (over.id.includes('card') && active.id !== over.id) {
+        const oldCard = cards.find((card) => card.id === active.id);
+        const newCard = cards.find((card) => card.id === over.id);
+        if (oldCard && newCard) {
+          const oldIndex = cards.indexOf(oldCard);
+          const newIndex = cards.indexOf(newCard);
+          const cardsCopy = [...cards];
+          dispatch(setCards(arrayMove(cardsCopy, oldIndex, newIndex)));
+        }
       }
     }
-
-    // const { active, over } = event;
-    // if (over) {
-    //   dispatch(setCardColumnId({ id: Number(active.id), newColumnId: Number(over.id) }));
-    // }
 
     dispatch(resetActiveCardId());
   };
