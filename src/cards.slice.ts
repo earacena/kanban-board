@@ -5,13 +5,13 @@ import { Cards } from './card.types';
 interface CardsState {
   nextAvailableId: number,
   allCards: RtStatic<typeof Cards>,
-  activeCardId: number,
+  activeCardId: string,
 }
 
 const initialState: CardsState = {
   nextAvailableId: 1,
   allCards: [],
-  activeCardId: 0,
+  activeCardId: '',
 };
 
 const cardsSlice = createSlice({
@@ -26,7 +26,7 @@ const cardsSlice = createSlice({
       ...state,
       nextAvailableId: state.nextAvailableId + 1,
       allCards: state.allCards.concat({
-        id: state.nextAvailableId,
+        id: `card-${state.nextAvailableId}`,
         columnId: action.payload.columnId,
         label: action.payload.label,
       }),
