@@ -21,7 +21,7 @@ const columnsSlice = createSlice({
       ...state,
       nextAvailableId: state.nextAvailableId + 1,
       allColumns: state.allColumns.concat({
-        id: state.nextAvailableId,
+        id: `column-${state.nextAvailableId}`,
         label: action.payload.label,
       }),
     }),
