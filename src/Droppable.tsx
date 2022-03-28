@@ -2,7 +2,7 @@ import React, { CSSProperties } from 'react';
 import { useDroppable } from '@dnd-kit/core';
 
 interface DroppableProps {
-  id: number,
+  id: string,
   style?: CSSProperties,
   children?: React.ReactNode,
 }
@@ -13,7 +13,7 @@ const defaultProps = {
 };
 
 function Droppable({ id, style, children }: DroppableProps) {
-  const { setNodeRef } = useDroppable({ id: id.toString() });
+  const { setNodeRef } = useDroppable({ id });
 
   return (
     <div ref={setNodeRef} style={style}>
