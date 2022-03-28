@@ -12,9 +12,9 @@ import React from 'react';
 // };
 
 interface CardProps {
-  id: number;
+  id: string;
   label: string;
-  columnId: number,
+  columnId: string,
 }
 
 function Card({
