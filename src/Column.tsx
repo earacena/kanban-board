@@ -8,6 +8,7 @@ import { addCard } from './cards.slice';
 import { useAppDispatch, useAppSelector } from './hooks';
 import Card from './Card';
 import SortableItem from './SortableItem';
+import Droppable from './Droppable';
 
 const style: CSSProperties = {
   display: 'flex',
@@ -36,7 +37,7 @@ const cardStyle: CSSProperties = {
 };
 
 interface ColumnProps {
-  id: number;
+  id: string;
   label: string;
 }
 
@@ -49,8 +50,8 @@ function Column({ id, label }: ColumnProps) {
   const handleAddCard = () => dispatch(addCard({ columnId: id, label: 'Card' }));
 
   return (
-    <SortableContext items={cardIds} strategy={verticalListSortingStrategy}>
-      <div key={id} style={style}>
+    <Droppable id={id} key={id} style={style}>
+      <SortableContext items={cardIds} strategy={verticalListSortingStrategy}>
         {`${label} ${id}`}
         {cardsInThisColumn.map((card) => (
           <SortableItem key={card.id} id={card.id} style={cardStyle}>
@@ -65,8 +66,8 @@ function Column({ id, label }: ColumnProps) {
         <button type="button" onClick={handleAddCard}>
           Add Card
         </button>
-      </div>
-    </SortableContext>
+      </SortableContext>
+    </Droppable>
   );
 }
 
