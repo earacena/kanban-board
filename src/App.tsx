@@ -7,6 +7,8 @@ import {
   PointerSensor,
   useSensor,
   useSensors,
+  closestCenter,
+  DragOverEvent,
 } from '@dnd-kit/core';
 import { arrayMove, sortableKeyboardCoordinates } from '@dnd-kit/sortable';
 import {
@@ -32,22 +34,31 @@ function App() {
     dispatch(setActiveCardId(event.active.id));
   };
 
-  const handleDragEnd = (event: DragEndEvent) => {
+  const handleDragOver = (event: DragOverEvent) => {
     const { active, over } = event;
-
     if (over) {
       if (over.id.includes('column')) {
         dispatch(setCardColumnId({ id: active.id, newColumnId: over.id }));
-      }
-      if (over.id.includes('card') && active.id !== over.id) {
-        const oldCard = cards.find((card) => card.id === active.id);
-        const newCard = cards.find((card) => card.id === over.id);
-        if (oldCard && newCard) {
-          const oldIndex = cards.indexOf(oldCard);
-          const newIndex = cards.indexOf(newCard);
-          const cardsCopy = [...cards];
-          dispatch(setCards(arrayMove(cardsCopy, oldIndex, newIndex)));
+      } else if (over.id.includes('card')) {
+        const overCard = cards.find((card) => card.id === over.id);
+        if (overCard) {
+          dispatch(setCardColumnId({ id: active.id, newColumnId: overCard.columnId }));
         }
+      }
+    }
+  };
+
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+
+    if (over && over.id.includes('card') && active.id !== over.id) {
+      const oldCard = cards.find((card) => card.id === active.id);
+      const newCard = cards.find((card) => card.id === over.id);
+      if (oldCard && newCard) {
+        const oldIndex = cards.indexOf(oldCard);
+        const newIndex = cards.indexOf(newCard);
+        const cardsCopy = [...cards];
+        dispatch(setCards(arrayMove(cardsCopy, oldIndex, newIndex)));
       }
     }
 
@@ -57,8 +68,10 @@ function App() {
   return (
     <div className="App">
       <DndContext
+        collisionDetection={closestCenter}
         sensors={sensors}
         onDragStart={handleDragStart}
+        onDragOver={handleDragOver}
         onDragEnd={handleDragEnd}
       >
         <Container />
