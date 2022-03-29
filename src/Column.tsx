@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   SortableContext,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import type { CSSProperties } from 'react';
-import { addCard } from './cards.slice';
-import { useAppDispatch, useAppSelector } from './hooks';
+import { useAppSelector } from './hooks';
 import Card from './Card';
 import SortableItem from './SortableItem';
 import Droppable from './Droppable';
+import CardForm from './CardForm';
 
 const style: CSSProperties = {
   display: 'flex',
@@ -31,9 +31,9 @@ const cardStyle: CSSProperties = {
   border: '1px lightgrey solid',
   backgroundColor: 'white',
   padding: '1rem',
-  margin: '0.2em',
-  borderRadius: '8px',
+  borderRadius: '5px',
   boxShadow: '0px 3px 10px rgb(0, 0, 0, 0.2)',
+  borderLeft: '3px red solid',
 };
 
 interface ColumnProps {
@@ -42,12 +42,11 @@ interface ColumnProps {
 }
 
 function Column({ id, label }: ColumnProps) {
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
+  const [formVisible, setFormVisible] = useState(false);
   const cards = useAppSelector((state) => state.cards.allCards);
   const cardsInThisColumn = cards.filter((card) => card.columnId === id);
   const cardIds = cardsInThisColumn.map((card) => card.id.toString());
-
-  const handleAddCard = () => dispatch(addCard({ columnId: id, label: 'Card' }));
 
   return (
     <Droppable id={id} key={id} style={style}>
@@ -60,13 +59,19 @@ function Column({ id, label }: ColumnProps) {
               id={card.id}
               label={card.label}
               columnId={card.columnId}
+              body="test"
             />
           </SortableItem>
         ))}
       </SortableContext>
-      <button type="button" onClick={handleAddCard}>
-        Add Card
-      </button>
+      {!formVisible && (
+        <button type="button" onClick={() => setFormVisible(!formVisible)}>
+          Add Card
+        </button>
+      )}
+      {formVisible && (
+        <CardForm formVisible={formVisible} setFormVisible={setFormVisible} columnId={id} />
+      )}
     </Droppable>
   );
 }
