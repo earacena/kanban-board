@@ -13,16 +13,16 @@ const defaultProps = {
 };
 
 function Droppable({ id, style, children }: DroppableProps) {
-  const { setNodeRef, isOver } = useDroppable({ id });
+  const { setNodeRef } = useDroppable({ id });
 
-  let droppableStyle = style;
-  if (isOver) {
-    droppableStyle = {
-      ...style,
-      border: '3px green solid',
-      borderRadius: '5px',
-    };
-  }
+  const droppableStyle = style;
+  // if (isOver) {
+  //   droppableStyle = {
+  //     ...style,
+  //     border: '3px green solid',
+  //     borderRadius: '5px',
+  //   };
+  // }
 
   return (
     <div ref={setNodeRef} style={droppableStyle}>
