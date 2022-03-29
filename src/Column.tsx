@@ -51,8 +51,8 @@ function Column({ id, label }: ColumnProps) {
 
   return (
     <Droppable id={id} key={id} style={style}>
+      {`${label} ${id}`}
       <SortableContext items={cardIds} strategy={verticalListSortingStrategy}>
-        {`${label} ${id}`}
         {cardsInThisColumn.map((card) => (
           <SortableItem key={card.id} id={card.id} style={cardStyle}>
             <Card
@@ -63,10 +63,10 @@ function Column({ id, label }: ColumnProps) {
             />
           </SortableItem>
         ))}
-        <button type="button" onClick={handleAddCard}>
-          Add Card
-        </button>
       </SortableContext>
+      <button type="button" onClick={handleAddCard}>
+        Add Card
+      </button>
     </Droppable>
   );
 }
