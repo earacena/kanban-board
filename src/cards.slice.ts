@@ -29,6 +29,7 @@ const cardsSlice = createSlice({
         id: `card-${state.nextAvailableId}`,
         columnId: action.payload.columnId,
         label: action.payload.label,
+        body: action.payload.body,
       }),
     }),
     setCardColumnId: (state, action) => {
