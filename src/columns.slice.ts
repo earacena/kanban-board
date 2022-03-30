@@ -25,6 +25,10 @@ const columnsSlice = createSlice({
         label: action.payload.label,
       }),
     }),
+    updateColumn: (state, action) => ({
+      ...state,
+      allColumns: state.allColumns.map((c) => ((c.id === action.payload.id) ? action.payload : c)),
+    }),
     resetColumns: () => initialState,
   },
 });
@@ -32,6 +36,7 @@ const columnsSlice = createSlice({
 export const {
   setColumns,
   addColumn,
+  updateColumn,
   resetColumns,
 } = columnsSlice.actions;
 
