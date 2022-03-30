@@ -9,6 +9,7 @@ export const CardType = RtRecord({
   columnId: RtString,
   label: RtString,
   body: RtString,
+  color: RtString,
 });
 
 export const Cards = RtArray(CardType);
