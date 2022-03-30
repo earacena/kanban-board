@@ -9,6 +9,7 @@ import Card from './Card';
 import SortableItem from './SortableItem';
 import Droppable from './Droppable';
 import CardForm from './CardForm';
+import ColumnEditForm from './ColumnEditForm';
 
 const style: CSSProperties = {
   display: 'flex',
@@ -44,13 +45,23 @@ interface ColumnProps {
 function Column({ id, label }: ColumnProps) {
   // const dispatch = useAppDispatch();
   const [formVisible, setFormVisible] = useState(false);
+  const [beingEdited, setBeingEdited] = useState(false);
   const cards = useAppSelector((state) => state.cards.allCards);
   const cardsInThisColumn = cards.filter((card) => card.columnId === id);
   const cardIds = cardsInThisColumn.map((card) => card.id.toString());
 
   return (
     <Droppable id={id} key={id} style={style}>
-      {`${label} ${id}`}
+      {!beingEdited && label}
+      {beingEdited && (
+        <ColumnEditForm
+          id={id}
+          prevLabel={label}
+          beingEdited={beingEdited}
+          setBeingEdited={setBeingEdited}
+        />
+      )}
+      {!beingEdited && <button type="button" onClick={() => setBeingEdited(!beingEdited)}>Edit</button>}
       <SortableContext items={cardIds} strategy={verticalListSortingStrategy}>
         {cardsInThisColumn.map((card) => (
           <SortableItem key={card.id} id={card.id} style={{ ...cardStyle, borderLeft: ` 3px${card.color} solid` }}>
