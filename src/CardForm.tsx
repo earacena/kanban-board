@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { HexColorPicker } from 'react-colorful';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { addCard } from './cards.slice';
 import { useAppDispatch } from './hooks';
@@ -16,6 +17,7 @@ interface CardFormProps {
 
 function CardForm({ formVisible, setFormVisible, columnId }: CardFormProps) {
   const dispatch = useAppDispatch();
+  const [color, setColor] = useState('#aabbcc');
   const {
     register,
     handleSubmit,
@@ -31,7 +33,14 @@ function CardForm({ formVisible, setFormVisible, columnId }: CardFormProps) {
   const onSubmit: SubmitHandler<Inputs> = (formData) => {
     console.log(formData);
     const { label, body } = formData;
-    dispatch(addCard({ label, body, columnId }));
+    dispatch(
+      addCard({
+        label,
+        body,
+        columnId,
+        color,
+      }),
+    );
     reset({
       label: '',
       body: '',
@@ -62,6 +71,9 @@ function CardForm({ formVisible, setFormVisible, columnId }: CardFormProps) {
             {...register('body', { required: true })}
           />
         </label>
+
+        <HexColorPicker color={color} onChange={setColor} />
+
         <button type="submit">Create</button>
       </form>
       <button type="button" onClick={() => setFormVisible(!formVisible)}>Cancel</button>
