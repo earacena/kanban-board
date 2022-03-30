@@ -30,6 +30,7 @@ const cardsSlice = createSlice({
         columnId: action.payload.columnId,
         label: action.payload.label,
         body: action.payload.body,
+        color: action.payload.color,
       }),
     }),
     setCardColumnId: (state, action) => {
