@@ -53,13 +53,13 @@ function Column({ id, label }: ColumnProps) {
       {`${label} ${id}`}
       <SortableContext items={cardIds} strategy={verticalListSortingStrategy}>
         {cardsInThisColumn.map((card) => (
-          <SortableItem key={card.id} id={card.id} style={cardStyle}>
+          <SortableItem key={card.id} id={card.id} style={{ ...cardStyle, borderLeft: ` 3px${card.color} solid` }}>
             <Card
               key={card.id}
               id={card.id}
               label={card.label}
               columnId={card.columnId}
-              body="test"
+              body={card.body}
             />
           </SortableItem>
         ))}
