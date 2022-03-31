@@ -39,23 +39,19 @@ function ColumnEditForm({
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <label htmlFor="card-label-input">
-          Label
-          {errors.label?.type === 'required' && <span style={{ color: 'red' }}>Cards must have a label</span>}
-          <input
-            id="column-label-input"
-            type="text"
-            placeholder="Enter a new column name..."
-            {...register('label', { required: true })}
-          />
-        </label>
-
-        <button type="submit">Update</button>
-      </form>
-      <button type="button" onClick={() => setBeingEdited(!beingEdited)}>Cancel</button>
-    </div>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <label htmlFor="card-label-input">
+        Label
+        {errors.label?.type === 'required' && <span style={{ color: 'red' }}>Cards must have a label</span>}
+        <input
+          id="column-label-input"
+          type="text"
+          placeholder="Enter a new column name..."
+          {...register('label', { required: true })}
+        />
+      </label>
+      <button type="submit">Update</button>
+    </form>
   );
 }
 
