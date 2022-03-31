@@ -27,7 +27,7 @@ function SortableItem({ id, style, children }: SortableItemProps) {
 
   return (
     <div ref={setNodeRef} style={sortableStyle}>
-      <button style={{ border: 'none' }} type="button" {...listeners} {...attributes}>
+      <button style={{ backgroundColor: 'white', border: 'none' }} type="button" {...listeners} {...attributes}>
         <GrDrag />
       </button>
       {children}
