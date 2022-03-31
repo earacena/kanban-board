@@ -1,4 +1,7 @@
+/** @jsxRuntime classic */
 import React, { useState } from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
 import { GiOpenBook } from 'react-icons/gi';
 
 // import type { CSSProperties } from 'react';
@@ -33,7 +36,7 @@ function Card({
   const handleClick = () => setBodyVisible(!bodyVisible);
 
   return (
-    <div style={{
+    <div css={{
       display: 'flex',
       marginLeft: 'auto',
       marginRight: 'auto',
@@ -42,15 +45,15 @@ function Card({
     >
       {!bodyVisible && brief}
       {!bodyVisible && (
-        <button type="button" style={{ backgroundColor: 'white', border: 'none' }} onClick={handleClick}>
+        <button type="button" css={{ backgroundColor: 'white', border: 'none' }} onClick={handleClick}>
           <GiOpenBook />
         </button>
       )}
       {bodyVisible && (
         <div>
-          <div style={{ borderBottom: '1px grey solid' }}>
+          <div css={{ borderBottom: '1px grey solid' }}>
             {brief}
-            <button type="button" style={{ backgroundColor: 'white', border: 'none' }} onClick={handleClick}>
+            <button type="button" css={{ backgroundColor: 'white', border: 'none' }} onClick={handleClick}>
               <GiOpenBook />
             </button>
           </div>
