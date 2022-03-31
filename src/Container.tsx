@@ -3,6 +3,7 @@ import { DragOverlay } from '@dnd-kit/core';
 import Column from './Column';
 import { useAppDispatch, useAppSelector } from './hooks';
 import { addColumn } from './columns.slice';
+import Card from './Card';
 
 const ContainerStyle: CSSProperties = {
   display: 'flex',
@@ -34,22 +35,25 @@ function Container() {
 
       <DragOverlay
         style={{
-          backgroundColor: 'lightgrey',
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: 'center',
           borderRadius: '8px',
+          backgroundColor: 'white',
+          borderLeft: `3px ${activeCard?.color} solid`,
           boxShadow: '0px 3px 10px rgb(0, 0, 0, 0.5)',
         }}
       >
         {activeCardId
           && activeCard
           && (
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'center',
-              }}
-            >
-              {`${activeCard.id} - ${activeCard.label}`}
-            </div>
+            <Card
+              id={activeCard.id}
+              columnId={activeCard.columnId}
+              brief={activeCard.brief}
+              body={activeCard.body}
+            />
           )}
       </DragOverlay>
 
