@@ -1,6 +1,9 @@
+/** @jsxRuntime classic */
 import React, { useState } from 'react';
 import { HexColorPicker } from 'react-colorful';
 import { useForm, SubmitHandler } from 'react-hook-form';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
 import { addCard } from './cards.slice';
 import { useAppDispatch } from './hooks';
 
@@ -49,12 +52,12 @@ function CardForm({ formVisible, setFormVisible, columnId }: CardFormProps) {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column' }}>
-      <form style={{ display: 'flex', flexDirection: 'column' }} onSubmit={handleSubmit(onSubmit)}>
+    <div css={{ display: 'flex', flexDirection: 'column' }}>
+      <form css={{ display: 'flex', flexDirection: 'column' }} onSubmit={handleSubmit(onSubmit)}>
         Create a new card
         <label htmlFor="card-brief-input">
           Brief
-          {errors.brief?.type === 'required' && <span style={{ color: 'red' }}>Cards must have a label</span>}
+          {errors.brief?.type === 'required' && <span css={{ color: 'red' }}>Cards must have a label</span>}
           <input
             id="card-brief-input"
             type="text"
@@ -64,7 +67,7 @@ function CardForm({ formVisible, setFormVisible, columnId }: CardFormProps) {
         </label>
         <label htmlFor="card-body-textarea">
           Body
-          {errors.body?.type === 'required' && <span style={{ color: 'red' }}>Cards must have a label</span>}
+          {errors.body?.type === 'required' && <span css={{ color: 'red' }}>Cards must have a label</span>}
           <textarea
             id="card-body-textarea"
             placeholder=""
