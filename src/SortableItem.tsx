@@ -1,6 +1,7 @@
 import React, { CSSProperties } from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
+import { GrDrag } from 'react-icons/gr';
 
 interface SortableItemProps {
   id: string;
@@ -25,9 +26,12 @@ function SortableItem({ id, style, children }: SortableItemProps) {
   };
 
   return (
-    <li ref={setNodeRef} style={sortableStyle} {...attributes} {...listeners}>
+    <div ref={setNodeRef} style={sortableStyle}>
+      <button style={{ border: 'none' }} type="button" {...listeners} {...attributes}>
+        <GrDrag />
+      </button>
       {children}
-    </li>
+    </div>
   );
 }
 
