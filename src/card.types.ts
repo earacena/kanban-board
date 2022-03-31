@@ -7,7 +7,7 @@ import {
 export const CardType = RtRecord({
   id: RtString,
   columnId: RtString,
-  label: RtString,
+  brief: RtString,
   body: RtString,
   color: RtString,
 });
