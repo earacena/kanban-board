@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { GiOpenBook } from 'react-icons/gi';
+
 // import type { CSSProperties } from 'react';
 
 // const cardStyle: CSSProperties = {
@@ -13,25 +15,48 @@ import React from 'react';
 
 interface CardProps {
   id: string;
-  label: string;
   columnId: string,
+  brief: string;
   body: string,
 }
 
 function Card({
   id,
-  label,
   columnId,
+  brief,
   body,
 }: CardProps) {
-  console.log(`Card ${id} ${label} ${columnId}`);
-  return (
-    <div>
-      <div style={{ borderBottom: '1px grey solid' }}>
-        {label}
-      </div>
+  const [bodyVisible, setBodyVisible] = useState(false);
 
-      {body}
+  console.log(`Card ${id} - ${columnId}`);
+
+  const handleClick = () => setBodyVisible(!bodyVisible);
+
+  return (
+    <div style={{
+      display: 'flex',
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      justifyContent: 'space-evenly',
+    }}
+    >
+      {!bodyVisible && brief}
+      {!bodyVisible && (
+        <button type="button" style={{ backgroundColor: 'white', border: 'none' }} onClick={handleClick}>
+          <GiOpenBook />
+        </button>
+      )}
+      {bodyVisible && (
+        <div>
+          <div style={{ borderBottom: '1px grey solid' }}>
+            {brief}
+            <button type="button" style={{ backgroundColor: 'white', border: 'none' }} onClick={handleClick}>
+              <GiOpenBook />
+            </button>
+          </div>
+          {body}
+        </div>
+      )}
     </div>
   );
 }
