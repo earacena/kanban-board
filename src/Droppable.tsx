@@ -1,9 +1,12 @@
-import React, { CSSProperties } from 'react';
+/** @jsxRuntime classic */
+import React from 'react';
 import { useDroppable } from '@dnd-kit/core';
+/** @jsx jsx */
+import { jsx, SerializedStyles } from '@emotion/react';
 
 interface DroppableProps {
   id: string,
-  style?: CSSProperties,
+  style?: SerializedStyles,
   children?: React.ReactNode,
 }
 
@@ -25,7 +28,7 @@ function Droppable({ id, style, children }: DroppableProps) {
   // }
 
   return (
-    <div ref={setNodeRef} style={droppableStyle}>
+    <div ref={setNodeRef} css={droppableStyle}>
       {children}
     </div>
   );
