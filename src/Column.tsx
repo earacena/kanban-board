@@ -1,9 +1,11 @@
+/** @jsxRuntime classic */
 import React, { useState } from 'react';
 import {
   SortableContext,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
-import type { CSSProperties } from 'react';
+/** @jsx jsx */
+import { css, jsx, SerializedStyles } from '@emotion/react';
 import { useAppSelector } from './hooks';
 import Card from './Card';
 import SortableItem from './SortableItem';
@@ -11,7 +13,7 @@ import Droppable from './Droppable';
 import CardForm from './CardForm';
 import ColumnEditForm from './ColumnEditForm';
 
-const style: CSSProperties = {
+const style: SerializedStyles = css({
   display: 'flex',
   flexDirection: 'column',
   border: '2px lightgrey solid',
@@ -31,19 +33,7 @@ const style: CSSProperties = {
   lineHeight: 'normal',
   float: 'left',
   boxShadow: '0px 3px 10px rgb(0, 0, 0, 0.4)',
-};
-
-const cardStyle: CSSProperties = {
-  display: 'flex',
-  flexDirection: 'row',
-  border: '1px lightgrey solid',
-  backgroundColor: 'white',
-  padding: '1rem',
-  margin: '0.25rem',
-  borderRadius: '5px',
-  boxShadow: '0px 3px 10px rgb(0, 0, 0, 0.2)',
-  borderLeft: '3px red solid',
-};
+});
 
 interface ColumnProps {
   id: string;
@@ -79,7 +69,21 @@ function Column({ id, label }: ColumnProps) {
       )}
       <SortableContext items={cardIds} strategy={verticalListSortingStrategy}>
         {cardsInThisColumn.map((card) => (
-          <SortableItem key={card.id} id={card.id} style={{ ...cardStyle, borderLeft: ` 3px${card.color} solid` }}>
+          <SortableItem
+            key={card.id}
+            id={card.id}
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              border: '1px lightgrey solid',
+              backgroundColor: 'white',
+              padding: '1rem',
+              margin: '0.25rem',
+              borderRadius: '5px',
+              boxShadow: '0px 3px 10px rgb(0, 0, 0, 0.2)',
+              borderLeft: ` 3px${card.color} solid`,
+            }}
+          >
             <Card
               key={card.id}
               id={card.id}
@@ -91,7 +95,7 @@ function Column({ id, label }: ColumnProps) {
         ))}
       </SortableContext>
       {!formVisible && (
-        <button style={{ marginTop: 'auto' }} type="button" onClick={() => setFormVisible(!formVisible)}>
+        <button css={{ marginTop: 'auto' }} type="button" onClick={() => setFormVisible(!formVisible)}>
           Add Card
         </button>
       )}
