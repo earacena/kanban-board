@@ -28,7 +28,7 @@ const cardsSlice = createSlice({
       allCards: state.allCards.concat({
         id: `card-${state.nextAvailableId}`,
         columnId: action.payload.columnId,
-        label: action.payload.label,
+        brief: action.payload.brief,
         body: action.payload.body,
         color: action.payload.color,
       }),
