@@ -1,7 +1,11 @@
-import React, { CSSProperties } from 'react';
+/** @jsxRuntime classic */
+import React from 'react';
+import type { CSSProperties } from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { GrDrag } from 'react-icons/gr';
+/** @jsx jsx */
+import { jsx, css, SerializedStyles } from '@emotion/react';
 
 interface SortableItemProps {
   id: string;
@@ -18,16 +22,16 @@ function SortableItem({ id, style, children }: SortableItemProps) {
     transition,
   } = useSortable({ id });
 
-  const sortableStyle = {
+  const sortableStyle: SerializedStyles = css({
     ...style,
     listStyleType: 'none',
     transform: CSS.Transform.toString(transform),
     transition,
-  };
+  });
 
   return (
-    <div ref={setNodeRef} style={sortableStyle}>
-      <button style={{ backgroundColor: 'white', border: 'none' }} type="button" {...listeners} {...attributes}>
+    <div ref={setNodeRef} css={sortableStyle}>
+      <button css={{ backgroundColor: 'white', border: 'none' }} type="button" {...listeners} {...attributes}>
         <GrDrag />
       </button>
       {children}
