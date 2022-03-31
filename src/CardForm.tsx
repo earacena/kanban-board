@@ -5,7 +5,7 @@ import { addCard } from './cards.slice';
 import { useAppDispatch } from './hooks';
 
 type Inputs = {
-  label: string,
+  brief: string,
   body: string,
 };
 
@@ -25,24 +25,24 @@ function CardForm({ formVisible, setFormVisible, columnId }: CardFormProps) {
     formState: { errors },
   } = useForm<Inputs>({
     defaultValues: {
-      label: '',
+      brief: '',
       body: '',
     },
   });
 
   const onSubmit: SubmitHandler<Inputs> = (formData) => {
     console.log(formData);
-    const { label, body } = formData;
+    const { brief, body } = formData;
     dispatch(
       addCard({
-        label,
+        brief,
         body,
         columnId,
         color,
       }),
     );
     reset({
-      label: '',
+      brief: '',
       body: '',
     });
     setFormVisible(!formVisible);
@@ -52,19 +52,19 @@ function CardForm({ formVisible, setFormVisible, columnId }: CardFormProps) {
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       <form style={{ display: 'flex', flexDirection: 'column' }} onSubmit={handleSubmit(onSubmit)}>
         Create a new card
-        <label htmlFor="card-label-input">
-          Label
-          {errors.label?.type === 'required' && <span style={{ color: 'red' }}>Cards must have a label</span>}
+        <label htmlFor="card-brief-input">
+          Brief
+          {errors.brief?.type === 'required' && <span style={{ color: 'red' }}>Cards must have a label</span>}
           <input
-            id="card-label-input"
+            id="card-brief-input"
             type="text"
-            placeholder="Enter a new label name..."
-            {...register('label', { required: true })}
+            placeholder="Enter a brief description of the card..."
+            {...register('brief', { required: true })}
           />
         </label>
         <label htmlFor="card-body-textarea">
           Body
-          {errors.label?.type === 'required' && <span style={{ color: 'red' }}>Cards must have a label</span>}
+          {errors.body?.type === 'required' && <span style={{ color: 'red' }}>Cards must have a label</span>}
           <textarea
             id="card-body-textarea"
             placeholder=""
