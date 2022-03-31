@@ -19,9 +19,15 @@
     },
     "plugins": [
         "react",
-        "@typescript-eslint"
+        "@typescript-eslint",
+        "@emotion"
     ],
     "rules": {
-      "react/jsx-props-no-spreading": "off"
+      "react/jsx-props-no-spreading": "off",
+      "@emotion/jsx-import": "error",
+      "@emotion/no-vanilla": "error",
+      "@emotion/import-from-emotion": "error",
+      "@emotion/styled-import": "error",
+      "@emotion/pkg-renaming": "error"
     }
 }
