@@ -38,8 +38,7 @@ function Card({
   return (
     <div css={{
       display: 'flex',
-      marginLeft: 'auto',
-      marginRight: 'auto',
+      margin: 'auto',
       justifyContent: 'space-evenly',
     }}
     >
