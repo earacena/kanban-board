@@ -5,7 +5,13 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 /** @jsx jsx */
-import { css, jsx, SerializedStyles } from '@emotion/react';
+import {
+  css,
+  keyframes,
+  jsx,
+  SerializedStyles,
+  Keyframes,
+} from '@emotion/react';
 import { useAppSelector } from './hooks';
 import Card from './Card';
 import SortableItem from './SortableItem';
@@ -13,9 +19,23 @@ import Droppable from './Droppable';
 import CardForm from './CardForm';
 import ColumnEditForm from './ColumnEditForm';
 
+const stretch: Keyframes = keyframes({
+  '0%': {
+    transform: 'scale(0.3)',
+    opacity: '0%',
+    borderRadius: '100%',
+    height: '0',
+  },
+  '100%': {
+    transform: 'scale(1)',
+    opacity: '100%',
+  },
+});
+
 const style: SerializedStyles = css({
   display: 'flex',
   flexDirection: 'column',
+  animation: `${stretch} 0.2s ease-in`,
   border: '2px lightgrey solid',
   borderRadius: '5px',
   backgroundColor: '#EEEEEE',
