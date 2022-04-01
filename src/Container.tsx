@@ -1,18 +1,21 @@
+/** @jsxRuntime classic */
 import React, { CSSProperties } from 'react';
 import { DragOverlay } from '@dnd-kit/core';
+/** @jsx jsx */
+import { css, jsx, SerializedStyles } from '@emotion/react';
 import Column from './Column';
 import { useAppDispatch, useAppSelector } from './hooks';
 import { addColumn } from './columns.slice';
 import Card from './Card';
 
-const ContainerStyle: CSSProperties = {
+const ContainerStyle: SerializedStyles = css({
   display: 'flex',
   width: '100%',
   height: '100%',
   flexDirection: 'row',
   overflow: 'auto',
   clear: 'both',
-};
+});
 
 const ButtonStyle: CSSProperties = {
   width: '4rem',
@@ -28,7 +31,7 @@ function Container() {
   const handleAddColumn = () => dispatch(addColumn({ label: 'Column' }));
 
   return (
-    <div style={ContainerStyle}>
+    <div css={ContainerStyle}>
       {columns.map((column) => (
         <Column key={column.id} id={column.id} label={column.label} />
       ))}
