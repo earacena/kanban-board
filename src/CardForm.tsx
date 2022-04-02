@@ -4,7 +4,8 @@ import { HexColorPicker } from 'react-colorful';
 import { useForm, SubmitHandler } from 'react-hook-form';
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import { Modal } from '@mantine/core';
+import { Modal, Popover } from '@mantine/core';
+import { IoIosColorPalette } from 'react-icons/io';
 import { addCard } from './cards.slice';
 import { useAppDispatch } from './hooks';
 
@@ -22,6 +23,7 @@ interface CardFormProps {
 function CardForm({ cardFormOpened, setCardFormOpened, columnId }: CardFormProps) {
   const dispatch = useAppDispatch();
   const [color, setColor] = useState('#aabbcc');
+  const [colorPickerOpened, setColorPickerOpened] = useState(false);
   const {
     register,
     handleSubmit,
@@ -58,15 +60,18 @@ function CardForm({ cardFormOpened, setCardFormOpened, columnId }: CardFormProps
       onClose={() => setCardFormOpened(false)}
       title="Create a card"
     >
-      <form css={{ display: 'flex', flexDirection: 'column' }} onSubmit={handleSubmit(onSubmit)}>
-        Create a new card
-        <label htmlFor="card-brief-input">
+      <form css={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }} onSubmit={handleSubmit(onSubmit)}>
+        <label htmlFor="card-brief-textarea">
           Brief
           {errors.brief?.type === 'required' && <span css={{ color: 'red' }}>Cards must have a label</span>}
-          <input
-            id="card-brief-input"
-            type="text"
-            placeholder="Enter a brief description of the card..."
+          <textarea
+            css={{
+              resize: 'none',
+              width: '100%',
+              height: '50px',
+            }}
+            id="card-brief-textarea"
+            placeholder="Write a brief sentence about the task..."
             {...register('brief', { required: true })}
           />
         </label>
@@ -74,13 +79,35 @@ function CardForm({ cardFormOpened, setCardFormOpened, columnId }: CardFormProps
           Body
           {errors.body?.type === 'required' && <span css={{ color: 'red' }}>Cards must have a label</span>}
           <textarea
+            css={{
+              resize: 'none',
+              width: '100%',
+              height: '200px',
+            }}
             id="card-body-textarea"
-            placeholder=""
+            placeholder="Write about the task in more detail..."
             {...register('body', { required: true })}
           />
         </label>
 
-        <HexColorPicker color={color} onChange={setColor} />
+        <Popover
+          opened={colorPickerOpened}
+          onClose={() => setColorPickerOpened(false)}
+          target={(
+            <button type="button" onClick={() => setColorPickerOpened(!colorPickerOpened)}>
+              <IoIosColorPalette />
+              Pick a color
+            </button>
+          )}
+          position="bottom"
+          placement="center"
+          shadow="md"
+          closeOnClickOutside
+          withCloseButton
+          withArrow
+        >
+          <HexColorPicker css={{ alignSelf: 'center', margin: '1rem' }} color={color} onChange={setColor} />
+        </Popover>
 
         <button type="submit">Create</button>
       </form>
