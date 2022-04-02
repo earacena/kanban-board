@@ -77,7 +77,6 @@ function CardForm({ cardFormOpened, setCardFormOpened, columnId }: CardFormProps
         </label>
         <label htmlFor="card-body-textarea">
           Body
-          {errors.body?.type === 'required' && <span css={{ color: 'red' }}>Cards must have a label</span>}
           <textarea
             css={{
               resize: 'none',
@@ -86,7 +85,7 @@ function CardForm({ cardFormOpened, setCardFormOpened, columnId }: CardFormProps
             }}
             id="card-body-textarea"
             placeholder="Write about the task in more detail..."
-            {...register('body', { required: true })}
+            {...register('body')}
           />
         </label>
 
