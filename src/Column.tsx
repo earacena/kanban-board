@@ -35,7 +35,7 @@ const stretch: Keyframes = keyframes({
 const style: SerializedStyles = css({
   display: 'flex',
   flexDirection: 'column',
-  animation: `${stretch} 0.2s ease-in`,
+  animation: `${stretch} 0.18s ease-in`,
   border: '2px lightgrey solid',
   borderRadius: '5px',
   backgroundColor: '#EEEEEE',
@@ -62,8 +62,8 @@ interface ColumnProps {
 
 function Column({ id, label }: ColumnProps) {
   // const dispatch = useAppDispatch();
-  const [formVisible, setFormVisible] = useState(false);
   const [beingEdited, setBeingEdited] = useState(false);
+  const [cardFormOpened, setCardFormOpened] = useState(false);
   const cards = useAppSelector((state) => state.cards.allCards);
   const cardsInThisColumn = cards.filter((card) => card.columnId === id);
   const cardIds = cardsInThisColumn.map((card) => card.id.toString());
@@ -114,14 +114,14 @@ function Column({ id, label }: ColumnProps) {
           </SortableItem>
         ))}
       </SortableContext>
-      {!formVisible && (
-        <button css={{ marginTop: 'auto' }} type="button" onClick={() => setFormVisible(!formVisible)}>
-          Add Card
-        </button>
-      )}
-      {formVisible && (
-        <CardForm formVisible={formVisible} setFormVisible={setFormVisible} columnId={id} />
-      )}
+      <button css={{ marginTop: 'auto' }} type="button" onClick={() => setCardFormOpened(true)}>
+        Add Card
+      </button>
+      <CardForm
+        cardFormOpened={cardFormOpened}
+        setCardFormOpened={setCardFormOpened}
+        columnId={id}
+      />
     </Droppable>
   );
 }
