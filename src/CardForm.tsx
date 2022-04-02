@@ -4,6 +4,7 @@ import { HexColorPicker } from 'react-colorful';
 import { useForm, SubmitHandler } from 'react-hook-form';
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
+import { Modal } from '@mantine/core';
 import { addCard } from './cards.slice';
 import { useAppDispatch } from './hooks';
 
@@ -13,12 +14,12 @@ type Inputs = {
 };
 
 interface CardFormProps {
-  formVisible: boolean;
-  setFormVisible: (value: React.SetStateAction<boolean>) => void;
+  cardFormOpened: boolean;
+  setCardFormOpened: (value: React.SetStateAction<boolean>) => void;
   columnId: string;
 }
 
-function CardForm({ formVisible, setFormVisible, columnId }: CardFormProps) {
+function CardForm({ cardFormOpened, setCardFormOpened, columnId }: CardFormProps) {
   const dispatch = useAppDispatch();
   const [color, setColor] = useState('#aabbcc');
   const {
@@ -48,11 +49,15 @@ function CardForm({ formVisible, setFormVisible, columnId }: CardFormProps) {
       brief: '',
       body: '',
     });
-    setFormVisible(!formVisible);
+    setCardFormOpened(false);
   };
 
   return (
-    <div css={{ display: 'flex', flexDirection: 'column' }}>
+    <Modal
+      opened={cardFormOpened}
+      onClose={() => setCardFormOpened(false)}
+      title="Create a card"
+    >
       <form css={{ display: 'flex', flexDirection: 'column' }} onSubmit={handleSubmit(onSubmit)}>
         Create a new card
         <label htmlFor="card-brief-input">
@@ -79,8 +84,8 @@ function CardForm({ formVisible, setFormVisible, columnId }: CardFormProps) {
 
         <button type="submit">Create</button>
       </form>
-      <button type="button" onClick={() => setFormVisible(!formVisible)}>Cancel</button>
-    </div>
+      <button type="button" onClick={() => setCardFormOpened(false)}>Cancel</button>
+    </Modal>
   );
 }
 
