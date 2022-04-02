@@ -12,6 +12,7 @@ import {
   SerializedStyles,
   Keyframes,
 } from '@emotion/react';
+import { FaPencilAlt } from 'react-icons/fa';
 import { useAppSelector } from './hooks';
 import Card from './Card';
 import SortableItem from './SortableItem';
@@ -73,7 +74,9 @@ function Column({ id, label }: ColumnProps) {
       {!beingEdited && (
         <span>
           {label}
-          <button type="button" onClick={() => setBeingEdited(!beingEdited)}>Edit</button>
+          <button css={{ margin: '0.5rem' }} type="button" onClick={() => setBeingEdited(!beingEdited)}>
+            <FaPencilAlt />
+          </button>
         </span>
       )}
       {beingEdited && (
