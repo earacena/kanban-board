@@ -60,14 +60,22 @@ function CardForm({ cardFormOpened, setCardFormOpened, columnId }: CardFormProps
       onClose={() => setCardFormOpened(false)}
       title="Create a card"
     >
-      <form css={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }} onSubmit={handleSubmit(onSubmit)}>
+      <form
+        css={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <label htmlFor="card-brief-textarea">
           Brief
           {errors.brief?.type === 'required' && <span css={{ color: 'red' }}>Cards must have a label</span>}
           <textarea
             css={{
               resize: 'none',
-              width: '100%',
+              width: '400px',
               height: '50px',
             }}
             id="card-brief-textarea"
@@ -80,7 +88,7 @@ function CardForm({ cardFormOpened, setCardFormOpened, columnId }: CardFormProps
           <textarea
             css={{
               resize: 'none',
-              width: '100%',
+              width: '400px',
               height: '200px',
             }}
             id="card-body-textarea"
@@ -93,7 +101,7 @@ function CardForm({ cardFormOpened, setCardFormOpened, columnId }: CardFormProps
           opened={colorPickerOpened}
           onClose={() => setColorPickerOpened(false)}
           target={(
-            <button type="button" onClick={() => setColorPickerOpened(!colorPickerOpened)}>
+            <button css={{ alignSelf: 'center' }} type="button" onClick={() => setColorPickerOpened(!colorPickerOpened)}>
               <IoIosColorPalette />
               Pick a color
             </button>
