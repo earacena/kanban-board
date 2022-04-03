@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import { GiOpenBook } from 'react-icons/gi';
+import { Modal } from '@mantine/core';
 
 // import type { CSSProperties } from 'react';
 
@@ -29,11 +30,9 @@ function Card({
   brief,
   body,
 }: CardProps) {
-  const [bodyVisible, setBodyVisible] = useState(false);
+  const [cardModalOpened, setCardModalOpened] = useState(false);
 
   console.log(`Card ${id} - ${columnId}`);
-
-  const handleClick = () => setBodyVisible(!bodyVisible);
 
   return (
     <div css={{
@@ -42,23 +41,23 @@ function Card({
       justifyContent: 'space-evenly',
     }}
     >
-      {!bodyVisible && brief}
-      {!bodyVisible && (
-        <button type="button" css={{ backgroundColor: 'white', border: 'none' }} onClick={handleClick}>
-          <GiOpenBook />
-        </button>
-      )}
-      {bodyVisible && (
-        <div>
-          <div css={{ borderBottom: '1px grey solid' }}>
-            {brief}
-            <button type="button" css={{ backgroundColor: 'white', border: 'none' }} onClick={handleClick}>
-              <GiOpenBook />
-            </button>
-          </div>
-          {body}
+      <span>
+        {brief}
+        {body !== '' && (
+          <button type="button" css={{ backgroundColor: 'white', border: 'none' }} onClick={() => setCardModalOpened(true)}>
+            <GiOpenBook />
+          </button>
+        )}
+      </span>
+      <Modal
+        opened={cardModalOpened}
+        onClose={() => setCardModalOpened(false)}
+      >
+        <div css={{ width: '100%', borderBottom: '1px grey solid' }}>
+          {brief}
         </div>
-      )}
+        {body}
+      </Modal>
     </div>
   );
 }
