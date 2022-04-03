@@ -13,6 +13,7 @@ import {
   Keyframes,
 } from '@emotion/react';
 import { FaPencilAlt } from 'react-icons/fa';
+import { IoMdAddCircle } from 'react-icons/io';
 import { useAppSelector } from './hooks';
 import Card from './Card';
 import SortableItem from './SortableItem';
@@ -117,8 +118,25 @@ function Column({ id, label }: ColumnProps) {
           </SortableItem>
         ))}
       </SortableContext>
-      <button css={{ marginTop: 'auto' }} type="button" onClick={() => setCardFormOpened(true)}>
-        Add Card
+      <button
+        css={{
+          borderRadius: '100%',
+          border: 'none',
+          padding: '0',
+          marginLeft: 'auto',
+          marginRight: 'auto',
+          marginTop: 'auto',
+          '&:hover': {
+            transform: 'translateY(-2px)',
+          },
+          '&:active': {
+            transform: 'translateY(2px)',
+          },
+        }}
+        type="button"
+        onClick={() => setCardFormOpened(true)}
+      >
+        <IoMdAddCircle size="2rem" />
       </button>
       <CardForm
         cardFormOpened={cardFormOpened}
