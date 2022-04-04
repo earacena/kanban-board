@@ -1,13 +1,12 @@
 /** @jsxRuntime classic */
-import React, { CSSProperties } from 'react';
+import React from 'react';
 import { DragOverlay } from '@dnd-kit/core';
 /** @jsx jsx */
 import { css, jsx, SerializedStyles } from '@emotion/react';
 import { GrDrag } from 'react-icons/gr';
 import { createPortal } from 'react-dom';
 import Column from './Column';
-import { useAppDispatch, useAppSelector } from './hooks';
-import { addColumn } from './columns.slice';
+import { useAppSelector } from './hooks';
 
 const ContainerStyle: SerializedStyles = css({
   display: 'flex',
@@ -18,18 +17,12 @@ const ContainerStyle: SerializedStyles = css({
   clear: 'both',
 });
 
-const ButtonStyle: CSSProperties = {
-  width: '4rem',
-};
-
 function Container() {
   const columns = useAppSelector((state) => state.columns.allColumns);
-  const dispatch = useAppDispatch();
   const activeCardId = useAppSelector((state) => state.cards.activeCardId);
   const activeCard = useAppSelector(
     (state) => state.cards.allCards.find((c) => c.id === activeCardId),
   );
-  const handleAddColumn = () => dispatch(addColumn({ label: 'Column' }));
 
   return (
     <div css={ContainerStyle}>
@@ -66,10 +59,6 @@ function Container() {
         </DragOverlay>,
         document.body,
       )}
-
-      <button type="button" style={ButtonStyle} onClick={handleAddColumn}>
-        Add Column
-      </button>
     </div>
   );
 }

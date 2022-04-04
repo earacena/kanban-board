@@ -17,6 +17,9 @@ import {
   resetActiveCardId,
   setCards,
 } from './cards.slice';
+import {
+  addColumn,
+} from './columns.slice';
 import Container from './Container';
 import { useAppDispatch, useAppSelector } from './hooks';
 
@@ -65,8 +68,12 @@ function App() {
     dispatch(resetActiveCardId());
   };
 
+  const handleAddColumn = () => dispatch(addColumn({ label: 'Column' }));
   return (
     <div className="App">
+      <button type="button" onClick={handleAddColumn}>
+        Add column
+      </button>
       <DndContext
         collisionDetection={closestCenter}
         sensors={sensors}
