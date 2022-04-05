@@ -7,7 +7,7 @@ import { jsx } from '@emotion/react';
 import { Modal, Popover } from '@mantine/core';
 import { IoIosColorPalette } from 'react-icons/io';
 import { addCard } from './cards.slice';
-import { useAppDispatch } from './hooks';
+import { useAppDispatch, useAppSelector } from './hooks';
 
 type Inputs = {
   brief: string,
@@ -22,6 +22,7 @@ interface CardFormProps {
 
 function CardForm({ cardFormOpened, setCardFormOpened, columnId }: CardFormProps) {
   const dispatch = useAppDispatch();
+  const tags = useAppSelector((state) => state.tags.allTags);
   const [color, setColor] = useState('#aabbcc');
   const [colorPickerOpened, setColorPickerOpened] = useState(false);
   const {
@@ -96,7 +97,25 @@ function CardForm({ cardFormOpened, setCardFormOpened, columnId }: CardFormProps
             {...register('body')}
           />
         </label>
-
+        <div css={{ display: 'flex', padding: '0.5rem' }}>
+          {tags.map((tag) => (
+            <button
+              type="button"
+              css={{
+                margin: '0.2rem',
+                borderRadius: '1rem',
+                backgroundColor: 'white',
+                color: tag.color,
+                border: `2px ${tag.color} solid`,
+                '&:hover': {
+                  backgroundColor: 'lightgray',
+                },
+              }}
+            >
+              {tag.label}
+            </button>
+          ))}
+        </div>
         <Popover
           opened={colorPickerOpened}
           onClose={() => setColorPickerOpened(false)}
