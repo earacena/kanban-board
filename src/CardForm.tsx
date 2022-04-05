@@ -4,7 +4,7 @@ import { HexColorPicker } from 'react-colorful';
 import { useForm, SubmitHandler } from 'react-hook-form';
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import { Modal, Popover } from '@mantine/core';
+import { Modal, Popover, Badge } from '@mantine/core';
 import { Static as RtStatic } from 'runtypes';
 import { IoIosColorPalette } from 'react-icons/io';
 import { Tags } from './tag.types';
@@ -104,23 +104,23 @@ function CardForm({ cardFormOpened, setCardFormOpened, columnId }: CardFormProps
         </label>
         <div css={{ display: 'flex', padding: '0.5rem' }}>
           {tags.map((tag) => (
-            <button
-              key={tag.id}
-              type="button"
+            <Badge
+              component="button"
               css={{
-                margin: '0.2rem',
-                borderRadius: '1rem',
-                backgroundColor: 'white',
-                color: tag.color,
-                border: `2px ${tag.color} solid`,
                 '&:hover': {
-                  transform: 'translateY(-1px)',
+                  backgroundColor: 'lightgray',
                 },
               }}
-              onClick={() => setAppliedTags(appliedTags.concat(tag))}
+              key={tag.id}
+              type="button"
+              onClick={() => (
+                appliedTags.find((t) => t.id === tag.id)
+                  ? setAppliedTags(appliedTags.filter((t) => t.id !== tag.id))
+                  : setAppliedTags(appliedTags.concat(tag))
+              )}
             >
               {tag.label}
-            </button>
+            </Badge>
           ))}
         </div>
         <Popover
