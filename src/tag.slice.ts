@@ -38,3 +38,5 @@ export const {
   addTag,
   resetTags,
 } = tagsSlice.actions;
+
+export default tagsSlice.reducer;
