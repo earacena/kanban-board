@@ -5,7 +5,9 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import { Modal, Popover } from '@mantine/core';
+import { Static as RtStatic } from 'runtypes';
 import { IoIosColorPalette } from 'react-icons/io';
+import { Tags } from './tag.types';
 import { addCard } from './cards.slice';
 import { useAppDispatch, useAppSelector } from './hooks';
 
@@ -24,6 +26,7 @@ function CardForm({ cardFormOpened, setCardFormOpened, columnId }: CardFormProps
   const dispatch = useAppDispatch();
   const tags = useAppSelector((state) => state.tags.allTags);
   const [color, setColor] = useState('#aabbcc');
+  const [appliedTags, setAppliedTags] = useState<RtStatic<typeof Tags>>([]);
   const [colorPickerOpened, setColorPickerOpened] = useState(false);
   const {
     register,
@@ -46,12 +49,14 @@ function CardForm({ cardFormOpened, setCardFormOpened, columnId }: CardFormProps
         body,
         columnId,
         color,
+        tags: appliedTags,
       }),
     );
     reset({
       brief: '',
       body: '',
     });
+    setAppliedTags([]);
     setCardFormOpened(false);
   };
 
@@ -100,6 +105,7 @@ function CardForm({ cardFormOpened, setCardFormOpened, columnId }: CardFormProps
         <div css={{ display: 'flex', padding: '0.5rem' }}>
           {tags.map((tag) => (
             <button
+              key={tag.id}
               type="button"
               css={{
                 margin: '0.2rem',
@@ -108,9 +114,10 @@ function CardForm({ cardFormOpened, setCardFormOpened, columnId }: CardFormProps
                 color: tag.color,
                 border: `2px ${tag.color} solid`,
                 '&:hover': {
-                  backgroundColor: 'lightgray',
+                  transform: 'translateY(-1px)',
                 },
               }}
+              onClick={() => setAppliedTags(appliedTags.concat(tag))}
             >
               {tag.label}
             </button>
