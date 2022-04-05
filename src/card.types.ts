@@ -10,6 +10,13 @@ export const CardType = RtRecord({
   brief: RtString,
   body: RtString,
   color: RtString,
+  tags: RtArray(
+    RtRecord({
+      id: RtString,
+      label: RtString,
+      color: RtString,
+    }),
+  ),
 });
 
 export const Cards = RtArray(CardType);
