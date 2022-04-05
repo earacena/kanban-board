@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   DndContext,
   DragEndEvent,
@@ -22,9 +22,11 @@ import {
 } from './columns.slice';
 import Container from './Container';
 import { useAppDispatch, useAppSelector } from './hooks';
+import TagForm from './TagForm';
 
 function App() {
   const dispatch = useAppDispatch();
+  const [tagFormOpened, setTagFormOpened] = useState(false);
   const cards = useAppSelector((state) => state.cards.allCards);
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -69,11 +71,16 @@ function App() {
   };
 
   const handleAddColumn = () => dispatch(addColumn({ label: 'Column' }));
+
   return (
     <div className="App">
       <button type="button" onClick={handleAddColumn}>
         Add column
       </button>
+      <button type="button" onClick={() => setTagFormOpened(true)}>
+        Add tag
+      </button>
+      <TagForm tagFormOpened={tagFormOpened} setTagFormOpened={setTagFormOpened} />
       <DndContext
         collisionDetection={closestCenter}
         sensors={sensors}
