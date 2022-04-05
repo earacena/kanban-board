@@ -3,8 +3,9 @@ import React, { useState } from 'react';
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import { GiOpenBook } from 'react-icons/gi';
-import { Modal } from '@mantine/core';
-
+import { Modal, Badge } from '@mantine/core';
+import { Static as RtStatic } from 'runtypes';
+import { Tags } from './tag.types';
 // import type { CSSProperties } from 'react';
 
 // const cardStyle: CSSProperties = {
@@ -22,6 +23,7 @@ interface CardProps {
   columnId: string,
   brief: string;
   body: string,
+  tags: RtStatic<typeof Tags>,
 }
 
 function Card({
@@ -29,6 +31,7 @@ function Card({
   columnId,
   brief,
   body,
+  tags,
 }: CardProps) {
   const [cardModalOpened, setCardModalOpened] = useState(false);
 
@@ -48,6 +51,18 @@ function Card({
             <GiOpenBook />
           </button>
         )}
+        {tags.map((tag) => (
+          <Badge
+            css={{
+              '&:hover': {
+                backgroundColor: 'lightgray',
+              },
+            }}
+            key={tag.id}
+          >
+            {tag.label}
+          </Badge>
+        ))}
       </span>
       <Modal
         opened={cardModalOpened}
@@ -55,6 +70,18 @@ function Card({
       >
         <div css={{ width: '100%', borderBottom: '1px grey solid' }}>
           {brief}
+          {tags.map((tag) => (
+            <Badge
+              css={{
+                '&:hover': {
+                  backgroundColor: 'lightgray',
+                },
+              }}
+              key={tag.id}
+            >
+              {tag.label}
+            </Badge>
+          ))}
         </div>
         {body}
       </Modal>

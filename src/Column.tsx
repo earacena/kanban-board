@@ -114,6 +114,7 @@ function Column({ id, label }: ColumnProps) {
               brief={card.brief}
               columnId={card.columnId}
               body={card.body}
+              tags={card.tags}
             />
           </SortableItem>
         ))}
