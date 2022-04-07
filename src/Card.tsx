@@ -53,6 +53,8 @@ function Card({
         )}
         {tags.map((tag) => (
           <Badge
+            color={tag.color}
+            variant="outline"
             css={{
               '&:hover': {
                 backgroundColor: 'lightgray',
@@ -72,6 +74,8 @@ function Card({
           {brief}
           {tags.map((tag) => (
             <Badge
+              color={tag.color}
+              variant="outline"
               css={{
                 '&:hover': {
                   backgroundColor: 'lightgray',
