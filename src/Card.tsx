@@ -40,52 +40,72 @@ function Card({
   return (
     <div css={{
       display: 'flex',
+      flexDirection: 'column',
       margin: 'auto',
-      justifyContent: 'space-evenly',
     }}
     >
-      <span>
+      <div>
         {brief}
         {body !== '' && (
           <button type="button" css={{ backgroundColor: 'white', border: 'none' }} onClick={() => setCardModalOpened(true)}>
             <GiOpenBook />
           </button>
         )}
+      </div>
+      <div>
         {tags.map((tag) => (
           <Badge
             color={tag.color}
+            size="sm"
             variant="outline"
             css={{
-              '&:hover': {
-                backgroundColor: 'lightgray',
-              },
+              margin: '0.1rem',
             }}
             key={tag.id}
           >
             {tag.label}
           </Badge>
         ))}
-      </span>
+      </div>
       <Modal
         opened={cardModalOpened}
         onClose={() => setCardModalOpened(false)}
       >
-        <div css={{ width: '100%', borderBottom: '1px grey solid' }}>
-          {brief}
-          {tags.map((tag) => (
-            <Badge
-              color={tag.color}
-              variant="outline"
-              css={{
-                '&:hover': {
-                  backgroundColor: 'lightgray',
-                },
-              }}
-              key={tag.id}
-            >
-              {tag.label}
-            </Badge>
-          ))}
+        <div
+          css={{
+            display: 'flex',
+            flexDirection: 'column',
+            width: '100%',
+            borderBottom: '1px grey solid',
+            marginBottom: '1rem',
+          }}
+        >
+          <p
+            css={{
+              marginTop: '0',
+              alignSelf: 'center',
+              color: 'gray',
+              fontSize: '20px',
+            }}
+          >
+            {brief}
+          </p>
+          <div css={{ margin: 'auto', marginBottom: '0.5rem' }}>
+            {tags.map((tag) => (
+              <Badge
+                color={tag.color}
+                variant="outline"
+                css={{
+                  '&:hover': {
+                    backgroundColor: 'lightgray',
+                  },
+                }}
+                key={tag.id}
+              >
+                {tag.label}
+              </Badge>
+            ))}
+          </div>
         </div>
         {body}
       </Modal>
