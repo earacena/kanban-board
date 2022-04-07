@@ -5,14 +5,13 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { jsx } from '@emotion/react';
 import {
   Modal,
-  Popover,
   Badge,
-  ColorPicker,
   Textarea,
   DEFAULT_THEME,
+  ColorInput,
 } from '@mantine/core';
 import { Static as RtStatic } from 'runtypes';
-import { IoIosColorPalette, IoMdCheckmark } from 'react-icons/io';
+import { IoMdCheckmark } from 'react-icons/io';
 import { Tags } from './tag.types';
 import { addCard } from './cards.slice';
 import { useAppDispatch, useAppSelector } from './hooks';
@@ -33,7 +32,6 @@ function CardForm({ cardFormOpened, setCardFormOpened, columnId }: CardFormProps
   const tags = useAppSelector((state) => state.tags.allTags);
   const [color, setColor] = useState('#aabbcc');
   const [appliedTags, setAppliedTags] = useState<RtStatic<typeof Tags>>([]);
-  const [colorPickerOpened, setColorPickerOpened] = useState(false);
   const {
     register,
     handleSubmit,
@@ -152,41 +150,24 @@ function CardForm({ cardFormOpened, setCardFormOpened, columnId }: CardFormProps
               )
           ))}
         </div>
-        <Popover
-          opened={colorPickerOpened}
-          onClose={() => setColorPickerOpened(false)}
-          target={(
-            <button css={{ alignSelf: 'center' }} type="button" onClick={() => setColorPickerOpened(!colorPickerOpened)}>
-              <IoIosColorPalette />
-              Pick a color
-            </button>
-          )}
-          position="bottom"
-          placement="center"
-          shadow="md"
-          closeOnClickOutside
-          withCloseButton
-          withArrow
-        >
-          <ColorPicker
-            format="hex"
-            value={color}
-            onChange={setColor}
-            withPicker={false}
-            fullWidth
-            swatches={[
-              ...DEFAULT_THEME.colors.red,
-              ...DEFAULT_THEME.colors.blue,
-              ...DEFAULT_THEME.colors.green,
-              ...DEFAULT_THEME.colors.orange,
-              ...DEFAULT_THEME.colors.yellow,
-            ]}
-          />
-        </Popover>
-
+        <ColorInput
+          css={{
+            marginBottom: '0.5rem',
+          }}
+          format="hex"
+          value={color}
+          onChange={setColor}
+          withPicker={false}
+          swatches={[
+            ...DEFAULT_THEME.colors.red,
+            ...DEFAULT_THEME.colors.blue,
+            ...DEFAULT_THEME.colors.green,
+            ...DEFAULT_THEME.colors.orange,
+            ...DEFAULT_THEME.colors.yellow,
+          ]}
+        />
         <button type="submit">Create</button>
       </form>
-      <button type="button" onClick={() => setCardFormOpened(false)}>Cancel</button>
     </Modal>
   );
 }
