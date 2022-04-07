@@ -11,7 +11,7 @@ import {
   DEFAULT_THEME,
 } from '@mantine/core';
 import { Static as RtStatic } from 'runtypes';
-import { IoIosColorPalette } from 'react-icons/io';
+import { IoIosColorPalette, IoMdCheckmark } from 'react-icons/io';
 import { Tags } from './tag.types';
 import { addCard } from './cards.slice';
 import { useAppDispatch, useAppSelector } from './hooks';
@@ -109,25 +109,49 @@ function CardForm({ cardFormOpened, setCardFormOpened, columnId }: CardFormProps
         </label>
         <div css={{ display: 'flex', padding: '0.5rem' }}>
           {tags.map((tag) => (
-            <Badge
-              component="button"
-              color={tag.color}
-              css={{
-                '&:hover': {
-                  backgroundColor: 'lightgray',
-                },
-              }}
-              key={tag.id}
-              type="button"
-              variant="outline"
-              onClick={() => (
-                appliedTags.find((t) => t.id === tag.id)
-                  ? setAppliedTags(appliedTags.filter((t) => t.id !== tag.id))
-                  : setAppliedTags(appliedTags.concat(tag))
-              )}
-            >
-              {tag.label}
-            </Badge>
+            appliedTags.find((t) => t.id === tag.id)
+              ? (
+                <Badge
+                  component="button"
+                  color={tag.color}
+                  css={{
+                    '&:hover': {
+                      backgroundColor: 'lightgray',
+                    },
+                  }}
+                  key={tag.id}
+                  type="button"
+                  variant="outline"
+                  onClick={() => (
+                    appliedTags.find((t) => t.id === tag.id)
+                      ? setAppliedTags(appliedTags.filter((t) => t.id !== tag.id))
+                      : setAppliedTags(appliedTags.concat(tag))
+                  )}
+                >
+                  {tag.label}
+                  <IoMdCheckmark size={10} />
+                </Badge>
+              ) : (
+                <Badge
+                  component="button"
+                  color={tag.color}
+                  css={{
+                    '&:hover': {
+                      backgroundColor: 'lightgray',
+                    },
+                  }}
+                  key={tag.id}
+                  type="button"
+                  variant="outline"
+                  onClick={() => (
+                    appliedTags.find((t) => t.id === tag.id)
+                      ? setAppliedTags(appliedTags.filter((t) => t.id !== tag.id))
+                      : setAppliedTags(appliedTags.concat(tag))
+                  )}
+                >
+                  {tag.label}
+                </Badge>
+              )
           ))}
         </div>
         <Popover
