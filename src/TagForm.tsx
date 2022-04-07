@@ -1,11 +1,13 @@
 /** @jsxRuntime classic */
 import React, { useState } from 'react';
-import { Modal, Popover } from '@mantine/core';
+import {
+  Modal,
+  useMantineTheme,
+  ColorInput,
+} from '@mantine/core';
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import { HexColorPicker } from 'react-colorful';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { IoIosColorPalette } from 'react-icons/io';
 import { useAppDispatch } from './hooks';
 import { addTag } from './tag.slice';
 
@@ -20,8 +22,9 @@ interface TagFormProps {
 
 function TagForm({ tagFormOpened, setTagFormOpened }: TagFormProps) {
   const dispatch = useAppDispatch();
+  const theme = useMantineTheme();
+  const colorSwatches = Object.keys(theme.colors).map((color) => theme.colors[color][6]);
   const [color, setColor] = useState('#aabbcc');
-  const [colorPickerOpened, setColorPickerOpened] = useState(false);
 
   const {
     register,
@@ -36,10 +39,33 @@ function TagForm({ tagFormOpened, setTagFormOpened }: TagFormProps) {
 
   const onSubmit: SubmitHandler<Inputs> = (formData) => {
     const { label } = formData;
+    let pickedColor: string;
+    const colorNames = new Map()
+      .set('#25262b', 'black')
+      .set('#868e96', 'gray')
+      .set('#fa5252', 'red')
+      .set('#e64980', 'pink')
+      .set('#be4bdb', 'grape')
+      .set('#7950f2', 'violet')
+      .set('#4c6ef5', 'indigo')
+      .set('#228ae6', 'blue')
+      .set('#15abbf', 'cyan')
+      .set('#12b886', 'teal')
+      .set('#3fbf57', 'green')
+      .set('#82c91e', 'lime')
+      .set('#fab005', 'yellow')
+      .set('#fc7d14', 'orange');
+
+    if (!colorNames.has(color)) {
+      pickedColor = 'blue';
+    } else {
+      pickedColor = colorNames.get(color);
+    }
+
     dispatch(
       addTag({
         label,
-        color,
+        color: pickedColor,
       }),
     );
     reset({
@@ -60,24 +86,14 @@ function TagForm({ tagFormOpened, setTagFormOpened }: TagFormProps) {
           {errors.label?.type === 'required' && <span css={{ color: 'red' }}>Label is required</span>}
           <input id="tag-label-input" {...register('label', { required: true })} />
         </label>
-        <Popover
-          opened={colorPickerOpened}
-          onClose={() => setColorPickerOpened(false)}
-          target={(
-            <button css={{ alignSelf: 'center' }} type="button" onClick={() => setColorPickerOpened(!colorPickerOpened)}>
-              <IoIosColorPalette />
-              Pick a color
-            </button>
-          )}
-          position="bottom"
-          placement="center"
-          shadow="md"
-          closeOnClickOutside
-          withCloseButton
-          withArrow
-        >
-          <HexColorPicker css={{ alignSelf: 'center', margin: '1rem' }} color={color} onChange={setColor} />
-        </Popover>
+        <ColorInput
+          format="hex"
+          value={color}
+          onChange={setColor}
+          withPicker={false}
+          swatchesPerRow={7}
+          swatches={colorSwatches}
+        />
 
         <button type="submit">Create</button>
       </form>
