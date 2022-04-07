@@ -34,6 +34,10 @@ const cardsSlice = createSlice({
         tags: action.payload.tags,
       }),
     }),
+    removeCard: (state, action) => ({
+      ...state,
+      allCards: state.allCards.filter((c) => c.id !== action.payload.id),
+    }),
     setCardColumnId: (state, action) => {
       const { id, newColumnId } = action.payload;
       return {
@@ -56,6 +60,7 @@ const cardsSlice = createSlice({
 export const {
   setCards,
   addCard,
+  removeCard,
   setCardColumnId,
   setActiveCardId,
   resetActiveCardId,
