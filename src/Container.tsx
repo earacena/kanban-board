@@ -2,7 +2,13 @@
 import React from 'react';
 import { DragOverlay } from '@dnd-kit/core';
 /** @jsx jsx */
-import { css, jsx, SerializedStyles } from '@emotion/react';
+import {
+  css,
+  jsx,
+  keyframes,
+  Keyframes,
+  SerializedStyles,
+} from '@emotion/react';
 import { GrDrag } from 'react-icons/gr';
 import { createPortal } from 'react-dom';
 import Column from './Column';
@@ -16,6 +22,15 @@ const ContainerStyle: SerializedStyles = css({
   flexDirection: 'row',
   overflow: 'auto',
   clear: 'both',
+});
+
+const fadeIn: Keyframes = keyframes({
+  '0%': {
+    opacity: '0%',
+  },
+  '100%': {
+    opacity: '100%',
+  },
 });
 
 function Container() {
@@ -67,6 +82,7 @@ function Container() {
             id="trash"
             style={css({
               position: 'absolute',
+              animation: `${fadeIn} 0.2s ease-in`,
               bottom: '5%',
               left: '50%',
               transform: 'translate(-50%, -50%)',
@@ -75,9 +91,11 @@ function Container() {
               padding: '1rem',
               paddingLeft: '5rem',
               paddingRight: '5rem',
+              color: 'red',
+              boxShadow: '0px 3px 10px rgb(255, 0, 0, 0.3)',
             })}
           >
-            Drag card here to discard
+            Drag here to delete
           </Droppable>
         )}
     </div>
