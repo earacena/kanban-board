@@ -18,6 +18,7 @@ function SortableItem({ id, style, children }: SortableItemProps) {
     attributes,
     listeners,
     setNodeRef,
+    isDragging,
     transform,
     transition,
   } = useSortable({ id });
@@ -25,6 +26,7 @@ function SortableItem({ id, style, children }: SortableItemProps) {
   const sortableStyle: SerializedStyles = css({
     ...style,
     listStyleType: 'none',
+    opacity: isDragging ? '0.5' : undefined,
     transform: CSS.Transform.toString(transform),
     transition,
   });
