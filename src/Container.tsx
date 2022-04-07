@@ -7,6 +7,7 @@ import { GrDrag } from 'react-icons/gr';
 import { createPortal } from 'react-dom';
 import Column from './Column';
 import { useAppSelector } from './hooks';
+import Droppable from './Droppable';
 
 const ContainerStyle: SerializedStyles = css({
   display: 'flex',
@@ -59,6 +60,26 @@ function Container() {
         </DragOverlay>,
         document.body,
       )}
+      {activeCardId
+        && activeCard
+        && (
+          <Droppable
+            id="trash"
+            style={css({
+              position: 'absolute',
+              bottom: '5%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              border: '2px red solid',
+              borderRadius: '1rem',
+              padding: '1rem',
+              paddingLeft: '5rem',
+              paddingRight: '5rem',
+            })}
+          >
+            Drag card here to discard
+          </Droppable>
+        )}
     </div>
   );
 }
