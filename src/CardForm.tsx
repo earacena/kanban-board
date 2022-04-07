@@ -1,10 +1,15 @@
 /** @jsxRuntime classic */
 import React, { useState } from 'react';
-import { HexColorPicker } from 'react-colorful';
 import { useForm, SubmitHandler } from 'react-hook-form';
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import { Modal, Popover, Badge } from '@mantine/core';
+import {
+  Modal,
+  Popover,
+  Badge,
+  ColorPicker,
+  DEFAULT_THEME,
+} from '@mantine/core';
 import { Static as RtStatic } from 'runtypes';
 import { IoIosColorPalette } from 'react-icons/io';
 import { Tags } from './tag.types';
@@ -106,6 +111,7 @@ function CardForm({ cardFormOpened, setCardFormOpened, columnId }: CardFormProps
           {tags.map((tag) => (
             <Badge
               component="button"
+              color={tag.color}
               css={{
                 '&:hover': {
                   backgroundColor: 'lightgray',
@@ -113,6 +119,7 @@ function CardForm({ cardFormOpened, setCardFormOpened, columnId }: CardFormProps
               }}
               key={tag.id}
               type="button"
+              variant="outline"
               onClick={() => (
                 appliedTags.find((t) => t.id === tag.id)
                   ? setAppliedTags(appliedTags.filter((t) => t.id !== tag.id))
@@ -139,7 +146,20 @@ function CardForm({ cardFormOpened, setCardFormOpened, columnId }: CardFormProps
           withCloseButton
           withArrow
         >
-          <HexColorPicker css={{ alignSelf: 'center', margin: '1rem' }} color={color} onChange={setColor} />
+          <ColorPicker
+            format="hex"
+            value={color}
+            onChange={setColor}
+            withPicker={false}
+            fullWidth
+            swatches={[
+              ...DEFAULT_THEME.colors.red,
+              ...DEFAULT_THEME.colors.blue,
+              ...DEFAULT_THEME.colors.green,
+              ...DEFAULT_THEME.colors.orange,
+              ...DEFAULT_THEME.colors.yellow,
+            ]}
+          />
         </Popover>
 
         <button type="submit">Create</button>
