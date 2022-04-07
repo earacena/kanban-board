@@ -8,6 +8,7 @@ import {
   Popover,
   Badge,
   ColorPicker,
+  Textarea,
   DEFAULT_THEME,
 } from '@mantine/core';
 import { Static as RtStatic } from 'runtypes';
@@ -80,33 +81,30 @@ function CardForm({ cardFormOpened, setCardFormOpened, columnId }: CardFormProps
         }}
         onSubmit={handleSubmit(onSubmit)}
       >
-        <label htmlFor="card-brief-textarea">
-          Brief
-          {errors.brief?.type === 'required' && <span css={{ color: 'red' }}>Cards must have a label</span>}
-          <textarea
-            css={{
-              resize: 'none',
-              width: '400px',
-              height: '50px',
-            }}
-            id="card-brief-textarea"
-            placeholder="Write a brief sentence about the task..."
-            {...register('brief', { required: true })}
-          />
-        </label>
-        <label htmlFor="card-body-textarea">
-          Body
-          <textarea
-            css={{
-              resize: 'none',
-              width: '400px',
-              height: '200px',
-            }}
-            id="card-body-textarea"
-            placeholder="Write about the task in more detail..."
-            {...register('body')}
-          />
-        </label>
+        <Textarea
+          css={{
+            width: '100%',
+          }}
+          placeholder="Write a brief sentence about the task..."
+          label="Brief description"
+          aria-label="card-brief-textarea"
+          error={errors.brief?.type === 'required' ? 'Cards must have a brief description' : null}
+          {...register('brief', { required: true })}
+          maxRows={2}
+        />
+
+        <Textarea
+          css={{
+            width: '100%',
+            marginTop: '0.2rem',
+          }}
+          placeholder="Write about the task in more detail..."
+          label="Detailed description"
+          aria-label="card-body-textarea"
+          {...register('body')}
+          autosize
+          minRows={4}
+        />
         <div css={{ display: 'flex', padding: '0.5rem' }}>
           {tags.map((tag) => (
             appliedTags.find((t) => t.id === tag.id)
