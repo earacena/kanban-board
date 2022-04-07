@@ -12,6 +12,7 @@ import {
 } from '@dnd-kit/core';
 import { arrayMove, sortableKeyboardCoordinates } from '@dnd-kit/sortable';
 import {
+  removeCard,
   setActiveCardId,
   setCardColumnId,
   resetActiveCardId,
@@ -55,7 +56,10 @@ function App() {
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
-
+    if (over && over.id.includes('trash') && active.id !== over.id) {
+      // Card dragged to trashable area, therefore delete
+      dispatch(removeCard({ id: active.id }));
+    }
     if (over && over.id.includes('card') && active.id !== over.id) {
       const oldCard = cards.find((card) => card.id === active.id);
       const newCard = cards.find((card) => card.id === over.id);
