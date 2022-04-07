@@ -160,10 +160,11 @@ function CardForm({ cardFormOpened, setCardFormOpened, columnId }: CardFormProps
           withPicker={false}
           swatches={[
             ...DEFAULT_THEME.colors.red,
-            ...DEFAULT_THEME.colors.blue,
-            ...DEFAULT_THEME.colors.green,
             ...DEFAULT_THEME.colors.orange,
             ...DEFAULT_THEME.colors.yellow,
+            ...DEFAULT_THEME.colors.green,
+            ...DEFAULT_THEME.colors.blue,
+            ...DEFAULT_THEME.colors.grape,
           ]}
         />
         <button type="submit">Create</button>
