@@ -12,8 +12,8 @@ import {
   SerializedStyles,
   Keyframes,
 } from '@emotion/react';
-import { FaPencilAlt } from 'react-icons/fa';
 import { IoMdAddCircle } from 'react-icons/io';
+import { BsPenFill } from 'react-icons/bs';
 import { useAppSelector } from './hooks';
 import Card from './Card';
 import SortableItem from './SortableItem';
@@ -75,8 +75,22 @@ function Column({ id, label }: ColumnProps) {
       {!beingEdited && (
         <span>
           {label}
-          <button css={{ margin: '0.5rem' }} type="button" onClick={() => setBeingEdited(!beingEdited)}>
-            <FaPencilAlt />
+          <button
+            css={{
+              border: '1px lightgrey solid',
+              margin: '0.5rem',
+              borderRadius: '15%',
+              boxShadow: '0px 3px 10px rgb(0, 0, 0, 0.1)',
+              '&:hover': {
+                backgroundColor: 'lightgray',
+                transform: 'translateY(-2px)',
+                boxShadow: '0px 3px 10px rgb(0, 0, 0, 0.2)',
+              },
+            }}
+            type="button"
+            onClick={() => setBeingEdited(!beingEdited)}
+          >
+            <BsPenFill size={15} />
           </button>
         </span>
       )}
