@@ -1,4 +1,7 @@
+/** @jsxRuntime classic */
 import React, { useState } from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
 import {
   DndContext,
   DragEndEvent,
@@ -11,6 +14,13 @@ import {
   DragOverEvent,
 } from '@dnd-kit/core';
 import { arrayMove, sortableKeyboardCoordinates } from '@dnd-kit/sortable';
+import {
+  FaTags,
+} from 'react-icons/fa';
+import {
+  BsPlus,
+  BsFile,
+} from 'react-icons/bs';
 import {
   removeCard,
   setActiveCardId,
@@ -78,11 +88,47 @@ function App() {
 
   return (
     <div className="App">
-      <button type="button" onClick={handleAddColumn}>
-        Add column
+      <button
+        type="button"
+        onClick={handleAddColumn}
+        css={{
+          border: '1px lightgray solid',
+          borderRadius: '15%',
+          padding: '0',
+          height: '48px',
+          width: '48px',
+          margin: '0.5rem',
+          boxShadow: '0px 3px 10px rgb(0, 0, 0, 0.2)',
+          '&:hover': {
+            backgroundColor: 'lightgray',
+            transform: 'translateY(-2px)',
+            boxShadow: '0px 3px 10px rgb(0, 0, 0, 0.4)',
+          },
+        }}
+      >
+        <BsPlus size={20} />
+        <BsFile size={20} />
       </button>
-      <button type="button" onClick={() => setTagFormOpened(true)}>
-        Add tag
+      <button
+        css={{
+          border: '1px lightgray solid',
+          borderRadius: '15%',
+          padding: '0',
+          height: '48px',
+          width: '48px',
+          margin: '0.5rem',
+          boxShadow: '0px 3px 10px rgb(0, 0, 0, 0.2)',
+          '&:hover': {
+            backgroundColor: 'lightgray',
+            transform: 'translateY(-2px)',
+            boxShadow: '0px 3px 10px rgb(0, 0, 0, 0.4)',
+          },
+        }}
+        type="button"
+        onClick={() => setTagFormOpened(true)}
+      >
+        <BsPlus size={20} />
+        <FaTags size={20} />
       </button>
       <TagForm tagFormOpened={tagFormOpened} setTagFormOpened={setTagFormOpened} />
       <DndContext
