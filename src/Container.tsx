@@ -85,6 +85,7 @@ function Container() {
               animation: `${fadeIn} 0.2s ease-in`,
               bottom: '5%',
               left: '50%',
+              backgroundColor: 'pink',
               transform: 'translate(-50%, -50%)',
               border: '2px red solid',
               borderRadius: '1rem',
