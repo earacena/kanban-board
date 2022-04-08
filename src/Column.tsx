@@ -73,13 +73,14 @@ function Column({ id, label }: ColumnProps) {
   return (
     <Droppable id={id} key={id} style={style}>
       {!beingEdited && (
-        <span>
-          {label}
+        <span css={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <p css={{ fontSize: '20px' }}>{label}</p>
           <button
             css={{
               border: '1px lightgrey solid',
               margin: '0.5rem',
               borderRadius: '15%',
+              height: '2rem',
               boxShadow: '0px 3px 10px rgb(0, 0, 0, 0.1)',
               '&:hover': {
                 backgroundColor: 'lightgray',
