@@ -96,15 +96,12 @@ function Column({ id, label }: ColumnProps) {
         </span>
       )}
       {beingEdited && (
-        <span>
-          <ColumnEditForm
-            id={id}
-            prevLabel={label}
-            beingEdited={beingEdited}
-            setBeingEdited={setBeingEdited}
-          />
-          <button type="button" onClick={() => setBeingEdited(!beingEdited)}>Cancel</button>
-        </span>
+        <ColumnEditForm
+          id={id}
+          prevLabel={label}
+          beingEdited={beingEdited}
+          setBeingEdited={setBeingEdited}
+        />
       )}
       <SortableContext items={cardIds} strategy={verticalListSortingStrategy}>
         {cardsInThisColumn.map((card) => (
