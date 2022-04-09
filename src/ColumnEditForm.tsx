@@ -1,5 +1,9 @@
+/** @jsxRuntime classic */
 import React from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { TextInput } from '@mantine/core';
 import { useAppDispatch } from './hooks';
 import { updateColumn } from './columns.slice';
 
@@ -39,17 +43,23 @@ function ColumnEditForm({
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <label htmlFor="card-label-input">
-        Label
-        {errors.label?.type === 'required' && <span style={{ color: 'red' }}>Cards must have a label</span>}
-        <input
-          id="column-label-input"
-          type="text"
-          placeholder="Enter a new column name..."
-          {...register('label', { required: true })}
-        />
-      </label>
+    <form
+      css={{
+        border: '1px lightgrey solid',
+        borderRadius: '10px',
+        backgroundColor: 'white',
+        padding: '1rem',
+      }}
+      onSubmit={handleSubmit(onSubmit)}
+    >
+      <TextInput
+        css={{ marginBottom: '1rem' }}
+        label="Column label"
+        aria-label="column-label-input"
+        placeholder="Set the label of the column..."
+        {...register('label', { required: true })}
+        error={errors.label?.type === 'required' ? 'Columns must have a label' : null}
+      />
       <button type="submit">Update</button>
     </form>
   );
