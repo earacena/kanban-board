@@ -22,7 +22,6 @@ const ContainerStyle: SerializedStyles = css({
   margin: '0',
   overflow: 'auto',
   clear: 'both',
-  backgroundColor: 'darkslategray',
 });
 
 const fadeIn: Keyframes = keyframes({
