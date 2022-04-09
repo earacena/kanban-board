@@ -87,49 +87,61 @@ function App() {
   const handleAddColumn = () => dispatch(addColumn({ label: 'Column' }));
 
   return (
-    <div className="App">
-      <button
-        type="button"
-        onClick={handleAddColumn}
-        css={{
-          border: '1px lightgray solid',
-          borderRadius: '15%',
-          padding: '0',
-          height: '48px',
-          width: '48px',
-          margin: '0.5rem',
-          boxShadow: '0px 3px 10px rgb(0, 0, 0, 0.2)',
-          '&:hover': {
-            backgroundColor: 'lightgray',
-            transform: 'translateY(-2px)',
-            boxShadow: '0px 3px 10px rgb(0, 0, 0, 0.4)',
-          },
-        }}
-      >
-        <BsPlus size={20} />
-        <BsFile size={20} />
-      </button>
-      <button
-        css={{
-          border: '1px lightgray solid',
-          borderRadius: '15%',
-          padding: '0',
-          height: '48px',
-          width: '48px',
-          margin: '0.5rem',
-          boxShadow: '0px 3px 10px rgb(0, 0, 0, 0.2)',
-          '&:hover': {
-            backgroundColor: 'lightgray',
-            transform: 'translateY(-2px)',
-            boxShadow: '0px 3px 10px rgb(0, 0, 0, 0.4)',
-          },
-        }}
-        type="button"
-        onClick={() => setTagFormOpened(true)}
-      >
-        <BsPlus size={20} />
-        <FaTags size={20} />
-      </button>
+    <div
+      className="App"
+      css={{
+        backgroundColor: 'darkslategray',
+        position: 'absolute',
+        top: '0',
+        left: '0',
+        right: '0',
+        bottom: '0',
+      }}
+    >
+      <nav>
+        <button
+          type="button"
+          onClick={handleAddColumn}
+          css={{
+            border: '1px lightgray solid',
+            borderRadius: '15%',
+            padding: '0',
+            height: '48px',
+            width: '48px',
+            margin: '0.5rem',
+            boxShadow: '0px 3px 10px rgb(0, 0, 0, 0.2)',
+            '&:hover': {
+              backgroundColor: 'lightgray',
+              transform: 'translateY(-2px)',
+              boxShadow: '0px 3px 10px rgb(0, 0, 0, 0.4)',
+            },
+          }}
+        >
+          <BsPlus size={20} />
+          <BsFile size={20} />
+        </button>
+        <button
+          css={{
+            border: '1px lightgray solid',
+            borderRadius: '15%',
+            padding: '0',
+            height: '48px',
+            width: '48px',
+            margin: '0.5rem',
+            boxShadow: '0px 3px 10px rgb(0, 0, 0, 0.2)',
+            '&:hover': {
+              backgroundColor: 'lightgray',
+              transform: 'translateY(-2px)',
+              boxShadow: '0px 3px 10px rgb(0, 0, 0, 0.4)',
+            },
+          }}
+          type="button"
+          onClick={() => setTagFormOpened(true)}
+        >
+          <BsPlus size={20} />
+          <FaTags size={20} />
+        </button>
+      </nav>
       <TagForm tagFormOpened={tagFormOpened} setTagFormOpened={setTagFormOpened} />
       <DndContext
         collisionDetection={closestCenter}
