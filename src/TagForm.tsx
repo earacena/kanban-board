@@ -4,6 +4,7 @@ import {
   Modal,
   useMantineTheme,
   ColorInput,
+  TextInput,
 } from '@mantine/core';
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
@@ -80,13 +81,26 @@ function TagForm({ tagFormOpened, setTagFormOpened }: TagFormProps) {
       onClose={() => setTagFormOpened(false)}
       title="Add a new tag"
     >
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <label htmlFor="tag-label-input">
-          Label
-          {errors.label?.type === 'required' && <span css={{ color: 'red' }}>Label is required</span>}
-          <input id="tag-label-input" {...register('label', { required: true })} />
-        </label>
+      <form
+        css={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <TextInput
+          css={{ marginBottom: '1rem' }}
+          label="Tag label"
+          aria-label="tag-label-input"
+          placeholder="Give the tag a label..."
+          {...register('label', { required: true })}
+          error={errors.label?.type === 'required' ? 'Tags must have a label' : null}
+        />
+
         <ColorInput
+          css={{ marginBottom: '1rem' }}
           format="hex"
           value={color}
           onChange={setColor}
