@@ -17,11 +17,12 @@ import Droppable from './Droppable';
 
 const ContainerStyle: SerializedStyles = css({
   display: 'flex',
-  width: '100%',
-  height: '100%',
   flexDirection: 'row',
+  padding: '0.5rem',
+  margin: '0',
   overflow: 'auto',
   clear: 'both',
+  backgroundColor: 'darkslategray',
 });
 
 const fadeIn: Keyframes = keyframes({
