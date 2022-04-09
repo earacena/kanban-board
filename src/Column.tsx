@@ -41,7 +41,6 @@ const style: SerializedStyles = css({
   border: '2px lightgrey solid',
   borderRadius: '5px',
   backgroundColor: '#EEEEEE',
-  height: '100%',
   minHeight: '50rem',
   minWidth: '20rem',
   marginRight: '1.5rem',
