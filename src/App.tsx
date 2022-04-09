@@ -1,7 +1,7 @@
 /** @jsxRuntime classic */
 import React, { useState } from 'react';
 /** @jsx jsx */
-import { jsx } from '@emotion/react';
+import { Global, jsx, css } from '@emotion/react';
 import {
   DndContext,
   DragEndEvent,
@@ -90,7 +90,6 @@ function App() {
     <div
       className="App"
       css={{
-        backgroundColor: 'darkslategray',
         position: 'absolute',
         top: '0',
         left: '0',
@@ -98,6 +97,13 @@ function App() {
         bottom: '0',
       }}
     >
+      <Global
+        styles={css({
+          body: {
+            backgroundColor: 'darkslategray',
+          },
+        })}
+      />
       <nav>
         <button
           type="button"
