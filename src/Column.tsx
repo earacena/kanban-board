@@ -12,8 +12,7 @@ import {
   SerializedStyles,
   Keyframes,
 } from '@emotion/react';
-import { IoMdAddCircle } from 'react-icons/io';
-import { BsPenFill } from 'react-icons/bs';
+import { BsPenFill, BsFillPlusCircleFill } from 'react-icons/bs';
 import { useAppSelector } from './hooks';
 import Card from './Card';
 import SortableItem from './SortableItem';
@@ -148,7 +147,7 @@ function Column({ id, label }: ColumnProps) {
         type="button"
         onClick={() => setCardFormOpened(true)}
       >
-        <IoMdAddCircle size="2rem" />
+        <BsFillPlusCircleFill size={25} />
       </button>
       <CardForm
         cardFormOpened={cardFormOpened}
