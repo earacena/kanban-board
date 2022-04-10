@@ -6,17 +6,14 @@ import { GiOpenBook } from 'react-icons/gi';
 import { Modal, Badge } from '@mantine/core';
 import { Static as RtStatic } from 'runtypes';
 import { Tags } from './tag.types';
-// import type { CSSProperties } from 'react';
-
-// const cardStyle: CSSProperties = {
-//   border: '1px black solid',
-//   backgroundColor: 'white',
-//   padding: '0.5rem 1rem',
-//   alignSelf: 'stretch',
-//   cursor: 'move',
-//   float: 'left',
-//   margin: '0.5rem',
-// };
+import {
+  briefStyle,
+  cardHeaderStyle,
+  cardStyle,
+  expandCardButtonStyle,
+  tagContainerStyle,
+  tagStyle,
+} from './card.style';
 
 interface CardProps {
   id: string;
@@ -38,16 +35,15 @@ function Card({
   console.log(`Card ${id} - ${columnId}`);
 
   return (
-    <div css={{
-      display: 'flex',
-      flexDirection: 'column',
-      margin: 'auto',
-    }}
-    >
+    <div css={cardStyle}>
       <div>
         {brief}
         {body !== '' && (
-          <button type="button" css={{ backgroundColor: 'white', border: 'none' }} onClick={() => setCardModalOpened(true)}>
+          <button
+            type="button"
+            css={expandCardButtonStyle}
+            onClick={() => setCardModalOpened(true)}
+          >
             <GiOpenBook />
           </button>
         )}
@@ -58,48 +54,24 @@ function Card({
             color={tag.color}
             size="sm"
             variant="outline"
-            css={{
-              margin: '0.1rem',
-            }}
+            css={tagStyle}
             key={tag.id}
           >
             {tag.label}
           </Badge>
         ))}
       </div>
-      <Modal
-        opened={cardModalOpened}
-        onClose={() => setCardModalOpened(false)}
-      >
-        <div
-          css={{
-            display: 'flex',
-            flexDirection: 'column',
-            width: '100%',
-            borderBottom: '1px grey solid',
-            marginBottom: '1rem',
-          }}
-        >
-          <p
-            css={{
-              marginTop: '0',
-              alignSelf: 'center',
-              color: 'gray',
-              fontSize: '20px',
-            }}
-          >
+      <Modal opened={cardModalOpened} onClose={() => setCardModalOpened(false)}>
+        <div css={cardHeaderStyle}>
+          <p css={briefStyle}>
             {brief}
           </p>
-          <div css={{ margin: 'auto', marginBottom: '0.5rem' }}>
+          <div css={tagContainerStyle}>
             {tags.map((tag) => (
               <Badge
                 color={tag.color}
                 variant="outline"
-                css={{
-                  '&:hover': {
-                    backgroundColor: 'lightgray',
-                  },
-                }}
+                css={tagStyle}
                 key={tag.id}
               >
                 {tag.label}
