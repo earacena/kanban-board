@@ -6,6 +6,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { TextInput } from '@mantine/core';
 import { useAppDispatch } from './hooks';
 import { updateColumn } from './columns.slice';
+import { columnEditFormStyle, textInputStyle } from './columnEditForm.styles';
 
 type Inputs = {
   label: string,
@@ -44,16 +45,11 @@ function ColumnEditForm({
 
   return (
     <form
-      css={{
-        border: '1px lightgrey solid',
-        borderRadius: '10px',
-        backgroundColor: 'white',
-        padding: '1rem',
-      }}
+      css={columnEditFormStyle}
       onSubmit={handleSubmit(onSubmit)}
     >
       <TextInput
-        css={{ marginBottom: '1rem' }}
+        css={textInputStyle}
         label="Column label"
         aria-label="column-label-input"
         placeholder="Set the label of the column..."
