@@ -15,6 +15,14 @@ import { IoMdCheckmark } from 'react-icons/io';
 import { Tags } from './tag.types';
 import { addCard } from './cards.slice';
 import { useAppDispatch, useAppSelector } from './hooks';
+import {
+  bodyTextAreaStyle,
+  briefTextAreaStyle,
+  cardFormStyle,
+  colorInputStyle,
+  tagPickerStyle,
+  tagStyle,
+} from './cardForm.styles';
 
 type Inputs = {
   brief: string,
@@ -70,19 +78,9 @@ function CardForm({ cardFormOpened, setCardFormOpened, columnId }: CardFormProps
       onClose={() => setCardFormOpened(false)}
       title="Create a card"
     >
-      <form
-        css={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-        onSubmit={handleSubmit(onSubmit)}
-      >
+      <form css={cardFormStyle} onSubmit={handleSubmit(onSubmit)}>
         <Textarea
-          css={{
-            width: '100%',
-          }}
+          css={briefTextAreaStyle}
           placeholder="Write a brief sentence about the task..."
           label="Brief description"
           aria-label="card-brief-textarea"
@@ -92,10 +90,7 @@ function CardForm({ cardFormOpened, setCardFormOpened, columnId }: CardFormProps
         />
 
         <Textarea
-          css={{
-            width: '100%',
-            marginTop: '0.2rem',
-          }}
+          css={bodyTextAreaStyle}
           placeholder="Write about the task in more detail..."
           label="Detailed description"
           aria-label="card-body-textarea"
@@ -103,18 +98,14 @@ function CardForm({ cardFormOpened, setCardFormOpened, columnId }: CardFormProps
           autosize
           minRows={4}
         />
-        <div css={{ display: 'flex', padding: '0.5rem' }}>
+        <div css={tagPickerStyle}>
           {tags.map((tag) => (
             appliedTags.find((t) => t.id === tag.id)
               ? (
                 <Badge
                   component="button"
                   color={tag.color}
-                  css={{
-                    '&:hover': {
-                      backgroundColor: 'lightgray',
-                    },
-                  }}
+                  css={tagStyle}
                   key={tag.id}
                   type="button"
                   variant="outline"
@@ -131,11 +122,7 @@ function CardForm({ cardFormOpened, setCardFormOpened, columnId }: CardFormProps
                 <Badge
                   component="button"
                   color={tag.color}
-                  css={{
-                    '&:hover': {
-                      backgroundColor: 'lightgray',
-                    },
-                  }}
+                  css={tagStyle}
                   key={tag.id}
                   type="button"
                   variant="outline"
@@ -151,9 +138,7 @@ function CardForm({ cardFormOpened, setCardFormOpened, columnId }: CardFormProps
           ))}
         </div>
         <ColorInput
-          css={{
-            marginBottom: '0.5rem',
-          }}
+          css={colorInputStyle}
           format="hex"
           value={color}
           onChange={setColor}
