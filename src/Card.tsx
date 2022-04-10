@@ -13,7 +13,7 @@ import {
   expandCardButtonStyle,
   tagContainerStyle,
   tagStyle,
-} from './card.style';
+} from './card.styles';
 
 interface CardProps {
   id: string;
