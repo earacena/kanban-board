@@ -2,36 +2,19 @@
 import React from 'react';
 import { DragOverlay } from '@dnd-kit/core';
 /** @jsx jsx */
-import {
-  css,
-  jsx,
-  keyframes,
-  Keyframes,
-  SerializedStyles,
-} from '@emotion/react';
+import { jsx } from '@emotion/react';
 import { GrDrag } from 'react-icons/gr';
 import { createPortal } from 'react-dom';
 import Column from './Column';
 import { useAppSelector } from './hooks';
 import Droppable from './Droppable';
-
-const ContainerStyle: SerializedStyles = css({
-  display: 'flex',
-  flexDirection: 'row',
-  padding: '0.5rem',
-  margin: '0',
-  overflow: 'auto',
-  clear: 'both',
-});
-
-const fadeIn: Keyframes = keyframes({
-  '0%': {
-    opacity: '0%',
-  },
-  '100%': {
-    opacity: '100%',
-  },
-});
+import {
+  containerStyle,
+  dragHandleIconStyle,
+  dragOverlayCardStyle,
+  dragOverlayStyle,
+  trashDroppableStyle,
+} from './container.styles';
 
 function Container() {
   const columns = useAppSelector((state) => state.columns.allColumns);
@@ -41,7 +24,7 @@ function Container() {
   );
 
   return (
-    <div css={ContainerStyle}>
+    <div css={containerStyle}>
       {columns.map((column) => (
         <Column key={column.id} id={column.id} label={column.label} />
       ))}
@@ -49,25 +32,15 @@ function Container() {
       {createPortal(
         <DragOverlay
           style={{
-            borderRadius: '8px',
-            backgroundColor: 'white',
+            ...dragOverlayStyle,
             borderLeft: `3px ${activeCard?.color} solid`,
-            boxShadow: '0px 3px 10px rgb(0, 0, 0, 0.5)',
           }}
         >
           {activeCardId
             && activeCard
             && (
-              <div
-                css={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-
-                }}
-              >
-                <GrDrag css={{ padding: '1.2rem' }} />
+              <div css={dragOverlayCardStyle}>
+                <GrDrag css={dragHandleIconStyle} />
                 <p>{activeCard.brief}</p>
                 <div />
               </div>
@@ -78,24 +51,7 @@ function Container() {
       {activeCardId
         && activeCard
         && (
-          <Droppable
-            id="trash"
-            style={css({
-              position: 'absolute',
-              animation: `${fadeIn} 0.2s ease-in`,
-              bottom: '5%',
-              left: '50%',
-              backgroundColor: 'pink',
-              transform: 'translate(-50%, -50%)',
-              border: '2px red solid',
-              borderRadius: '1rem',
-              padding: '1rem',
-              paddingLeft: '5rem',
-              paddingRight: '5rem',
-              color: 'red',
-              boxShadow: '0px 3px 10px rgb(255, 0, 0, 0.3)',
-            })}
-          >
+          <Droppable id="trash" style={trashDroppableStyle}>
             Drag here to delete
           </Droppable>
         )}
