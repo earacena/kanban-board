@@ -11,6 +11,7 @@ import { jsx } from '@emotion/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useAppDispatch } from './hooks';
 import { addTag } from './tag.slice';
+import { colorInputStyle, tagFormStyle, textInputStyle } from './tagForm.styles';
 
 type Inputs = {
   label: string,
@@ -82,16 +83,11 @@ function TagForm({ tagFormOpened, setTagFormOpened }: TagFormProps) {
       title="Add a new tag"
     >
       <form
-        css={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
+        css={tagFormStyle}
         onSubmit={handleSubmit(onSubmit)}
       >
         <TextInput
-          css={{ marginBottom: '1rem' }}
+          css={textInputStyle}
           label="Tag label"
           aria-label="tag-label-input"
           placeholder="Give the tag a label..."
@@ -100,7 +96,7 @@ function TagForm({ tagFormOpened, setTagFormOpened }: TagFormProps) {
         />
 
         <ColorInput
-          css={{ marginBottom: '1rem' }}
+          css={colorInputStyle}
           format="hex"
           value={color}
           onChange={setColor}
