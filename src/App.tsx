@@ -1,7 +1,7 @@
 /** @jsxRuntime classic */
 import React, { useState } from 'react';
 /** @jsx jsx */
-import { Global, jsx, css } from '@emotion/react';
+import { Global, jsx } from '@emotion/react';
 import {
   DndContext,
   DragEndEvent,
@@ -34,6 +34,12 @@ import {
 import Container from './Container';
 import { useAppDispatch, useAppSelector } from './hooks';
 import TagForm from './TagForm';
+import {
+  addColumnButtonStyle,
+  addTagButtonStyle,
+  appStyle,
+  globalStyle,
+} from './app.styles';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -89,58 +95,22 @@ function App() {
   return (
     <div
       className="App"
-      css={{
-        position: 'absolute',
-        top: '0',
-        left: '0',
-        right: '0',
-        bottom: '0',
-      }}
+      css={appStyle}
     >
       <Global
-        styles={css({
-          body: {
-            backgroundColor: 'darkslategray',
-          },
-        })}
+        styles={globalStyle}
       />
       <nav>
         <button
           type="button"
           onClick={handleAddColumn}
-          css={{
-            border: '1px lightgray solid',
-            borderRadius: '15%',
-            padding: '0',
-            height: '48px',
-            width: '48px',
-            margin: '0.5rem',
-            boxShadow: '0px 3px 10px rgb(0, 0, 0, 0.2)',
-            '&:hover': {
-              backgroundColor: 'lightgray',
-              transform: 'translateY(-2px)',
-              boxShadow: '0px 3px 10px rgb(0, 0, 0, 0.4)',
-            },
-          }}
+          css={addColumnButtonStyle}
         >
           <BsPlus size={20} />
           <BsFile size={20} />
         </button>
         <button
-          css={{
-            border: '1px lightgray solid',
-            borderRadius: '15%',
-            padding: '0',
-            height: '48px',
-            width: '48px',
-            margin: '0.5rem',
-            boxShadow: '0px 3px 10px rgb(0, 0, 0, 0.2)',
-            '&:hover': {
-              backgroundColor: 'lightgray',
-              transform: 'translateY(-2px)',
-              boxShadow: '0px 3px 10px rgb(0, 0, 0, 0.4)',
-            },
-          }}
+          css={addTagButtonStyle}
           type="button"
           onClick={() => setTagFormOpened(true)}
         >
