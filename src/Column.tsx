@@ -5,13 +5,7 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 /** @jsx jsx */
-import {
-  css,
-  keyframes,
-  jsx,
-  SerializedStyles,
-  Keyframes,
-} from '@emotion/react';
+import { jsx } from '@emotion/react';
 import { BsPenFill, BsFillPlusCircleFill } from 'react-icons/bs';
 import { useAppSelector } from './hooks';
 import Card from './Card';
@@ -19,41 +13,14 @@ import SortableItem from './SortableItem';
 import Droppable from './Droppable';
 import CardForm from './CardForm';
 import ColumnEditForm from './ColumnEditForm';
-
-const stretch: Keyframes = keyframes({
-  '0%': {
-    transform: 'scale(0.3)',
-    opacity: '0%',
-    borderRadius: '100%',
-    height: '0',
-  },
-  '100%': {
-    transform: 'scale(1)',
-    opacity: '100%',
-  },
-});
-
-const style: SerializedStyles = css({
-  display: 'flex',
-  flexDirection: 'column',
-  animation: `${stretch} 0.18s ease-in`,
-  border: '2px lightgrey solid',
-  borderRadius: '5px',
-  backgroundColor: '#EEEEEE',
-  minHeight: '50rem',
-  minWidth: '20rem',
-  marginRight: '1.5rem',
-  marginBottom: '1.5rem',
-  color: 'black',
-  padding: '1rem',
-  paddingLeft: '0.1rem',
-  paddingRight: '0.1rem',
-  textAlign: 'center',
-  fontSize: '1rem',
-  lineHeight: 'normal',
-  float: 'left',
-  boxShadow: '0px 3px 10px rgb(0, 0, 0, 0.4)',
-});
+import {
+  cardFormButtonStyle,
+  columnEditButtonStyle,
+  columnHeaderStyle,
+  columnLabelStyle,
+  columnStyle,
+  sortableItemStyle,
+} from './column.styles';
 
 interface ColumnProps {
   id: string;
@@ -69,23 +36,12 @@ function Column({ id, label }: ColumnProps) {
   const cardIds = cardsInThisColumn.map((card) => card.id.toString());
 
   return (
-    <Droppable id={id} key={id} style={style}>
+    <Droppable id={id} key={id} style={columnStyle}>
       {!beingEdited && (
-        <span css={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <p css={{ fontSize: '20px' }}>{label}</p>
+        <span css={columnHeaderStyle}>
+          <p css={columnLabelStyle}>{label}</p>
           <button
-            css={{
-              border: '1px lightgrey solid',
-              margin: '0.5rem',
-              borderRadius: '15%',
-              height: '2rem',
-              boxShadow: '0px 3px 10px rgb(0, 0, 0, 0.1)',
-              '&:hover': {
-                backgroundColor: 'lightgray',
-                transform: 'translateY(-2px)',
-                boxShadow: '0px 3px 10px rgb(0, 0, 0, 0.2)',
-              },
-            }}
+            css={columnEditButtonStyle}
             type="button"
             onClick={() => setBeingEdited(!beingEdited)}
           >
@@ -106,17 +62,7 @@ function Column({ id, label }: ColumnProps) {
           <SortableItem
             key={card.id}
             id={card.id}
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              border: '1px lightgrey solid',
-              backgroundColor: 'white',
-              padding: '1rem',
-              margin: '0.25rem',
-              borderRadius: '5px',
-              boxShadow: '0px 3px 10px rgb(0, 0, 0, 0.2)',
-              borderLeft: ` 3px${card.color} solid`,
-            }}
+            style={{ ...sortableItemStyle, borderLeft: ` 3px${card.color} solid` }}
           >
             <Card
               key={card.id}
@@ -130,20 +76,7 @@ function Column({ id, label }: ColumnProps) {
         ))}
       </SortableContext>
       <button
-        css={{
-          borderRadius: '100%',
-          border: 'none',
-          padding: '0',
-          marginLeft: 'auto',
-          marginRight: 'auto',
-          marginTop: 'auto',
-          '&:hover': {
-            transform: 'translateY(-2px)',
-          },
-          '&:active': {
-            transform: 'translateY(2px)',
-          },
-        }}
+        css={cardFormButtonStyle}
         type="button"
         onClick={() => setCardFormOpened(true)}
       >
