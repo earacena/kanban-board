@@ -38,6 +38,10 @@ const cardsSlice = createSlice({
       ...state,
       allCards: state.allCards.filter((c) => c.id !== action.payload.id),
     }),
+    removeCardsWithColumnId: (state, action) => ({
+      ...state,
+      allCards: state.allCards.filter((c) => c.columnId !== action.payload.id),
+    }),
     setCardColumnId: (state, action) => {
       const { id, newColumnId } = action.payload;
       return {
@@ -61,6 +65,7 @@ export const {
   setCards,
   addCard,
   removeCard,
+  removeCardsWithColumnId,
   setCardColumnId,
   setActiveCardId,
   resetActiveCardId,
