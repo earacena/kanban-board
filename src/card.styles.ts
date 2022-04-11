@@ -11,10 +11,6 @@ export const expandCardButtonStyle = css({
   border: 'none',
 });
 
-export const tagStyle = css({
-  margin: '0.1rem',
-});
-
 export const cardHeaderStyle = css({
   display: 'flex',
   flexDirection: 'column',
@@ -28,9 +24,4 @@ export const briefStyle = css({
   alignSelf: 'center',
   color: 'gray',
   fontSize: '20px',
-});
-
-export const tagContainerStyle = css({
-  margin: 'auto',
-  marginBottom: '0.5rem',
 });
