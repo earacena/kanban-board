@@ -6,8 +6,8 @@ import {
 } from '@dnd-kit/sortable';
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import { BsPenFill, BsFillPlusCircleFill } from 'react-icons/bs';
-import { useAppSelector } from './hooks';
+import { BsPenFill, BsFillPlusCircleFill, BsTrashFill } from 'react-icons/bs';
+import { useAppSelector, useAppDispatch } from './hooks';
 import Card from './Card';
 import SortableItem from './SortableItem';
 import Droppable from './Droppable';
@@ -15,12 +15,19 @@ import CardForm from './CardForm';
 import ColumnEditForm from './ColumnEditForm';
 import {
   cardFormButtonStyle,
+  columnDeleteButtonStyle,
   columnEditButtonStyle,
   columnHeaderStyle,
   columnLabelStyle,
   columnStyle,
   sortableItemStyle,
 } from './column.styles';
+import {
+  deleteColumn,
+} from './columns.slice';
+import {
+  removeCardsWithColumnId,
+} from './cards.slice';
 
 interface ColumnProps {
   id: string;
@@ -28,12 +35,17 @@ interface ColumnProps {
 }
 
 function Column({ id, label }: ColumnProps) {
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
   const [beingEdited, setBeingEdited] = useState(false);
   const [cardFormOpened, setCardFormOpened] = useState(false);
   const cards = useAppSelector((state) => state.cards.allCards);
   const cardsInThisColumn = cards.filter((card) => card.columnId === id);
   const cardIds = cardsInThisColumn.map((card) => card.id.toString());
+
+  const handleDelete = () => {
+    dispatch(deleteColumn({ id }));
+    dispatch(removeCardsWithColumnId({ id }));
+  };
 
   return (
     <Droppable id={id} key={id} style={columnStyle}>
@@ -46,6 +58,13 @@ function Column({ id, label }: ColumnProps) {
             onClick={() => setBeingEdited(!beingEdited)}
           >
             <BsPenFill size={15} />
+          </button>
+          <button
+            css={columnDeleteButtonStyle}
+            type="button"
+            onClick={handleDelete}
+          >
+            <BsTrashFill size={15} />
           </button>
         </span>
       )}
