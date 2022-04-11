@@ -16,17 +16,6 @@ export const bodyTextAreaStyle = css({
   marginTop: '0.2rem',
 });
 
-export const tagPickerStyle = css({
-  display: 'flex',
-  padding: '0.5rem',
-});
-
-export const tagStyle = css({
-  '&:hover': {
-    backgroundColor: 'lightgray',
-  },
-});
-
 export const colorInputStyle = css({
   marginBottom: '0.5rem',
 });

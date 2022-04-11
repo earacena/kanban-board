@@ -5,13 +5,11 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { jsx } from '@emotion/react';
 import {
   Modal,
-  Badge,
   Textarea,
   DEFAULT_THEME,
   ColorInput,
 } from '@mantine/core';
 import { Static as RtStatic } from 'runtypes';
-import { IoMdCheckmark } from 'react-icons/io';
 import { Tags } from './tag.types';
 import { addCard } from './cards.slice';
 import { useAppDispatch, useAppSelector } from './hooks';
@@ -20,9 +18,8 @@ import {
   briefTextAreaStyle,
   cardFormStyle,
   colorInputStyle,
-  tagPickerStyle,
-  tagStyle,
 } from './cardForm.styles';
+import TagPicker from './TagPicker';
 
 type Inputs = {
   brief: string,
@@ -98,45 +95,7 @@ function CardForm({ cardFormOpened, setCardFormOpened, columnId }: CardFormProps
           autosize
           minRows={4}
         />
-        <div css={tagPickerStyle}>
-          {tags.map((tag) => (
-            appliedTags.find((t) => t.id === tag.id)
-              ? (
-                <Badge
-                  component="button"
-                  color={tag.color}
-                  css={tagStyle}
-                  key={tag.id}
-                  type="button"
-                  variant="outline"
-                  onClick={() => (
-                    appliedTags.find((t) => t.id === tag.id)
-                      ? setAppliedTags(appliedTags.filter((t) => t.id !== tag.id))
-                      : setAppliedTags(appliedTags.concat(tag))
-                  )}
-                >
-                  {tag.label}
-                  <IoMdCheckmark size={10} />
-                </Badge>
-              ) : (
-                <Badge
-                  component="button"
-                  color={tag.color}
-                  css={tagStyle}
-                  key={tag.id}
-                  type="button"
-                  variant="outline"
-                  onClick={() => (
-                    appliedTags.find((t) => t.id === tag.id)
-                      ? setAppliedTags(appliedTags.filter((t) => t.id !== tag.id))
-                      : setAppliedTags(appliedTags.concat(tag))
-                  )}
-                >
-                  {tag.label}
-                </Badge>
-              )
-          ))}
-        </div>
+        <TagPicker tags={tags} appliedTags={appliedTags} setAppliedTags={setAppliedTags} />
         <ColorInput
           css={colorInputStyle}
           format="hex"
