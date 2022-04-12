@@ -21,9 +21,9 @@ function Droppable({ id, style, children }: DroppableProps) {
   const droppableStyle = style;
 
   return (
-    <div ref={setNodeRef} css={droppableStyle}>
+    <li ref={setNodeRef} css={droppableStyle}>
       {children}
-    </div>
+    </li>
   );
 }
 
