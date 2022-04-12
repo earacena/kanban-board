@@ -37,6 +37,7 @@ interface ColumnProps {
 function Column({ id, label }: ColumnProps) {
   const dispatch = useAppDispatch();
   const [beingEdited, setBeingEdited] = useState(false);
+  const [beingDeleted, setBeingDeleted] = useState(false);
   const [cardFormOpened, setCardFormOpened] = useState(false);
   const cards = useAppSelector((state) => state.cards.allCards);
   const cardsInThisColumn = cards.filter((card) => card.columnId === id);
@@ -59,14 +60,44 @@ function Column({ id, label }: ColumnProps) {
           >
             <BsPenFill size={15} />
           </button>
+          {!beingDeleted && (
+            <button
+              css={columnDeleteButtonStyle}
+              type="button"
+              onClick={() => setBeingDeleted(true)}
+            >
+              <BsTrashFill size={15} />
+            </button>
+          )}
+        </span>
+      )}
+      {beingDeleted && (
+        <div
+          css={{
+            margin: '1rem',
+            width: '100%',
+            alignSelf: 'center',
+            border: '1px lightgray solid',
+            backgroundColor: 'white',
+            borderRadius: '10px',
+          }}
+        >
+          <p>
+            {`Are you sure you want to delete column '${label}'?`}
+          </p>
           <button
-            css={columnDeleteButtonStyle}
             type="button"
             onClick={handleDelete}
           >
-            <BsTrashFill size={15} />
+            Delete
           </button>
-        </span>
+          <button
+            type="button"
+            onClick={() => setBeingDeleted(false)}
+          >
+            Cancel
+          </button>
+        </div>
       )}
       {beingEdited && (
         <ColumnEditForm
