@@ -5,7 +5,7 @@ import { DragOverlay } from '@dnd-kit/core';
 import { jsx } from '@emotion/react';
 import { GrDrag } from 'react-icons/gr';
 import { createPortal } from 'react-dom';
-import Column from './Column';
+import Columns from './Columns';
 import { useAppSelector } from './hooks';
 import Droppable from './Droppable';
 import {
@@ -25,10 +25,7 @@ function Container() {
 
   return (
     <div css={containerStyle}>
-      {columns.map((column) => (
-        <Column key={column.id} id={column.id} label={column.label} />
-      ))}
-
+      <Columns columns={columns} />
       {createPortal(
         <DragOverlay
           style={{
