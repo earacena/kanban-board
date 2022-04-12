@@ -43,3 +43,9 @@ export const addTagButtonStyle = css({
     boxShadow: '0px 3px 10px rgb(0, 0, 0, 0.4)',
   },
 });
+
+export const navStyle = css({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'center',
+});

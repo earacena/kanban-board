@@ -40,6 +40,7 @@ import {
   addTagButtonStyle,
   appStyle,
   globalStyle,
+  navStyle,
 } from './app.styles';
 import Settings from './Settings';
 import openSettingsButtonStyle from './settings.styles';
@@ -105,7 +106,7 @@ function App() {
       <Global
         styles={css({ ...globalStyle, body: { backgroundColor: themeColor } })}
       />
-      <nav>
+      <nav css={navStyle}>
         <button
           type="button"
           onClick={handleAddColumn}
