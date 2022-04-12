@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import { ColorInput, Modal, DEFAULT_THEME } from '@mantine/core';
+import { ColorInput, Modal } from '@mantine/core';
 import { useAppDispatch, useAppSelector } from './hooks';
 import { setThemeColor } from './settings.slice';
 
@@ -27,20 +27,10 @@ function Settings({ settingsOpened, setSettingsOpened }: SettingsProps) {
       <div css={{ display: 'flex', flexDirection: 'column' }}>
         Background color
         <ColorInput
+          css={{ marginBottom: '1rem' }}
           format="hex"
           value={color}
           onChange={setColor}
-          withPicker={false}
-          disallowInput
-          swatches={[
-            ...DEFAULT_THEME.colors.red,
-            ...DEFAULT_THEME.colors.orange,
-            ...DEFAULT_THEME.colors.yellow,
-            ...DEFAULT_THEME.colors.green,
-            ...DEFAULT_THEME.colors.blue,
-            ...DEFAULT_THEME.colors.grape,
-            ...DEFAULT_THEME.colors.dark,
-          ]}
         />
         <button type="button" onClick={handleSetColor}>Save color</button>
       </div>
