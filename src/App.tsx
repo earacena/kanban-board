@@ -1,7 +1,7 @@
 /** @jsxRuntime classic */
 import React, { useState } from 'react';
 /** @jsx jsx */
-import { Global, jsx } from '@emotion/react';
+import { css, Global, jsx } from '@emotion/react';
 import {
   DndContext,
   DragEndEvent,
@@ -20,6 +20,7 @@ import {
 import {
   BsPlus,
   BsFile,
+  BsGearFill,
 } from 'react-icons/bs';
 import {
   removeCard,
@@ -40,11 +41,15 @@ import {
   appStyle,
   globalStyle,
 } from './app.styles';
+import Settings from './Settings';
+import openSettingsButtonStyle from './settings.styles';
 
 function App() {
   const dispatch = useAppDispatch();
   const [tagFormOpened, setTagFormOpened] = useState(false);
+  const [settingsOpened, setSettingsOpened] = useState(false);
   const cards = useAppSelector((state) => state.cards.allCards);
+  const { themeColor } = useAppSelector((state) => state.settings);
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
@@ -98,7 +103,7 @@ function App() {
       css={appStyle}
     >
       <Global
-        styles={globalStyle}
+        styles={css({ ...globalStyle, body: { backgroundColor: themeColor } })}
       />
       <nav>
         <button
@@ -117,8 +122,16 @@ function App() {
           <BsPlus size={20} />
           <FaTags size={20} />
         </button>
+        <button
+          css={openSettingsButtonStyle}
+          type="button"
+          onClick={() => setSettingsOpened(true)}
+        >
+          <BsGearFill size={20} />
+        </button>
       </nav>
       <TagForm tagFormOpened={tagFormOpened} setTagFormOpened={setTagFormOpened} />
+      <Settings settingsOpened={settingsOpened} setSettingsOpened={setSettingsOpened} />
       <DndContext
         collisionDetection={closestCenter}
         sensors={sensors}
