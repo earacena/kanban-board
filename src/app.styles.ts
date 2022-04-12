@@ -8,11 +8,11 @@ export const appStyle = css({
   bottom: '0',
 });
 
-export const globalStyle = css({
+export const globalStyle = {
   body: {
     backgroundColor: 'darkslategray',
   },
-});
+};
 
 export const addColumnButtonStyle = css({
   border: '1px lightgray solid',
