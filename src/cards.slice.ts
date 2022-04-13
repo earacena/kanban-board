@@ -49,6 +49,15 @@ const cardsSlice = createSlice({
         allCards: state.allCards.map((c) => (c.id === id ? { ...c, columnId: newColumnId } : c)),
       };
     },
+    updateCardBriefBody: (state, action) => {
+      const { id, newBrief, newBody } = action.payload;
+      return {
+        ...state,
+        allCards: state.allCards.map((c) => (
+          (c.id === id) ? ({ ...c, brief: newBrief, body: newBody }) : c
+        )),
+      };
+    },
     setActiveCardId: (state, action) => ({
       ...state,
       activeCardId: action.payload,
@@ -67,6 +76,7 @@ export const {
   removeCard,
   removeCardsWithColumnId,
   setCardColumnId,
+  updateCardBriefBody,
   setActiveCardId,
   resetActiveCardId,
   resetCards,
