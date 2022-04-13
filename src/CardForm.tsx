@@ -9,6 +9,7 @@ import {
   DEFAULT_THEME,
   ColorInput,
   Text,
+  Button,
 } from '@mantine/core';
 import { Static as RtStatic } from 'runtypes';
 import { Tags } from './tag.types';
@@ -114,7 +115,7 @@ function CardForm({ cardFormOpened, setCardFormOpened, columnId }: CardFormProps
             ...DEFAULT_THEME.colors.grape,
           ]}
         />
-        <button type="submit">Create</button>
+        <Button type="submit">Create</Button>
       </form>
     </Modal>
   );
