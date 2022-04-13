@@ -5,7 +5,7 @@ interface SettingsState {
 }
 
 const initialState: SettingsState = {
-  themeColor: '',
+  themeColor: '#00806f',
 };
 
 const settingsSlice = createSlice({
