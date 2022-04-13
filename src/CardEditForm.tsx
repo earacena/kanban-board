@@ -2,10 +2,11 @@ import React from 'react';
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import { Modal, Textarea } from '@mantine/core';
+import { Button, Modal, Textarea } from '@mantine/core';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useAppDispatch } from './hooks';
 import { updateCardBriefBody } from './cards.slice';
+import { cardEditFormStyle } from './cardEditForm.styles';
 
 interface CardEditFormProps {
   id: string,
@@ -58,9 +59,9 @@ function CardEditForm({
       onClose={() => setCardEditFormOpened(false)}
       title="Edit card"
     >
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form css={cardEditFormStyle} onSubmit={handleSubmit(onSubmit)}>
         <Textarea
-          css={{ borderBottom: '1px lightgray solid', marginBottom: '0.5rem' }}
+          css={{ marginBottom: '0.5rem' }}
           placeholder="Write a brief sentence about the task..."
           label="Brief description"
           aria-label="card-edit-brief-textarea"
@@ -70,6 +71,7 @@ function CardEditForm({
         />
 
         <Textarea
+          css={{ marginBottom: '0.5rem' }}
           placeholder="Write about the task in more detail..."
           label="Detailed description"
           aria-label="card-edit-body-textarea"
@@ -77,7 +79,7 @@ function CardEditForm({
           autosize
           minRows={4}
         />
-        <button type="submit">Update</button>
+        <Button type="submit">Update</Button>
       </form>
     </Modal>
   );
