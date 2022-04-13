@@ -15,7 +15,7 @@ import {
 } from './card.styles';
 import Tags from './Tags';
 import CardEditForm from './CardEditForm';
-import cardEditButtonStyle from './cardEditForm.styles';
+import { cardEditButtonStyle } from './cardEditForm.styles';
 
 interface CardProps {
   id: string;
