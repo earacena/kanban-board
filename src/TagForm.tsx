@@ -5,6 +5,7 @@ import {
   useMantineTheme,
   ColorInput,
   TextInput,
+  Button,
 } from '@mantine/core';
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
@@ -105,7 +106,7 @@ function TagForm({ tagFormOpened, setTagFormOpened }: TagFormProps) {
           swatches={colorSwatches}
         />
 
-        <button type="submit">Create</button>
+        <Button type="submit">Create</Button>
       </form>
     </Modal>
   );
