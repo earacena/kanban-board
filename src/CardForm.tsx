@@ -8,6 +8,7 @@ import {
   Textarea,
   DEFAULT_THEME,
   ColorInput,
+  Text,
 } from '@mantine/core';
 import { Static as RtStatic } from 'runtypes';
 import { Tags } from './tag.types';
@@ -95,7 +96,9 @@ function CardForm({ cardFormOpened, setCardFormOpened, columnId }: CardFormProps
           autosize
           minRows={4}
         />
+        <Text size="sm" weight={500}>Assign tag(s) to the task</Text>
         <TagPicker tags={tags} appliedTags={appliedTags} setAppliedTags={setAppliedTags} />
+        <Text size="sm" weight={500}>Choose a color</Text>
         <ColorInput
           css={colorInputStyle}
           format="hex"
