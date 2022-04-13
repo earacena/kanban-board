@@ -5,6 +5,7 @@ import { jsx } from '@emotion/react';
 import { GiOpenBook } from 'react-icons/gi';
 import { Modal } from '@mantine/core';
 import { Static as RtStatic } from 'runtypes';
+import { BsPenFill } from 'react-icons/bs';
 import { Tags as TagArray } from './tag.types';
 import {
   briefStyle,
@@ -13,6 +14,8 @@ import {
   expandCardButtonStyle,
 } from './card.styles';
 import Tags from './Tags';
+import CardEditForm from './CardEditForm';
+import cardEditButtonStyle from './cardEditForm.styles';
 
 interface CardProps {
   id: string;
@@ -30,13 +33,16 @@ function Card({
   tags,
 }: CardProps) {
   const [cardModalOpened, setCardModalOpened] = useState(false);
+  const [cardEditFormOpened, setCardEditFormOpened] = useState(false);
 
   console.log(`Card ${id} - ${columnId}`);
 
   return (
     <div css={cardStyle}>
       <div>
-        {brief}
+        <span>
+          {brief}
+        </span>
         {body !== '' && (
           <button
             type="button"
@@ -49,13 +55,33 @@ function Card({
       </div>
       <Tags tags={tags} />
       <Modal opened={cardModalOpened} onClose={() => setCardModalOpened(false)}>
-        <div css={cardHeaderStyle}>
-          <p css={briefStyle}>
-            {brief}
-          </p>
-          <Tags tags={tags} />
-        </div>
-        {body}
+        {!cardEditFormOpened && (
+          <div>
+            <div css={cardHeaderStyle}>
+              <p css={briefStyle}>
+                {brief}
+              </p>
+              <Tags tags={tags} />
+              <button
+                css={cardEditButtonStyle}
+                type="button"
+                onClick={() => setCardEditFormOpened(true)}
+              >
+                <BsPenFill size={20} />
+              </button>
+            </div>
+            {body}
+          </div>
+        )}
+        {cardEditFormOpened && (
+          <CardEditForm
+            id={id}
+            cardBrief={brief}
+            cardBody={body}
+            cardEditFormOpened={cardEditFormOpened}
+            setCardEditFormOpened={setCardEditFormOpened}
+          />
+        )}
       </Modal>
     </div>
   );
