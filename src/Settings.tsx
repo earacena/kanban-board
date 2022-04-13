@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import { ColorInput, Modal } from '@mantine/core';
+import { ColorInput, Modal, Text } from '@mantine/core';
 import { useAppDispatch, useAppSelector } from './hooks';
 import { setThemeColor } from './settings.slice';
 
@@ -25,7 +25,9 @@ function Settings({ settingsOpened, setSettingsOpened }: SettingsProps) {
       title="Settings"
     >
       <div css={{ display: 'flex', flexDirection: 'column' }}>
-        Background color
+        <Text size="sm" weight={500}>
+          Background color
+        </Text>
         <ColorInput
           css={{ marginBottom: '1rem' }}
           format="hex"
