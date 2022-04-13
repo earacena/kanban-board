@@ -5,10 +5,10 @@ export default css({
   overflow: 'auto',
   margin: '0',
   listStyleType: 'none',
-  '&:first-child': {
+  '&:first-of-type': {
     marginLeft: 'auto',
   },
-  '&:last-child': {
+  '&:last-of-type': {
     marginRight: 'auto',
   },
 });
