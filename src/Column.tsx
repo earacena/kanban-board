@@ -7,7 +7,7 @@ import {
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import { BsPenFill, BsFillPlusCircleFill, BsTrashFill } from 'react-icons/bs';
-import { Text } from '@mantine/core';
+import { Button, Text } from '@mantine/core';
 import { useAppSelector, useAppDispatch } from './hooks';
 import Card from './Card';
 import SortableItem from './SortableItem';
@@ -86,18 +86,22 @@ function Column({ id, label }: ColumnProps) {
           <Text size="sm" weight={500} css={{ margin: '1rem 0.5rem' }}>
             {`Are you sure you want to delete column '${label}'?`}
           </Text>
-          <button
+          <Button
+            css={{ marginRight: '0.5rem' }}
+            color="red"
+            variant="outline"
             type="button"
             onClick={handleDelete}
           >
             Delete
-          </button>
-          <button
+          </Button>
+          <Button
             type="button"
+            variant="filled"
             onClick={() => setBeingDeleted(false)}
           >
             Cancel
-          </button>
+          </Button>
         </div>
       )}
       {beingEdited && (
