@@ -2,7 +2,12 @@ import React, { useState } from 'react';
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import { ColorInput, Modal, Text } from '@mantine/core';
+import {
+  Button,
+  ColorInput,
+  Modal,
+  Text,
+} from '@mantine/core';
 import { useAppDispatch, useAppSelector } from './hooks';
 import { setThemeColor } from './settings.slice';
 
@@ -34,7 +39,7 @@ function Settings({ settingsOpened, setSettingsOpened }: SettingsProps) {
           value={color}
           onChange={setColor}
         />
-        <button type="button" onClick={handleSetColor}>Save color</button>
+        <Button type="button" onClick={handleSetColor}>Save color</Button>
       </div>
     </Modal>
   );
