@@ -3,7 +3,7 @@ import React from 'react';
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { TextInput } from '@mantine/core';
+import { Button, TextInput } from '@mantine/core';
 import { useAppDispatch } from './hooks';
 import { updateColumn } from './columns.slice';
 import { columnEditFormStyle, textInputStyle } from './columnEditForm.styles';
@@ -56,7 +56,7 @@ function ColumnEditForm({
         {...register('label', { required: true })}
         error={errors.label?.type === 'required' ? 'Columns must have a label' : null}
       />
-      <button type="submit">Update</button>
+      <Button type="submit">Update</Button>
     </form>
   );
 }
