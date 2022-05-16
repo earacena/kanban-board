@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { Static as RtStatic } from 'runtypes';
-import { Columns } from './column.types';
+import { Columns } from '../types/column.types';
 
 interface ColumnsState {
   nextAvailableId: number,

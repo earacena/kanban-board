@@ -8,8 +8,8 @@ import {
   Modal,
   Text,
 } from '@mantine/core';
-import { useAppDispatch, useAppSelector } from './hooks';
-import { setThemeColor } from './settings.slice';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { setThemeColor } from './stores/settings.slice';
 
 interface SettingsProps {
   settingsOpened: boolean,

@@ -4,9 +4,9 @@ import React from 'react';
 import { jsx } from '@emotion/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Button, TextInput } from '@mantine/core';
-import { useAppDispatch } from './hooks';
-import { updateColumn } from './columns.slice';
-import { columnEditFormStyle, textInputStyle } from './columnEditForm.styles';
+import { useAppDispatch } from '../../hooks';
+import { updateColumn } from './stores/columns.slice';
+import { columnEditFormStyle, textInputStyle } from './styles/columnEditForm.styles';
 
 type Inputs = {
   label: string,

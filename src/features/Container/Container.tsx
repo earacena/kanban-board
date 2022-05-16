@@ -5,8 +5,8 @@ import { DragOverlay } from '@dnd-kit/core';
 import { jsx } from '@emotion/react';
 import { GrDrag } from 'react-icons/gr';
 import { createPortal } from 'react-dom';
-import Columns from './Columns';
-import { useAppSelector } from './hooks';
+import { Columns } from '../Column';
+import { useAppSelector } from '../../hooks';
 import Droppable from './Droppable';
 import {
   containerStyle,
@@ -14,7 +14,7 @@ import {
   dragOverlayCardStyle,
   dragOverlayStyle,
   trashDroppableStyle,
-} from './container.styles';
+} from './styles/container.styles';
 
 function Container() {
   const columns = useAppSelector((state) => state.columns.allColumns);

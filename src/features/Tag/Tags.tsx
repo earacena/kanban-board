@@ -4,8 +4,8 @@ import React from 'react';
 import { jsx } from '@emotion/react';
 import { Static as RtStatic } from 'runtypes';
 import { Badge } from '@mantine/core';
-import { Tags as TagArray } from './tag.types';
-import { tagStyle, tagContainerStyle } from './tags.styles';
+import { Tags as TagArray } from './types/tag.types';
+import { tagStyle, tagContainerStyle } from './styles/tags.styles';
 
 interface TagsProps {
   tags: RtStatic<typeof TagArray>;

@@ -12,16 +12,16 @@ import {
   Button,
 } from '@mantine/core';
 import { Static as RtStatic } from 'runtypes';
-import { Tags } from './tag.types';
-import { addCard } from './cards.slice';
-import { useAppDispatch, useAppSelector } from './hooks';
+import { Tags } from '../Tag/types/tag.types';
+import { addCard } from './stores/cards.slice';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import {
   bodyTextAreaStyle,
   briefTextAreaStyle,
   cardFormStyle,
   colorInputStyle,
-} from './cardForm.styles';
-import TagPicker from './TagPicker';
+} from './styles/cardForm.styles';
+import { TagPicker } from '../Tag';
 
 type Inputs = {
   brief: string,

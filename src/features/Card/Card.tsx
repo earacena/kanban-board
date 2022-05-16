@@ -6,16 +6,16 @@ import { GiOpenBook } from 'react-icons/gi';
 import { Modal } from '@mantine/core';
 import { Static as RtStatic } from 'runtypes';
 import { BsPenFill } from 'react-icons/bs';
-import { Tags as TagArray } from './tag.types';
+import { Tags as TagArray } from '../Tag/types/tag.types';
 import {
   briefStyle,
   cardHeaderStyle,
   cardStyle,
   expandCardButtonStyle,
-} from './card.styles';
-import Tags from './Tags';
+} from './styles/card.styles';
+import { Tags } from '../Tag';
 import CardEditForm from './CardEditForm';
-import { cardEditButtonStyle } from './cardEditForm.styles';
+import { cardEditButtonStyle } from './styles/cardEditForm.styles';
 
 interface CardProps {
   id: string;

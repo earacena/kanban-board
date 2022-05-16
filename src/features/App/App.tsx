@@ -28,22 +28,22 @@ import {
   setCardColumnId,
   resetActiveCardId,
   setCards,
-} from './cards.slice';
+} from '../Card/stores/cards.slice';
 import {
   addColumn,
-} from './columns.slice';
-import Container from './Container';
-import { useAppDispatch, useAppSelector } from './hooks';
-import TagForm from './TagForm';
+} from '../Column/stores/columns.slice';
+import { Container } from '../Container';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import TagForm from '../Tag/TagForm';
 import {
   addColumnButtonStyle,
   addTagButtonStyle,
   appStyle,
   globalStyle,
   navStyle,
-} from './app.styles';
-import Settings from './Settings';
-import openSettingsButtonStyle from './settings.styles';
+} from './styles/app.styles';
+import { Settings } from '../Settings';
+import openSettingsButtonStyle from '../Settings/styles/settings.styles';
 
 function App() {
   const dispatch = useAppDispatch();

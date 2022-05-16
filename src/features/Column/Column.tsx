@@ -8,11 +8,9 @@ import {
 import { jsx } from '@emotion/react';
 import { BsPenFill, BsFillPlusCircleFill, BsTrashFill } from 'react-icons/bs';
 import { Button, Text } from '@mantine/core';
-import { useAppSelector, useAppDispatch } from './hooks';
-import Card from './Card';
-import SortableItem from './SortableItem';
-import Droppable from './Droppable';
-import CardForm from './CardForm';
+import { useAppSelector, useAppDispatch } from '../../hooks';
+import { Card, CardForm } from '../Card';
+import { SortableItem, Droppable } from '../Container';
 import ColumnEditForm from './ColumnEditForm';
 import {
   cardFormButtonStyle,
@@ -22,13 +20,13 @@ import {
   columnLabelStyle,
   columnStyle,
   sortableItemStyle,
-} from './column.styles';
+} from './styles/column.styles';
 import {
   deleteColumn,
-} from './columns.slice';
+} from './stores/columns.slice';
 import {
   removeCardsWithColumnId,
-} from './cards.slice';
+} from '../Card/stores/cards.slice';
 
 interface ColumnProps {
   id: string;

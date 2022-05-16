@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { Static as RtStatic } from 'runtypes';
-import { Cards } from './card.types';
+import { Cards } from '../types/card.types';
 
 interface CardsState {
   nextAvailableId: number,

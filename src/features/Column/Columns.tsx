@@ -3,9 +3,9 @@ import React from 'react';
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import { Static as RtStatic } from 'runtypes';
-import { Columns as ColumnArray } from './column.types';
+import { Columns as ColumnArray } from './types/column.types';
 import Column from './Column';
-import columnsStyle from './columns.styles';
+import columnsStyle from './styles/columns.styles';
 
 interface ColumnsProps {
   columns: RtStatic<typeof ColumnArray>;

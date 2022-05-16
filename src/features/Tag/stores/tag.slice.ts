@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { Static as RtStatic } from 'runtypes';
-import { Tags } from './tag.types';
+import { Tags } from '../types/tag.types';
 
 interface TagsState {
   nextAvailableId: number,

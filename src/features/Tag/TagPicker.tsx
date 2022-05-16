@@ -5,8 +5,8 @@ import { jsx } from '@emotion/react';
 import { Badge } from '@mantine/core';
 import { IoMdCheckmark } from 'react-icons/io';
 import { Static as RtStatic } from 'runtypes';
-import { tagStyle, tagPickerStyle } from './tagPicker.styles';
-import { Tags } from './tag.types';
+import { tagStyle, tagPickerStyle } from './styles/tagPicker.styles';
+import { Tags } from './types/tag.types';
 
 interface TagPickerProps {
   tags: RtStatic<typeof Tags>;

@@ -4,9 +4,9 @@ import React from 'react';
 import { jsx } from '@emotion/react';
 import { Button, Modal, Textarea } from '@mantine/core';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useAppDispatch } from './hooks';
-import { updateCardBriefBody } from './cards.slice';
-import { cardEditFormStyle } from './cardEditForm.styles';
+import { useAppDispatch } from '../../hooks';
+import { updateCardBriefBody } from './stores/cards.slice';
+import { cardEditFormStyle } from './styles/cardEditForm.styles';
 
 interface CardEditFormProps {
   id: string,
