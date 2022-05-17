@@ -11,7 +11,7 @@ import {
 import { jsx } from '@emotion/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useAppDispatch } from '../../hooks';
-import { addTag } from './tag.slice';
+import { addTag } from './stores/tag.slice';
 import { colorInputStyle, tagFormStyle, textInputStyle } from './styles/tagForm.styles';
 
 type Inputs = {
