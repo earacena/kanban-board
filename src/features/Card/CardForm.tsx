@@ -12,7 +12,7 @@ import {
   Button,
 } from '@mantine/core';
 import { Static as RtStatic } from 'runtypes';
-import { Tags } from '../Tag/types/tag.types';
+import { TagArray, TagPicker } from '../Tag';
 import { addCard } from './stores/cards.slice';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import {
@@ -21,7 +21,6 @@ import {
   cardFormStyle,
   colorInputStyle,
 } from './styles/cardForm.styles';
-import { TagPicker } from '../Tag';
 
 type Inputs = {
   brief: string,
@@ -38,7 +37,7 @@ function CardForm({ cardFormOpened, setCardFormOpened, columnId }: CardFormProps
   const dispatch = useAppDispatch();
   const tags = useAppSelector((state) => state.tags.allTags);
   const [color, setColor] = useState('#aabbcc');
-  const [appliedTags, setAppliedTags] = useState<RtStatic<typeof Tags>>([]);
+  const [appliedTags, setAppliedTags] = useState<RtStatic<typeof TagArray>>([]);
   const {
     register,
     handleSubmit,
