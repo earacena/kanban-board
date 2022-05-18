@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import cardsReducer from './features/Card/stores/cards.slice';
-import columnsReducer from './features/Column/stores/columns.slice';
+import { cardsReducer } from './features/Card';
+import { columnsReducer } from './features/Column';
 import { tagsReducer } from './features/Tag';
-import settingsReducer from './features/Settings/stores/settings.slice';
+import { settingsReducer } from './features/Settings';
 
 const store = configureStore({
   reducer: {
