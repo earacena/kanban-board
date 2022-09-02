@@ -1,7 +1,7 @@
 # Kanban Board
 
 ## Description
-A kanban board web application used for task management.
+A kanban board web application used for task management. Deployed live [here](https://kanban-board.onrender.com).
 
 ### Features
 * Columns
