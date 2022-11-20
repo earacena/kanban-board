@@ -1,5 +1,5 @@
 /** @jsxRuntime classic */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 /** @jsx jsx */
 import { css, Global, jsx } from '@emotion/react';
 import {
@@ -54,6 +54,10 @@ function App() {
       coordinateGetter: sortableKeyboardCoordinates,
     }),
   );
+
+  useEffect(() => {
+    document.title = 'Kanban Board';
+  }, []);
 
   const handleDragStart = (event: DragStartEvent) => {
     dispatch(setActiveCardId(event.active.id));
