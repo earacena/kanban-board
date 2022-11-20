@@ -1,9 +1,11 @@
 # Kanban Board
 
 ## Description
+
 A kanban board web application used for task management. Deployed live [here](https://kanban-board.onrender.com).
 
 ### Features
+
 * Columns
   * Add new columns
   * Change column labels
@@ -22,28 +24,36 @@ A kanban board web application used for task management. Deployed live [here](ht
   * Set background color
 
 ### Technologies
-  * Typescript
-  * React
-  * Redux + Redux Toolkit
-  * Emotion (CSS)
-  * Dnd-kit (Drag and Drop)
-  * Mantine components
+
+* Typescript
+* React
+* Redux + Redux Toolkit
+* Emotion (CSS)
+* Dnd-kit (Drag and Drop)
+* Mantine components
 
 ## Usage
+
 ### Download
+
 While in terminal with chosen directory, enter the command:
-```
+
+```bash
 git clone https://github.com/earacena/kanban-board.git
 ```
 
 ### Install
+
 While in the root project folder, enter the command:
-```
+
+```bash
 npm install
 ```
 
 ### Deploy locally for development
+
 Run the following in the root project folder:
-```
+
+```bash
 npm run start
 ```
