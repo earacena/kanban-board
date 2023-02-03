@@ -15,14 +15,6 @@ import {
 } from '@dnd-kit/core';
 import { arrayMove, sortableKeyboardCoordinates } from '@dnd-kit/sortable';
 import {
-  FaTags,
-} from 'react-icons/fa';
-import {
-  BsPlus,
-  BsFile,
-  BsGearFill,
-} from 'react-icons/bs';
-import {
   removeCard,
   setActiveCardId,
   setCardColumnId,
@@ -34,13 +26,11 @@ import { Container } from '../Container';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { TagForm } from '../Tag';
 import {
-  addColumnButtonStyle,
-  addTagButtonStyle,
   appStyle,
   globalStyle,
-  navStyle,
 } from './styles/app.styles';
-import { Settings, openSettingsButtonStyle } from '../Settings';
+import { Settings } from '../Settings';
+import NavBar from '../NavBar';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -107,31 +97,11 @@ function App() {
       <Global
         styles={css({ ...globalStyle, body: { backgroundColor: themeColor } })}
       />
-      <nav css={navStyle}>
-        <button
-          type="button"
-          onClick={handleAddColumn}
-          css={addColumnButtonStyle}
-        >
-          <BsPlus size={20} />
-          <BsFile size={20} />
-        </button>
-        <button
-          css={addTagButtonStyle}
-          type="button"
-          onClick={() => setTagFormOpened(true)}
-        >
-          <BsPlus size={20} />
-          <FaTags size={20} />
-        </button>
-        <button
-          css={openSettingsButtonStyle}
-          type="button"
-          onClick={() => setSettingsOpened(true)}
-        >
-          <BsGearFill size={20} />
-        </button>
-      </nav>
+      <NavBar
+        handleAddColumn={handleAddColumn}
+        setTagFormOpened={setTagFormOpened}
+        setSettingsOpened={setSettingsOpened}
+      />
       <TagForm tagFormOpened={tagFormOpened} setTagFormOpened={setTagFormOpened} />
       <Settings settingsOpened={settingsOpened} setSettingsOpened={setSettingsOpened} />
       <DndContext
