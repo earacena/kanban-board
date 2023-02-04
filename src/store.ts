@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
+import throttle from 'lodash/throttle';
 import { cardsReducer } from './features/Card';
 import { columnsReducer } from './features/Column';
 import { tagsReducer } from './features/Tag';
@@ -18,8 +19,8 @@ export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
 // Save changes to state in browser
-store.subscribe(() => {
+store.subscribe(throttle(() => {
   saveState(store.getState());
-});
+}, 1000));
 
 export default store;
