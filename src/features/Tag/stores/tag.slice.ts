@@ -1,14 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { Static as RtStatic } from 'runtypes';
+import { v4 as uuidv4 } from 'uuid';
 import { Tags } from '../types/tag.types';
 
-interface TagsState {
-  nextAvailableId: number,
+type TagsState = {
   allTags: RtStatic<typeof Tags>,
-}
+};
 
 const initialState: TagsState = {
-  nextAvailableId: 1,
   allTags: [],
 };
 
@@ -22,9 +21,8 @@ const tagsSlice = createSlice({
     }),
     addTag: (state, action) => ({
       ...state,
-      nextAvailableId: state.nextAvailableId + 1,
       allTags: state.allTags.concat({
-        id: `tag-${state.nextAvailableId}`,
+        id: `tag-${uuidv4()}`,
         label: action.payload.label,
         color: action.payload.color,
       }),

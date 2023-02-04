@@ -1,15 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { v4 as uuidv4 } from 'uuid';
 import { Static as RtStatic } from 'runtypes';
 import { Cards } from '../types/card.types';
 
-interface CardsState {
-  nextAvailableId: number,
+type CardsState = {
   allCards: RtStatic<typeof Cards>,
   activeCardId: string,
-}
+};
 
 const initialState: CardsState = {
-  nextAvailableId: 1,
   allCards: [],
   activeCardId: '',
 };
@@ -24,9 +23,8 @@ const cardsSlice = createSlice({
     }),
     addCard: (state, action) => ({
       ...state,
-      nextAvailableId: state.nextAvailableId + 1,
       allCards: state.allCards.concat({
-        id: `card-${state.nextAvailableId}`,
+        id: `card-${uuidv4()}`,
         columnId: action.payload.columnId,
         brief: action.payload.brief,
         body: action.payload.body,

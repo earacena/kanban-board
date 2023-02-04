@@ -1,14 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { v4 as uuidv4 } from 'uuid';
 import { Static as RtStatic } from 'runtypes';
 import { Columns } from '../types/column.types';
 
-interface ColumnsState {
-  nextAvailableId: number,
+type ColumnsState = {
   allColumns: RtStatic<typeof Columns>,
-}
+};
 
 const initialState: ColumnsState = {
-  nextAvailableId: 1,
   allColumns: [],
 };
 
@@ -19,9 +18,8 @@ const columnsSlice = createSlice({
     setColumns: (state, action) => action.payload,
     addColumn: (state, action) => ({
       ...state,
-      nextAvailableId: state.nextAvailableId + 1,
       allColumns: state.allColumns.concat({
-        id: `column-${state.nextAvailableId}`,
+        id: `column-${uuidv4()}`,
         label: action.payload.label,
       }),
     }),
