@@ -45,6 +45,7 @@ function App() {
     }),
   );
 
+  // Set tab title
   useEffect(() => {
     document.title = 'Kanban Board';
   }, []);
