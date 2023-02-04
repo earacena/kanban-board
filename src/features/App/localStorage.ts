@@ -1,6 +1,6 @@
 import type { RootState } from './types/app.types';
 
-export function loadState(): RootState | undefined {
+export function loadState() {
   // Load serialized state from browser's local storage
   try {
     const kanbanAppStateJSON = window.localStorage.getItem('kanbanAppState');
