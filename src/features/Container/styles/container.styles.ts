@@ -42,9 +42,10 @@ export const trashDroppableStyle = css({
   transform: 'translate(-50%, -50%)',
   border: '2px red solid',
   borderRadius: '1rem',
-  padding: '1rem',
-  paddingLeft: '5rem',
-  paddingRight: '5rem',
+  padding: '60px',
+  paddingLeft: '100px',
+  paddingRight: '100px',
   color: 'red',
   boxShadow: '0px 3px 10px rgb(255, 0, 0, 0.3)',
+  listStyle: 'none',
 });

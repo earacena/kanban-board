@@ -5,6 +5,7 @@ import { DragOverlay } from '@dnd-kit/core';
 import { jsx } from '@emotion/react';
 import { GrDrag } from 'react-icons/gr';
 import { createPortal } from 'react-dom';
+import { BsFillTrashFill } from 'react-icons/bs';
 import { Columns } from '../Column';
 import { useAppSelector } from '../../hooks';
 import Droppable from './Droppable';
@@ -49,7 +50,8 @@ function Container() {
         && activeCard
         && (
           <Droppable id="trash" style={trashDroppableStyle}>
-            Drag here to delete
+            Drop here to delete
+            <BsFillTrashFill />
           </Droppable>
         )}
     </div>
