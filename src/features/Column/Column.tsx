@@ -1,24 +1,22 @@
 /** @jsxRuntime classic */
+/** @jsx jsx */
 import React, { useState } from 'react';
 import {
   SortableContext,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
-/** @jsx jsx */
-import { jsx } from '@emotion/react';
-import { BsPenFill, BsTrashFill, BsPlus } from 'react-icons/bs';
-import { Button, Text } from '@mantine/core';
+import { jsx, css } from '@emotion/react';
+import { BsPlus } from 'react-icons/bs';
+import { Button, Text, Title } from '@mantine/core';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { Card, CardForm } from '../Card';
-import { SortableItem, Droppable } from '../Container';
+import SortableItem from '../Container/SortableItem';
+import Droppable from '../Container/Droppable';
 import ColumnEditForm from './ColumnEditForm';
 import {
   cardFormButtonLabelStyle,
   cardFormButtonStyle,
-  columnDeleteButtonStyle,
-  columnEditButtonStyle,
   columnHeaderStyle,
-  columnLabelStyle,
   columnStyle,
   sortableItemStyle,
 } from './styles/column.styles';
@@ -28,16 +26,18 @@ import {
 import {
   removeCardsWithColumnId,
 } from '../Card/stores/cards.slice';
+import ColumnSettingsMenu from './ColumnSettingsMenu';
 
-interface ColumnProps {
+type ColumnProps = {
   id: string;
   label: string;
-}
+};
 
 function Column({ id, label }: ColumnProps) {
   const dispatch = useAppDispatch();
   const [beingEdited, setBeingEdited] = useState(false);
   const [beingDeleted, setBeingDeleted] = useState(false);
+  const [menuOpened, setMenuOpened] = useState(false);
   const [cardFormOpened, setCardFormOpened] = useState(false);
   const cards = useAppSelector((state) => state.cards.allCards);
   const cardsInThisColumn = cards.filter((card) => card.columnId === id);
@@ -47,30 +47,17 @@ function Column({ id, label }: ColumnProps) {
     dispatch(deleteColumn({ id }));
     dispatch(removeCardsWithColumnId({ id }));
   };
-
   return (
     <Droppable id={id} key={id} style={columnStyle}>
-      {!beingEdited && (
-        <span css={columnHeaderStyle}>
-          <p css={columnLabelStyle}>{label}</p>
-          <button
-            css={columnEditButtonStyle}
-            type="button"
-            onClick={() => setBeingEdited(!beingEdited)}
-          >
-            <BsPenFill size={15} />
-          </button>
-          {!beingDeleted && (
-            <button
-              css={columnDeleteButtonStyle}
-              type="button"
-              onClick={() => setBeingDeleted(true)}
-            >
-              <BsTrashFill size={15} />
-            </button>
-          )}
-        </span>
-      )}
+      <span css={css({ ...columnHeaderStyle })}>
+        <Title order={2}>{label}</Title>
+        <ColumnSettingsMenu
+          opened={menuOpened}
+          setOpened={setMenuOpened}
+          setBeingEdited={setBeingEdited}
+          setBeingDeleted={setBeingDeleted}
+        />
+      </span>
       {beingDeleted && (
         <div
           css={{
