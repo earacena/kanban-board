@@ -1,11 +1,14 @@
 /** @jsxRuntime classic */
 import React from 'react';
 /** @jsx jsx */
-import { jsx } from '@emotion/react';
-import { BsGearFill, BsPlus, BsFile } from 'react-icons/bs';
+import { css, jsx } from '@emotion/react';
+import { BsGearFill, BsPlus, BsFileFill } from 'react-icons/bs';
 import { FaTags } from 'react-icons/fa';
-import { addColumnButtonStyle, addTagButtonStyle, navStyle } from './styles/navBar.styles';
-import { openSettingsButtonStyle } from '../Settings';
+import {
+  navStyle,
+  buttonLabelStyle,
+} from './styles/navBar.styles';
+import NavButton from './NavButton';
 
 type NavBarProps = {
   handleAddColumn: () => void,
@@ -20,29 +23,36 @@ function NavBar({
 }: NavBarProps) {
   return (
     <nav css={navStyle}>
-      <button
-        type="button"
+      <NavButton
         onClick={handleAddColumn}
-        css={addColumnButtonStyle}
       >
-        <BsPlus size={20} />
-        <BsFile size={20} />
-      </button>
-      <button
-        css={addTagButtonStyle}
-        type="button"
+        <BsPlus size={17} />
+        <BsFileFill size={17} />
+        <span
+          css={buttonLabelStyle}
+        >
+          ADD COLUMN
+        </span>
+      </NavButton>
+      <NavButton
         onClick={() => setTagFormOpened(true)}
       >
-        <BsPlus size={20} />
-        <FaTags size={20} />
-      </button>
-      <button
-        css={openSettingsButtonStyle}
-        type="button"
+        <BsPlus size={17} css={css({ marginRight: '0' })} />
+        <FaTags size={17} />
+        <span
+          css={buttonLabelStyle}
+        >
+          ADD TAG
+        </span>
+      </NavButton>
+      <NavButton
         onClick={() => setSettingsOpened(true)}
       >
-        <BsGearFill size={20} />
-      </button>
+        <BsGearFill size={17} />
+        <span css={buttonLabelStyle}>
+          OPEN SETTINGS
+        </span>
+      </NavButton>
     </nav>
   );
 }
