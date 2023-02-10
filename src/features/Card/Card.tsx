@@ -16,25 +16,21 @@ import {
 import CardEditForm from './CardEditForm';
 import { cardEditButtonStyle } from './styles/cardEditForm.styles';
 
-interface CardProps {
+type CardProps = {
   id: string;
-  columnId: string,
   brief: string;
   body: string,
   tags: RtStatic<typeof TagArray>,
-}
+};
 
 function Card({
   id,
-  columnId,
   brief,
   body,
   tags,
 }: CardProps) {
   const [cardModalOpened, setCardModalOpened] = useState(false);
   const [cardEditFormOpened, setCardEditFormOpened] = useState(false);
-
-  console.log(`Card ${id} - ${columnId}`);
 
   return (
     <div css={cardStyle}>
