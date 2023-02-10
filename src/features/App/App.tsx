@@ -1,7 +1,8 @@
 /** @jsxRuntime classic */
 import React, { useEffect, useState } from 'react';
 /** @jsx jsx */
-import { css, Global, jsx } from '@emotion/react';
+import { Global, jsx, css } from '@emotion/react';
+
 import {
   DndContext,
   DragEndEvent,
@@ -37,6 +38,7 @@ function App() {
   const [tagFormOpened, setTagFormOpened] = useState(false);
   const [settingsOpened, setSettingsOpened] = useState(false);
   const cards = useAppSelector((state) => state.cards.allCards);
+  const columns = useAppSelector((state) => state.columns.allColumns);
   const { themeColor } = useAppSelector((state) => state.settings);
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -57,10 +59,13 @@ function App() {
   const handleDragOver = (event: DragOverEvent) => {
     const { active, over } = event;
     if (over) {
-      if (over.id.includes('column')) {
+      // Determine if column or card
+      const overColumn = columns.find((c) => c.id === over.id);
+      const overCard = cards.find((c) => c.id === over.id);
+
+      if (overColumn) {
         dispatch(setCardColumnId({ id: active.id, newColumnId: over.id }));
-      } else if (over.id.includes('card')) {
-        const overCard = cards.find((card) => card.id === over.id);
+      } else if (overCard) {
         if (overCard) {
           dispatch(setCardColumnId({ id: active.id, newColumnId: overCard.columnId }));
         }
@@ -70,18 +75,23 @@ function App() {
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
-    if (over && over.id.includes('trash') && active.id !== over.id) {
-      // Card dragged to trashable area, therefore delete
-      dispatch(removeCard({ id: active.id }));
-    }
-    if (over && over.id.includes('card') && active.id !== over.id) {
-      const oldCard = cards.find((card) => card.id === active.id);
-      const newCard = cards.find((card) => card.id === over.id);
-      if (oldCard && newCard) {
-        const oldIndex = cards.indexOf(oldCard);
-        const newIndex = cards.indexOf(newCard);
-        const cardsCopy = [...cards];
-        dispatch(setCards(arrayMove(cardsCopy, oldIndex, newIndex)));
+
+    if (over) {
+      if (over.id === 'trash' && active.id !== over.id) {
+        // Card dragged to trashable area, therefore delete
+        dispatch(removeCard({ id: active.id }));
+      }
+
+      const overCard = cards.find((c) => c.id === over.id);
+      if (overCard && active.id !== over.id) {
+        const oldCard = cards.find((card) => card.id === active.id);
+        const newCard = cards.find((card) => card.id === over.id);
+        if (oldCard && newCard) {
+          const oldIndex = cards.indexOf(oldCard);
+          const newIndex = cards.indexOf(newCard);
+          const cardsCopy = [...cards];
+          dispatch(setCards(arrayMove(cardsCopy, oldIndex, newIndex)));
+        }
       }
     }
 
