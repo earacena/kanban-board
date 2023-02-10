@@ -18,16 +18,15 @@ export const columnStyle = css({
   flexDirection: 'column',
   animation: `${stretch} 0.18s ease-in`,
   border: '2px lightgrey solid',
-  borderRadius: '5px',
+  borderRadius: '20px',
   backgroundColor: '#EEEEEE',
-  minHeight: '50rem',
-  minWidth: '20rem',
+  minWidth: '350px',
   marginRight: '1.5rem',
   marginBottom: '1.5rem',
   color: 'black',
-  padding: '1rem',
-  paddingLeft: '0.1rem',
-  paddingRight: '0.1rem',
+  padding: '20px',
+  paddingLeft: '10px',
+  paddingRight: '10px',
   textAlign: 'center',
   fontSize: '1rem',
   lineHeight: 'normal',
@@ -43,6 +42,7 @@ export const columnHeaderStyle = css({
 
 export const columnLabelStyle = css({
   fontSize: '20px',
+  fontWeight: '700',
 });
 
 export const columnEditButtonStyle = css({
@@ -65,17 +65,21 @@ export const sortableItemStyle = {
   backgroundColor: 'white',
   padding: '1rem',
   margin: '0.25rem',
-  borderRadius: '5px',
+  borderRadius: '10px',
   boxShadow: '0px 3px 10px rgb(0, 0, 0, 0.2)',
 };
 
 export const cardFormButtonStyle = css({
-  borderRadius: '100%',
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'center',
   border: 'none',
-  padding: '0',
+  borderRadius: '40px',
+  padding: '10px',
+  marginTop: '20px',
   marginLeft: 'auto',
   marginRight: 'auto',
-  marginTop: 'auto',
   '&:hover': {
     transform: 'translateY(-2px)',
   },
@@ -83,6 +87,11 @@ export const cardFormButtonStyle = css({
     transform: 'translateY(2px)',
   },
 });
+
+export const cardFormButtonLabelStyle = {
+  color: 'hsla(0, 0%, 14%, 1)',
+  fontWeight: 700,
+};
 
 export const columnDeleteButtonStyle = css({
   border: '1px lightgrey solid',

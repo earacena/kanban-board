@@ -6,13 +6,14 @@ import {
 } from '@dnd-kit/sortable';
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import { BsPenFill, BsFillPlusCircleFill, BsTrashFill } from 'react-icons/bs';
+import { BsPenFill, BsTrashFill, BsPlus } from 'react-icons/bs';
 import { Button, Text } from '@mantine/core';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { Card, CardForm } from '../Card';
 import { SortableItem, Droppable } from '../Container';
 import ColumnEditForm from './ColumnEditForm';
 import {
+  cardFormButtonLabelStyle,
   cardFormButtonStyle,
   columnDeleteButtonStyle,
   columnEditButtonStyle,
@@ -82,7 +83,7 @@ function Column({ id, label }: ColumnProps) {
           }}
         >
           <Text size="sm" weight={500} css={{ margin: '1rem 0.5rem' }}>
-            {`Are you sure you want to delete column '${label}'?`}
+            {`Delete '${label}'?`}
           </Text>
           <Button
             css={{ marginRight: '0.5rem' }}
@@ -132,7 +133,12 @@ function Column({ id, label }: ColumnProps) {
         type="button"
         onClick={() => setCardFormOpened(true)}
       >
-        <BsFillPlusCircleFill size={25} />
+        <BsPlus size={19} />
+        <span
+          css={cardFormButtonLabelStyle}
+        >
+          ADD NEW CARD
+        </span>
       </button>
       <CardForm
         cardFormOpened={cardFormOpened}
