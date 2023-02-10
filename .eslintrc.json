@@ -28,6 +28,7 @@
       "@emotion/no-vanilla": "error",
       "@emotion/import-from-emotion": "error",
       "@emotion/styled-import": "error",
-      "@emotion/pkg-renaming": "error"
+      "@emotion/pkg-renaming": "error",
+      "react/no-unknown-property": ["error", { "ignore": ["css"] }]
     }
 }
