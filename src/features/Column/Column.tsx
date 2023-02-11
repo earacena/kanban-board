@@ -115,9 +115,10 @@ function Column({ id, label }: ColumnProps) {
           </SortableItem>
         ))}
       </SortableContext>
-      <button
+      <Button
         css={cardFormButtonStyle}
         type="button"
+        variant="subtle"
         onClick={() => setCardFormOpened(true)}
       >
         <BsPlus size={19} />
@@ -126,7 +127,7 @@ function Column({ id, label }: ColumnProps) {
         >
           ADD NEW CARD
         </span>
-      </button>
+      </Button>
       <CardForm
         cardFormOpened={cardFormOpened}
         setCardFormOpened={setCardFormOpened}
