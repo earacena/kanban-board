@@ -38,6 +38,7 @@ export const columnHeaderStyle = css({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
+  marginBottom: '20px',
 });
 
 export const columnLabelStyle = css({
@@ -64,7 +65,7 @@ export const sortableItemStyle = {
   border: '1px lightgrey solid',
   backgroundColor: 'white',
   padding: '1rem',
-  margin: '0.25rem',
+  margin: '8px',
   borderRadius: '10px',
   boxShadow: '0px 3px 10px rgb(0, 0, 0, 0.2)',
 };
