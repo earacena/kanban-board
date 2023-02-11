@@ -12,12 +12,12 @@ type Inputs = {
   label: string,
 };
 
-type ColumnEditFormProps = {
+interface ColumnEditFormProps {
   id: string;
   prevLabel: string;
   beingEdited: boolean;
   setBeingEdited: (value: React.SetStateAction<boolean>) => void;
-};
+}
 
 function ColumnEditForm({
   id,
@@ -37,6 +37,7 @@ function ColumnEditForm({
   });
 
   const onSubmit: SubmitHandler<Inputs> = (formData) => {
+    console.log(formData);
     const { label } = formData;
     dispatch(updateColumn({ id, label }));
     setBeingEdited(!beingEdited);
