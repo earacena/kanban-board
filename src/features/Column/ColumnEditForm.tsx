@@ -3,7 +3,8 @@ import React from 'react';
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { Button, TextInput } from '@mantine/core';
+import { BsCheck2, BsX } from 'react-icons/bs';
+import { ActionIcon, Group, TextInput } from '@mantine/core';
 import { useAppDispatch } from '../../hooks';
 import { updateColumn } from './stores/columns.slice';
 import { columnEditFormStyle, textInputStyle } from './styles/columnEditForm.styles';
@@ -37,7 +38,6 @@ function ColumnEditForm({
   });
 
   const onSubmit: SubmitHandler<Inputs> = (formData) => {
-    console.log(formData);
     const { label } = formData;
     dispatch(updateColumn({ id, label }));
     setBeingEdited(!beingEdited);
@@ -48,15 +48,22 @@ function ColumnEditForm({
       css={columnEditFormStyle}
       onSubmit={handleSubmit(onSubmit)}
     >
-      <TextInput
-        css={textInputStyle}
-        label="Column label"
-        aria-label="column-label-input"
-        placeholder="Set the label of the column..."
-        {...register('label', { required: true })}
-        error={errors.label?.type === 'required' ? 'Columns must have a label' : null}
-      />
-      <Button type="submit">Update</Button>
+      <Group position="center" align="center">
+        <TextInput
+          css={textInputStyle}
+          label="Column label"
+          aria-label="column-label-input"
+          placeholder="Set the label of the column..."
+          {...register('label', { required: true })}
+          error={errors.label?.type === 'required' ? 'Columns must have a label' : null}
+        />
+        <ActionIcon type="submit" radius="xl" variant="filled" color="green">
+          <BsCheck2 />
+        </ActionIcon>
+        <ActionIcon type="submit" radius="xl" variant="light" color="red">
+          <BsX />
+        </ActionIcon>
+      </Group>
     </form>
   );
 }
