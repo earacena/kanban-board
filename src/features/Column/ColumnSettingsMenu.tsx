@@ -1,6 +1,8 @@
 import React from 'react';
 import { BsPen, BsThreeDotsVertical, BsTrashFill } from 'react-icons/bs';
-import { ActionIcon, Menu } from '@mantine/core';
+import {
+  ActionIcon, Menu,
+} from '@mantine/core';
 
 type ColumnSettingsMenuProps = {
   opened: boolean;
@@ -31,7 +33,7 @@ function ColumnSettingsMenu({
             setBeingEdited(true);
           }}
         >
-          Edit column title
+          Edit title
         </Menu.Item>
 
         <Menu.Item
