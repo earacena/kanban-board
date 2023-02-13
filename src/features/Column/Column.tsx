@@ -8,7 +8,7 @@ import {
 import { jsx, css } from '@emotion/react';
 import { BsPlus } from 'react-icons/bs';
 import {
-  Button, Modal, Text, Title,
+  Button, Group, Modal, Stack, Text, Title,
 } from '@mantine/core';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { Card, CardForm } from '../Card';
@@ -68,28 +68,31 @@ function Column({ id, label }: ColumnProps) {
             </span>
           )
        }
-      <Modal opened={beingDeleted} onClose={() => setBeingDeleted(false)}>
-        <div>
-          <Text size="sm" weight={500} css={{ margin: '1rem 0.5rem' }}>
+      <Modal opened={beingDeleted} onClose={() => setBeingDeleted(false)} radius="md">
+        <Stack align="center">
+          <Text size="lg" weight={500} css={{ margin: '20px' }}>
             {`Delete '${label}'?`}
           </Text>
-          <Button
-            css={{ marginRight: '0.5rem' }}
-            color="red"
-            variant="light"
-            type="button"
-            onClick={handleDelete}
-          >
-            Delete
-          </Button>
-          <Button
-            type="button"
-            variant="filled"
-            onClick={() => setBeingDeleted(false)}
-          >
-            Cancel
-          </Button>
-        </div>
+          <Group>
+            <Button
+              css={{ marginRight: '0.5rem' }}
+              color="red"
+              variant="light"
+              type="button"
+              onClick={handleDelete}
+            >
+              Delete
+            </Button>
+            <Button
+              type="button"
+              variant="filled"
+              onClick={() => setBeingDeleted(false)}
+            >
+              Cancel
+            </Button>
+
+          </Group>
+        </Stack>
       </Modal>
       <SortableContext items={cardIds} strategy={verticalListSortingStrategy}>
         {cardsInThisColumn.map((card) => (
