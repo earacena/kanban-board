@@ -11,7 +11,7 @@ import {
   Button, Group, Modal, Stack, Text, Title,
 } from '@mantine/core';
 import { useAppSelector, useAppDispatch } from '../../hooks';
-import { Card, CardForm } from '../Card';
+import { Card } from '../Card';
 import SortableItem from '../Container/SortableItem';
 import Droppable from '../Container/Droppable';
 import ColumnEditForm from './ColumnEditForm';
@@ -25,6 +25,7 @@ import {
 import { deleteColumn } from './stores/columns.slice';
 import { removeCardsWithColumnId } from '../Card/stores/cards.slice';
 import ColumnSettingsMenu from './ColumnSettingsMenu';
+import CardForm from '../Card/CardForm';
 
 type ColumnProps = {
   id: string;
@@ -47,28 +48,29 @@ function Column({ id, label }: ColumnProps) {
   };
   return (
     <Droppable id={id} key={id} style={columnStyle}>
-      {
-        beingEdited
-          ? (
-            <ColumnEditForm
-              id={id}
-              prevLabel={label}
-              beingEdited={beingEdited}
-              setBeingEdited={setBeingEdited}
-            />
-          ) : (
-            <span css={css({ ...columnHeaderStyle })}>
-              <Title order={2}>{label}</Title>
-              <ColumnSettingsMenu
-                opened={menuOpened}
-                setOpened={setMenuOpened}
-                setBeingEdited={setBeingEdited}
-                setBeingDeleted={setBeingDeleted}
-              />
-            </span>
-          )
-       }
-      <Modal opened={beingDeleted} onClose={() => setBeingDeleted(false)} radius="md">
+      {beingEdited ? (
+        <ColumnEditForm
+          id={id}
+          prevLabel={label}
+          beingEdited={beingEdited}
+          setBeingEdited={setBeingEdited}
+        />
+      ) : (
+        <span css={css({ ...columnHeaderStyle })}>
+          <Title order={2}>{label}</Title>
+          <ColumnSettingsMenu
+            opened={menuOpened}
+            setOpened={setMenuOpened}
+            setBeingEdited={setBeingEdited}
+            setBeingDeleted={setBeingDeleted}
+          />
+        </span>
+      )}
+      <Modal
+        opened={beingDeleted}
+        onClose={() => setBeingDeleted(false)}
+        radius="md"
+      >
         <Stack align="center">
           <Text size="lg" weight={500} css={{ margin: '20px' }}>
             {`Delete '${label}'?`}
@@ -90,7 +92,6 @@ function Column({ id, label }: ColumnProps) {
             >
               Cancel
             </Button>
-
           </Group>
         </Stack>
       </Modal>
@@ -116,20 +117,20 @@ function Column({ id, label }: ColumnProps) {
           </SortableItem>
         ))}
       </SortableContext>
-      <Button
-        css={cardFormButtonStyle}
-        type="button"
-        variant="subtle"
-        onClick={() => setCardFormOpened(true)}
-      >
-        <BsPlus size={19} />
-        <span css={cardFormButtonLabelStyle}>ADD NEW CARD</span>
-      </Button>
-      <CardForm
-        cardFormOpened={cardFormOpened}
-        setCardFormOpened={setCardFormOpened}
-        columnId={id}
-      />
+      {cardFormOpened && (
+        <CardForm columnId={id} setCardFormOpened={setCardFormOpened} />
+      )}
+      {!cardFormOpened && (
+        <Button
+          css={cardFormButtonStyle}
+          type="button"
+          variant="subtle"
+          onClick={() => setCardFormOpened(true)}
+        >
+          <BsPlus size={19} />
+          <span css={cardFormButtonLabelStyle}>ADD NEW CARD</span>
+        </Button>
+      )}
     </Droppable>
   );
 }
