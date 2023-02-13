@@ -1,122 +1,88 @@
 /** @jsxRuntime classic */
-import React, { useState } from 'react';
-import { useForm, SubmitHandler } from 'react-hook-form';
 /** @jsx jsx */
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
+import React, { SetStateAction } from 'react';
+import { BsPlus } from 'react-icons/bs';
+import { FcCancel } from 'react-icons/fc';
+import { Button } from '@mantine/core';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import {
-  Modal,
-  Textarea,
-  DEFAULT_THEME,
-  ColorInput,
-  Text,
-  Button,
-} from '@mantine/core';
-import { Static as RtStatic } from 'runtypes';
-import { TagArray, TagPicker } from '../Tag';
+  cardFormButtonStyle,
+  sortableItemStyle,
+} from '../Column/styles/column.styles';
+import { useAppDispatch } from '../../hooks';
 import { addCard } from './stores/cards.slice';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import {
-  bodyTextAreaStyle,
-  briefTextAreaStyle,
-  cardFormStyle,
-  colorInputStyle,
-} from './styles/cardForm.styles';
 
-type Inputs = {
-  brief: string,
-  body: string,
+type CardFormProps = {
+  columnId: string;
+  setCardFormOpened: (value: SetStateAction<boolean>) => void;
 };
 
-interface CardFormProps {
-  cardFormOpened: boolean;
-  setCardFormOpened: (value: React.SetStateAction<boolean>) => void;
-  columnId: string;
-}
+type CardFormInputs = {
+  brief: string;
+};
 
-function CardForm({ cardFormOpened, setCardFormOpened, columnId }: CardFormProps) {
+function CardForm({ columnId, setCardFormOpened }: CardFormProps) {
   const dispatch = useAppDispatch();
-  const tags = useAppSelector((state) => state.tags.allTags);
-  const [color, setColor] = useState('#aabbcc');
-  const [appliedTags, setAppliedTags] = useState<RtStatic<typeof TagArray>>([]);
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<Inputs>({
+  } = useForm<CardFormInputs>({
     defaultValues: {
       brief: '',
-      body: '',
     },
   });
 
-  const onSubmit: SubmitHandler<Inputs> = (formData) => {
-    console.log(formData);
-    const { brief, body } = formData;
+  const onSubmit: SubmitHandler<CardFormInputs> = (formData) => {
+    const { brief } = formData;
+
     dispatch(
       addCard({
         brief,
-        body,
         columnId,
-        color,
-        tags: appliedTags,
       }),
     );
+
     reset({
       brief: '',
-      body: '',
     });
-    setAppliedTags([]);
-    setCardFormOpened(false);
   };
-
   return (
-    <Modal
-      opened={cardFormOpened}
-      onClose={() => setCardFormOpened(false)}
-      title="Create a card"
+    <form
+      css={css({ display: 'flex', flexDirection: 'column' })}
+      onSubmit={handleSubmit(onSubmit)}
     >
-      <form css={cardFormStyle} onSubmit={handleSubmit(onSubmit)}>
-        <Textarea
-          css={briefTextAreaStyle}
-          placeholder="Write a brief sentence about the task..."
-          label="Brief description"
-          aria-label="card-brief-textarea"
-          error={errors.brief?.type === 'required' ? 'Cards must have a brief description' : null}
-          {...register('brief', { required: true })}
-          maxRows={2}
-        />
-
-        <Textarea
-          css={bodyTextAreaStyle}
-          placeholder="Write about the task in more detail..."
-          label="Detailed description"
-          aria-label="card-body-textarea"
-          {...register('body')}
-          autosize
-          minRows={4}
-        />
-        <Text size="sm" weight={500}>Assign tag(s) to the task</Text>
-        <TagPicker tags={tags} appliedTags={appliedTags} setAppliedTags={setAppliedTags} />
-        <Text size="sm" weight={500}>Choose a color</Text>
-        <ColorInput
-          css={colorInputStyle}
-          format="hex"
-          value={color}
-          onChange={setColor}
-          withPicker={false}
-          swatches={[
-            ...DEFAULT_THEME.colors.red,
-            ...DEFAULT_THEME.colors.orange,
-            ...DEFAULT_THEME.colors.yellow,
-            ...DEFAULT_THEME.colors.green,
-            ...DEFAULT_THEME.colors.blue,
-            ...DEFAULT_THEME.colors.grape,
-          ]}
-        />
-        <Button type="submit">Create</Button>
-      </form>
-    </Modal>
+      <textarea
+        css={css(sortableItemStyle, {
+          fontFamily: 'Open Sans',
+          flexGrow: 1,
+          resize: 'none',
+          rows: 2,
+        })}
+        aria-label="card brief textarea"
+        {...register('brief', { required: true })}
+      />
+      {errors.brief?.type === 'required'
+        ? 'Cards must have a brief description'
+        : null}
+      <Button
+        css={cardFormButtonStyle}
+        type="submit"
+        leftIcon={<BsPlus size={19} />}
+      >
+        ADD NEW CARD
+      </Button>
+      <Button
+        variant="subtle"
+        color="red"
+        leftIcon={<FcCancel size={19} />}
+        onClick={() => setCardFormOpened(false)}
+      >
+        CANCEL
+      </Button>
+    </form>
   );
 }
 
