@@ -59,7 +59,7 @@ export const columnEditButtonStyle = css({
   },
 });
 
-export const sortableItemStyle = {
+export const sortableItemStyle = css({
   display: 'flex',
   flexDirection: 'row',
   border: '1px lightgrey solid',
@@ -68,7 +68,7 @@ export const sortableItemStyle = {
   margin: '8px',
   borderRadius: '10px',
   boxShadow: '0px 3px 10px rgb(0, 0, 0, 0.2)',
-};
+});
 
 export const cardFormButtonStyle = css({
   display: 'flex',
