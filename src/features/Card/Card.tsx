@@ -19,8 +19,8 @@ import { cardEditButtonStyle } from './styles/cardEditForm.styles';
 type CardProps = {
   id: string;
   brief: string;
-  body: string,
-  tags: RtStatic<typeof TagArray>,
+  body: string | undefined,
+  tags: RtStatic<typeof TagArray> | undefined,
 };
 
 function Card({
@@ -48,7 +48,7 @@ function Card({
           </button>
         )}
       </div>
-      <Tags tags={tags} />
+      {tags && <Tags tags={tags} />}
       <Modal opened={cardModalOpened} onClose={() => setCardModalOpened(false)}>
         {!cardEditFormOpened && (
           <div>
@@ -56,7 +56,7 @@ function Card({
               <p css={briefStyle}>
                 {brief}
               </p>
-              <Tags tags={tags} />
+              {tags && <Tags tags={tags} />}
               <button
                 css={cardEditButtonStyle}
                 type="button"
