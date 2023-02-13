@@ -11,7 +11,7 @@ import { cardEditFormStyle } from './styles/cardEditForm.styles';
 interface CardEditFormProps {
   id: string,
   cardBrief: string;
-  cardBody: string;
+  cardBody: string | undefined;
   cardEditFormOpened: boolean;
   setCardEditFormOpened: (value: React.SetStateAction<boolean>) => void;
 }
