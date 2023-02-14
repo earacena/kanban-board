@@ -55,12 +55,12 @@ function CardForm({ columnId, setCardFormOpened }: CardFormProps) {
       onSubmit={handleSubmit(onSubmit)}
     >
       <textarea
-        css={css(sortableItemStyle, {
+        style={{
+          ...sortableItemStyle,
           fontFamily: 'Open Sans',
           flexGrow: 1,
           resize: 'none',
-          rows: 2,
-        })}
+        } as React.CSSProperties}
         aria-label="card brief textarea"
         {...register('brief', { required: true })}
       />

@@ -100,12 +100,7 @@ function Column({ id, label }: ColumnProps) {
           <SortableItem
             key={card.id}
             id={card.id}
-            style={
-              {
-                ...sortableItemStyle,
-                borderLeft: `3px ${card.color} solid`,
-              } as React.CSSProperties
-            }
+            style={sortableItemStyle as React.CSSProperties}
           >
             <Card
               key={card.id}

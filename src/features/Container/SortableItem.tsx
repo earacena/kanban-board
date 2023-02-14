@@ -1,19 +1,17 @@
-/** @jsxRuntime classic */
 import React from 'react';
-import type { CSSProperties } from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { GrDrag } from 'react-icons/gr';
-/** @jsx jsx */
-import { jsx, css, SerializedStyles } from '@emotion/react';
 
-interface SortableItemProps {
+type SortableItemProps = {
   id: string;
-  style: CSSProperties;
+  style: React.CSSProperties;
   children: React.ReactNode;
-}
+};
 
-function SortableItem({ id, style, children }: SortableItemProps) {
+function SortableItem({
+  id, style, children,
+}: SortableItemProps) {
   const {
     attributes,
     listeners,
@@ -23,17 +21,19 @@ function SortableItem({ id, style, children }: SortableItemProps) {
     transition,
   } = useSortable({ id });
 
-  const sortableStyle: SerializedStyles = css({
+  const sortableStyle = {
     ...style,
     listStyleType: 'none',
     opacity: isDragging ? '0.5' : undefined,
     transform: CSS.Transform.toString(transform),
     transition,
-  });
+  };
 
+  // The wrapping div must use the style tag over emotions css prop, otherwise dragging animations
+  // do not work properly
   return (
-    <div ref={setNodeRef} css={sortableStyle}>
-      <button css={{ backgroundColor: 'white', border: 'none' }} type="button" {...listeners} {...attributes}>
+    <div ref={setNodeRef} style={sortableStyle}>
+      <button style={{ backgroundColor: 'white', border: 'none' }} type="button" {...listeners} {...attributes}>
         <GrDrag />
       </button>
       {children}
