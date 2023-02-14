@@ -4,7 +4,7 @@ import { css, jsx } from '@emotion/react';
 import React, { SetStateAction } from 'react';
 import { BsPlus } from 'react-icons/bs';
 import { FcCancel } from 'react-icons/fc';
-import { Button } from '@mantine/core';
+import { Button, Text } from '@mantine/core';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import {
   cardFormButtonStyle,
@@ -64,9 +64,11 @@ function CardForm({ columnId, setCardFormOpened }: CardFormProps) {
         aria-label="card brief textarea"
         {...register('brief', { required: true })}
       />
-      {errors.brief?.type === 'required'
-        ? 'Cards must have a brief description'
-        : null}
+      <Text color="red" size={14}>
+        {errors.brief?.type === 'required'
+          ? 'Cards must have a brief description'
+          : null}
+      </Text>
       <Button
         css={cardFormButtonStyle}
         type="submit"
