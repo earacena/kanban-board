@@ -5,7 +5,6 @@ export const stretch = keyframes({
     transform: 'scale(0.3)',
     opacity: '0%',
     borderRadius: '100%',
-    height: '0',
   },
   '100%': {
     transform: 'scale(1)',
@@ -21,6 +20,7 @@ export const columnStyle = css({
   borderRadius: '20px',
   backgroundColor: '#EEEEEE',
   minWidth: '350px',
+  maxWidth: '450px',
   marginRight: '1.5rem',
   marginBottom: '1.5rem',
   color: 'black',

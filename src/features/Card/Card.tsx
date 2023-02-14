@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import { Group, Modal } from '@mantine/core';
+import { Group, Modal, Text } from '@mantine/core';
 import { Static as RtStatic } from 'runtypes';
 import { BsPenFill } from 'react-icons/bs';
 import { Tags, TagArray } from '../Tag';
@@ -33,9 +33,9 @@ function Card({
   return (
     <div css={{ ...cardStyle, cursor: 'pointer' }}>
       <Group position="center" onClick={() => setCardModalOpened(true)}>
-        <span>
+        <Text truncate css={{ width: '90%' }}>
           {brief}
-        </span>
+        </Text>
       </Group>
       {tags && <Tags tags={tags} />}
       <Modal

@@ -3,16 +3,14 @@ import React from 'react';
 import { DragOverlay } from '@dnd-kit/core';
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import { GrDrag } from 'react-icons/gr';
 import { createPortal } from 'react-dom';
 import { BsFillTrashFill } from 'react-icons/bs';
+import { Text } from '@mantine/core';
 import { Columns } from '../Column';
 import { useAppSelector } from '../../hooks';
 import Droppable from './Droppable';
 import {
   containerStyle,
-  dragHandleIconStyle,
-  dragOverlayCardStyle,
   dragOverlayStyle,
   trashDroppableStyle,
 } from './styles/container.styles';
@@ -32,16 +30,12 @@ function Container() {
           style={{
             ...dragOverlayStyle,
             borderLeft: `3px ${activeCard?.color} solid`,
-          }}
+          } as React.CSSProperties}
         >
           {activeCardId
             && activeCard
             && (
-              <div css={dragOverlayCardStyle}>
-                <GrDrag css={dragHandleIconStyle} />
-                <p>{activeCard.brief}</p>
-                <div />
-              </div>
+              <Text truncate>{activeCard.brief}</Text>
             )}
         </DragOverlay>,
         document.body,

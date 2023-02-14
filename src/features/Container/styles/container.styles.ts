@@ -17,6 +17,10 @@ export const containerStyle = css({
 });
 
 export const dragOverlayStyle = {
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'center',
   borderRadius: '8px',
   backgroundColor: 'white',
   boxShadow: '0px 3px 10px rgb(0, 0, 0, 0.5)',
@@ -25,12 +29,14 @@ export const dragOverlayStyle = {
 export const dragOverlayCardStyle = css({
   display: 'flex',
   flexDirection: 'row',
-  justifyContent: 'space-between',
   alignItems: 'center',
+  justifyContent: 'center',
+  paddingLeft: '10px',
+  fontFamily: 'Open Sans',
 });
 
 export const dragHandleIconStyle = css({
-  padding: '1.2rem',
+  marginLeft: '15px',
 });
 
 export const trashDroppableStyle = css({
