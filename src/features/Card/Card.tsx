@@ -2,8 +2,7 @@
 import React, { useState } from 'react';
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import { GiOpenBook } from 'react-icons/gi';
-import { Modal } from '@mantine/core';
+import { Group, Modal } from '@mantine/core';
 import { Static as RtStatic } from 'runtypes';
 import { BsPenFill } from 'react-icons/bs';
 import { Tags, TagArray } from '../Tag';
@@ -11,7 +10,6 @@ import {
   briefStyle,
   cardHeaderStyle,
   cardStyle,
-  expandCardButtonStyle,
 } from './styles/card.styles';
 import CardEditForm from './CardEditForm';
 import { cardEditButtonStyle } from './styles/cardEditForm.styles';
@@ -33,23 +31,19 @@ function Card({
   const [cardEditFormOpened, setCardEditFormOpened] = useState(false);
 
   return (
-    <div css={cardStyle}>
-      <div>
+    <div css={{ ...cardStyle, cursor: 'pointer' }}>
+      <Group position="center" onClick={() => setCardModalOpened(true)}>
         <span>
           {brief}
         </span>
-        {body !== '' && (
-          <button
-            type="button"
-            css={expandCardButtonStyle}
-            onClick={() => setCardModalOpened(true)}
-          >
-            <GiOpenBook />
-          </button>
-        )}
-      </div>
+      </Group>
       {tags && <Tags tags={tags} />}
-      <Modal opened={cardModalOpened} onClose={() => setCardModalOpened(false)}>
+      <Modal
+        opened={cardModalOpened}
+        onClose={() => setCardModalOpened(false)}
+        overlayBlur={3}
+        overlayOpacity={0.55}
+      >
         {!cardEditFormOpened && (
           <div>
             <div css={cardHeaderStyle}>
