@@ -64,8 +64,8 @@ export const sortableItemStyle = css({
   flexDirection: 'row',
   border: '1px lightgrey solid',
   backgroundColor: 'white',
-  padding: '1rem',
-  margin: '8px',
+  padding: '15px',
+  margin: '4px',
   borderRadius: '10px',
   boxShadow: '0px 3px 10px rgb(0, 0, 0, 0.2)',
 });
