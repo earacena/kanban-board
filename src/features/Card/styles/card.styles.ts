@@ -17,6 +17,7 @@ export const expandCardButtonStyle = css({
 export const cardHeaderStyle = css({
   display: 'flex',
   flexDirection: 'column',
+  justifyContent: 'flex-start',
   width: '100%',
   borderBottom: '1px grey solid',
   marginBottom: '1rem',

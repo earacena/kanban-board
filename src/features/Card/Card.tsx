@@ -1,18 +1,16 @@
 /** @jsxRuntime classic */
-import React, { useState } from 'react';
 /** @jsx jsx */
+import React, { useState } from 'react';
 import { jsx } from '@emotion/react';
-import { Group, Modal, Text } from '@mantine/core';
+import {
+  Group, Text,
+} from '@mantine/core';
 import { Static as RtStatic } from 'runtypes';
-import { BsPenFill } from 'react-icons/bs';
 import { Tags, TagArray } from '../Tag';
 import {
-  briefStyle,
-  cardHeaderStyle,
   cardStyle,
 } from './styles/card.styles';
-import CardEditForm from './CardEditForm';
-import { cardEditButtonStyle } from './styles/cardEditForm.styles';
+import ExpandedCard from './ExpandedCard';
 
 type CardProps = {
   id: string;
@@ -28,50 +26,22 @@ function Card({
   tags,
 }: CardProps) {
   const [cardModalOpened, setCardModalOpened] = useState(false);
-  const [cardEditFormOpened, setCardEditFormOpened] = useState(false);
+  // const [cardEditFormOpened, setCardEditFormOpened] = useState(false);
 
   return (
-    <div css={{ ...cardStyle, cursor: 'pointer' }}>
+    <div css={{ ...cardStyle, cursor: 'pointer' }} key={id}>
       <Group position="center" onClick={() => setCardModalOpened(true)}>
         <Text truncate css={{ width: '90%' }}>
           {brief}
         </Text>
       </Group>
       {tags && <Tags tags={tags} />}
-      <Modal
-        opened={cardModalOpened}
-        onClose={() => setCardModalOpened(false)}
-        overlayBlur={3}
-        overlayOpacity={0.55}
-      >
-        {!cardEditFormOpened && (
-          <div>
-            <div css={cardHeaderStyle}>
-              <p css={briefStyle}>
-                {brief}
-              </p>
-              {tags && <Tags tags={tags} />}
-              <button
-                css={cardEditButtonStyle}
-                type="button"
-                onClick={() => setCardEditFormOpened(true)}
-              >
-                <BsPenFill size={20} />
-              </button>
-            </div>
-            {body}
-          </div>
-        )}
-        {cardEditFormOpened && (
-          <CardEditForm
-            id={id}
-            cardBrief={brief}
-            cardBody={body}
-            cardEditFormOpened={cardEditFormOpened}
-            setCardEditFormOpened={setCardEditFormOpened}
-          />
-        )}
-      </Modal>
+      <ExpandedCard
+        cardModalOpened={cardModalOpened}
+        setCardModalOpened={setCardModalOpened}
+        brief={brief}
+        body={body}
+      />
     </div>
   );
 }
