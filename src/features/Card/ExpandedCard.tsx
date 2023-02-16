@@ -12,6 +12,7 @@ type ExpandedCardProps = {
   setCardModalOpened: (value: SetStateAction<boolean>) => void;
   brief: string;
   body: string | undefined;
+  columnLabel: string,
 };
 
 function ExpandedCard({
@@ -19,6 +20,7 @@ function ExpandedCard({
   setCardModalOpened,
   brief,
   body,
+  columnLabel,
 }: ExpandedCardProps) {
   return (
     <Modal
@@ -36,6 +38,7 @@ function ExpandedCard({
         </Title>
       )}
     >
+      <Text fw={300}>{`In column '${columnLabel}'`}</Text>
       <div>
         <Title order={2}>
           <Group align="center">

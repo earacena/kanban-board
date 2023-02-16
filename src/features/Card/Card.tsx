@@ -17,6 +17,7 @@ type CardProps = {
   brief: string;
   body: string | undefined,
   tags: RtStatic<typeof TagArray> | undefined,
+  columnLabel: string,
 };
 
 function Card({
@@ -24,6 +25,7 @@ function Card({
   brief,
   body,
   tags,
+  columnLabel,
 }: CardProps) {
   const [cardModalOpened, setCardModalOpened] = useState(false);
   // const [cardEditFormOpened, setCardEditFormOpened] = useState(false);
@@ -41,6 +43,7 @@ function Card({
         setCardModalOpened={setCardModalOpened}
         brief={brief}
         body={body}
+        columnLabel={columnLabel}
       />
     </div>
   );
