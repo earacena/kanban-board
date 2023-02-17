@@ -39,6 +39,7 @@ function Card({
       </Group>
       {tags && <Tags tags={tags} />}
       <ExpandedCard
+        id={id}
         cardModalOpened={cardModalOpened}
         setCardModalOpened={setCardModalOpened}
         brief={brief}

@@ -2,13 +2,15 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import {
+  ActionIcon,
   Group, Modal, Text, Title,
 } from '@mantine/core';
-import React, { SetStateAction } from 'react';
-import { BsCardText, BsTextLeft } from 'react-icons/bs';
+import React, { SetStateAction, useState } from 'react';
+import { BsCardText, BsTextLeft, BsPen } from 'react-icons/bs';
 import CardDescriptionForm from './CardDescriptionForm';
 
 type ExpandedCardProps = {
+  id: string;
   cardModalOpened: boolean;
   setCardModalOpened: (value: SetStateAction<boolean>) => void;
   brief: string;
@@ -17,12 +19,15 @@ type ExpandedCardProps = {
 };
 
 function ExpandedCard({
-  cardModalOpened,
-  setCardModalOpened,
+  id,
   brief,
   body,
   columnLabel,
+  cardModalOpened,
+  setCardModalOpened,
 }: ExpandedCardProps) {
+  const [cardDescriptionFormOpened, setCardDescriptionFormOpened] = useState(false);
+
   return (
     <Modal
       opened={cardModalOpened}
@@ -45,11 +50,20 @@ function ExpandedCard({
           <Group align="center">
             <BsTextLeft />
             Description
+            {!cardDescriptionFormOpened && (
+              <ActionIcon onClick={() => setCardDescriptionFormOpened(true)}>
+                <BsPen />
+              </ActionIcon>
+            )}
           </Group>
         </Title>
         {body}
-        {!body && (
-          <CardDescriptionForm />
+        {cardDescriptionFormOpened && (
+          <CardDescriptionForm
+            id={id}
+            cardBody={body}
+            setCardDescriptionFormOpened={setCardDescriptionFormOpened}
+          />
         )}
       </div>
     </Modal>
