@@ -6,6 +6,7 @@ import {
 } from '@mantine/core';
 import React, { SetStateAction } from 'react';
 import { BsCardText, BsTextLeft } from 'react-icons/bs';
+import CardDescriptionForm from './CardDescriptionForm';
 
 type ExpandedCardProps = {
   cardModalOpened: boolean;
@@ -48,7 +49,7 @@ function ExpandedCard({
         </Title>
         {body}
         {!body && (
-          <Text fw={300}>There is no description for this card.</Text>
+          <CardDescriptionForm />
         )}
       </div>
     </Modal>
