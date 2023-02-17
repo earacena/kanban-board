@@ -47,12 +47,21 @@ const cardsSlice = createSlice({
         allCards: state.allCards.map((c) => (c.id === id ? { ...c, columnId: newColumnId } : c)),
       };
     },
-    updateCardBriefBody: (state, action) => {
-      const { id, newBrief, newBody } = action.payload;
+    updateCardBrief: (state, action) => {
+      const { id, newBrief } = action.payload;
       return {
         ...state,
         allCards: state.allCards.map((c) => (
-          (c.id === id) ? ({ ...c, brief: newBrief, body: newBody }) : c
+          (c.id === id) ? ({ ...c, brief: newBrief }) : c
+        )),
+      };
+    },
+    updateCardBody: (state, action) => {
+      const { id, newBody } = action.payload;
+      return {
+        ...state,
+        allCards: state.allCards.map((c) => (
+          (c.id === id) ? ({ ...c, body: newBody }) : c
         )),
       };
     },
@@ -74,7 +83,8 @@ export const {
   removeCard,
   removeCardsWithColumnId,
   setCardColumnId,
-  updateCardBriefBody,
+  updateCardBrief,
+  updateCardBody,
   setActiveCardId,
   resetActiveCardId,
   resetCards,
