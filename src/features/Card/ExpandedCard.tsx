@@ -3,6 +3,7 @@
 import { jsx } from '@emotion/react';
 import {
   ActionIcon,
+  Badge,
   Group, Modal, Text, Title,
 } from '@mantine/core';
 import React, { SetStateAction, useState } from 'react';
@@ -35,6 +36,7 @@ function ExpandedCard({
       overlayBlur={3}
       overlayOpacity={0.55}
       size="xl"
+      radius="lg"
       title={(
         <Title order={1}>
           <Group align="center">
@@ -44,10 +46,15 @@ function ExpandedCard({
         </Title>
       )}
     >
-      <Text fw={300}>{`In column '${columnLabel}'`}</Text>
-      <div>
+      <Group position="left">
+        <Text fw={300}>In column</Text>
+        <Badge color="gray" size="lg" radius="sm" variant="filled">{columnLabel}</Badge>
+      </Group>
+      <div css={{ marginTop: '60px' }}>
         <Title order={2}>
-          <Group align="center">
+          <Group
+            align="center"
+          >
             <BsTextLeft />
             Description
             {!cardDescriptionFormOpened && (
@@ -57,7 +64,11 @@ function ExpandedCard({
             )}
           </Group>
         </Title>
-        {body}
+        {!cardDescriptionFormOpened && (
+          <Text fw={300}>
+            {body}
+          </Text>
+        )}
         {cardDescriptionFormOpened && (
           <CardDescriptionForm
             id={id}
