@@ -46,8 +46,7 @@ function ExpandedCard({
         </Title>
       )}
     >
-      <Group position="left">
-        <Text fw={300}>In column</Text>
+      <Group position="left" css={{ marginLeft: '50px' }}>
         <Badge color="gray" size="lg" radius="sm" variant="filled">{columnLabel}</Badge>
       </Group>
       <div css={{ marginTop: '60px' }}>
@@ -65,7 +64,7 @@ function ExpandedCard({
           </Group>
         </Title>
         {!cardDescriptionFormOpened && (
-          <Text fw={300}>
+          <Text fw={300} css={{ marginLeft: '42px', marginTop: '10px' }}>
             {body}
           </Text>
         )}
