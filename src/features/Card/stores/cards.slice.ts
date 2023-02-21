@@ -73,6 +73,14 @@ const cardsSlice = createSlice({
       ...state,
       activeCardId: initialState.activeCardId,
     }),
+    updateTags: (state, action) => {
+      const { id, updatedTags } = action.payload;
+
+      return {
+        ...state,
+        allCards: state.allCards.map((c) => ((c.id === id) ? ({ ...c, tags: updatedTags }) : c)),
+      };
+    },
     resetCards: () => initialState,
   },
 });
@@ -87,6 +95,7 @@ export const {
   updateCardBody,
   setActiveCardId,
   resetActiveCardId,
+  updateTags,
   resetCards,
 } = cardsSlice.actions;
 
