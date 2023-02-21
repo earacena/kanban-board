@@ -5,8 +5,8 @@ import { jsx } from '@emotion/react';
 import {
   Group, Text,
 } from '@mantine/core';
-import { Static as RtStatic } from 'runtypes';
-import { Tags, TagArray } from '../Tag';
+import { Tags } from '../Tag';
+import type { TagsType } from '../Tag';
 import {
   cardStyle,
 } from './styles/card.styles';
@@ -16,7 +16,7 @@ type CardProps = {
   id: string;
   brief: string;
   body: string | undefined,
-  tags: RtStatic<typeof TagArray> | undefined,
+  tags: TagsType | undefined,
   columnLabel: string,
 };
 
@@ -44,6 +44,7 @@ function Card({
         setCardModalOpened={setCardModalOpened}
         brief={brief}
         body={body}
+        tags={tags}
         columnLabel={columnLabel}
       />
     </div>
