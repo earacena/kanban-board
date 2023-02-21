@@ -2,23 +2,38 @@ import React from 'react';
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import { Static as RtStatic } from 'runtypes';
 import { Badge } from '@mantine/core';
-import { Tags as TagArray } from './types/tag.types';
 import { tagStyle, tagContainerStyle } from './styles/tags.styles';
+import { useAppSelector } from '../../hooks';
+import type { TagsType } from './types/tag.types';
 
-interface TagsProps {
-  tags: RtStatic<typeof TagArray>;
-}
+type TagsProps = {
+  tags?: TagsType
+};
 
 function Tags({ tags }: TagsProps) {
+  const allTags = useAppSelector((state) => state.tags.allTags);
+
   return (
     <div css={tagContainerStyle}>
-      {tags.map((tag) => (
+      {tags && tags.map((tag) => (
         <Badge
           color={tag.color}
-          size="sm"
-          variant="outline"
+          size="md"
+          radius="sm"
+          variant="filled"
+          css={tagStyle}
+          key={tag.id}
+        >
+          {tag.label}
+        </Badge>
+      ))}
+      {!tags && allTags && allTags.map((tag) => (
+        <Badge
+          color={tag.color}
+          size="md"
+          radius="sm"
+          variant="filled"
           css={tagStyle}
           key={tag.id}
         >
@@ -28,5 +43,9 @@ function Tags({ tags }: TagsProps) {
     </div>
   );
 }
+
+Tags.defaultProps = {
+  tags: undefined,
+};
 
 export default Tags;
