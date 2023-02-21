@@ -1,10 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Static as RtStatic } from 'runtypes';
 import { v4 as uuidv4 } from 'uuid';
-import { Tags } from '../types/tag.types';
+import { TagsType } from '../types/tag.types';
 
 type TagsState = {
-  allTags: RtStatic<typeof Tags>,
+  allTags: TagsType,
 };
 
 const initialState: TagsState = {

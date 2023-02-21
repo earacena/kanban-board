@@ -2,6 +2,7 @@ import {
   Array as RtArray,
   Record as RtRecord,
   String as RtString,
+  Static as RtStatic,
 } from 'runtypes';
 
 export const Tag = RtRecord({
@@ -10,4 +11,5 @@ export const Tag = RtRecord({
   color: RtString,
 });
 
-export const Tags = RtArray(Tag);
+export const TagArray = RtArray(Tag);
+export type TagsType = RtStatic<typeof TagArray>;

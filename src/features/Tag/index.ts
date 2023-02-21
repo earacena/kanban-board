@@ -3,4 +3,4 @@ export { default as TagPicker } from './TagPicker';
 export { default as TagForm } from './TagForm';
 export { default as tagsReducer } from './stores/tag.slice';
 
-export { Tags as TagArray } from './types/tag.types';
+export type { TagsType } from './types/tag.types';

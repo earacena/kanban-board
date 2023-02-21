@@ -4,14 +4,13 @@ import React from 'react';
 import { jsx } from '@emotion/react';
 import { Badge } from '@mantine/core';
 import { IoMdCheckmark } from 'react-icons/io';
-import { Static as RtStatic } from 'runtypes';
 import { tagStyle, tagPickerStyle } from './styles/tagPicker.styles';
-import { Tags } from './types/tag.types';
+import { TagsType } from './types/tag.types';
 
 interface TagPickerProps {
-  tags: RtStatic<typeof Tags>;
-  appliedTags: RtStatic<typeof Tags>;
-  setAppliedTags: (value: React.SetStateAction<RtStatic<typeof Tags>>) => void;
+  tags: TagsType;
+  appliedTags: TagsType;
+  setAppliedTags: (value: React.SetStateAction<TagsType>) => void;
 }
 
 function TagPicker({ tags, appliedTags, setAppliedTags }: TagPickerProps) {
