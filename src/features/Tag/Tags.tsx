@@ -2,16 +2,17 @@ import React from 'react';
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import { Badge } from '@mantine/core';
+import { Badge, MantineSize } from '@mantine/core';
 import { tagStyle, tagContainerStyle } from './styles/tags.styles';
 import { useAppSelector } from '../../hooks';
 import type { TagsType } from './types/tag.types';
 
 type TagsProps = {
-  tags?: TagsType
+  tags?: TagsType,
+  size?: MantineSize | undefined,
 };
 
-function Tags({ tags }: TagsProps) {
+function Tags({ tags, size }: TagsProps) {
   const allTags = useAppSelector((state) => state.tags.allTags);
 
   return (
@@ -19,7 +20,7 @@ function Tags({ tags }: TagsProps) {
       {tags && tags.map((tag) => (
         <Badge
           color={tag.color}
-          size="md"
+          size={size ?? 'sm'}
           radius="sm"
           variant="filled"
           css={tagStyle}
@@ -31,7 +32,7 @@ function Tags({ tags }: TagsProps) {
       {!tags && allTags && allTags.map((tag) => (
         <Badge
           color={tag.color}
-          size="md"
+          size={size ?? 'sm'}
           radius="sm"
           variant="filled"
           css={tagStyle}
@@ -46,6 +47,7 @@ function Tags({ tags }: TagsProps) {
 
 Tags.defaultProps = {
   tags: undefined,
+  size: undefined,
 };
 
 export default Tags;
