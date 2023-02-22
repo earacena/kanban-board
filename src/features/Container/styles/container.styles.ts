@@ -17,8 +17,6 @@ export const containerStyle = css({
 });
 
 export const dragOverlayStyle = {
-  display: 'flex',
-  flexDirection: 'row',
   alignItems: 'center',
   justifyContent: 'center',
   borderRadius: '8px',

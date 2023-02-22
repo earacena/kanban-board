@@ -33,7 +33,7 @@ function SortableItem({
   // do not work properly
   return (
     <div ref={setNodeRef} style={sortableStyle}>
-      <button style={{ backgroundColor: 'white', border: 'none' }} type="button" {...listeners} {...attributes}>
+      <button style={{ backgroundColor: 'white', border: 'none', cursor: 'grab' }} type="button" {...listeners} {...attributes}>
         <GrDrag />
       </button>
       {children}
