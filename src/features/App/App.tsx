@@ -66,9 +66,7 @@ function App() {
       if (overColumn) {
         dispatch(setCardColumnId({ id: active.id, newColumnId: over.id }));
       } else if (overCard) {
-        if (overCard) {
-          dispatch(setCardColumnId({ id: active.id, newColumnId: overCard.columnId }));
-        }
+        dispatch(setCardColumnId({ id: active.id, newColumnId: overCard.columnId }));
       }
     }
   };
@@ -80,6 +78,7 @@ function App() {
       if (over.id === 'trash' && active.id !== over.id) {
         // Card dragged to trashable area, therefore delete
         dispatch(removeCard({ id: active.id }));
+        return;
       }
 
       const overCard = cards.find((c) => c.id === over.id);
