@@ -39,7 +39,13 @@ function CardDescriptionForm({
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      css={{
+        margin: '40px',
+        marginTop: '20px',
+      }}
+    >
       <Stack>
         <textarea
           placeholder="Give this card a more detailed description..."
@@ -47,7 +53,6 @@ function CardDescriptionForm({
           css={{
             fontFamily: 'Open Sans',
             padding: '10px',
-            margin: '10px',
             borderRadius: '10px',
             border: '1px gray solid',
             resize: 'none',
