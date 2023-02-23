@@ -1,9 +1,9 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
-import { TagsType } from '../types/tag.types';
+import type { AddTagPayload, SetTagsPayload, Tags } from '../types/tag.types';
 
 type TagsState = {
-  allTags: TagsType,
+  allTags: Tags,
 };
 
 const initialState: TagsState = {
@@ -14,11 +14,11 @@ const tagsSlice = createSlice({
   name: 'tags',
   initialState,
   reducers: {
-    setTags: (state, action) => ({
+    setTags: (state: TagsState, action: PayloadAction<SetTagsPayload>) => ({
       ...state,
       allCards: action.payload,
     }),
-    addTag: (state, action) => ({
+    addTag: (state: TagsState, action: PayloadAction<AddTagPayload>) => ({
       ...state,
       allTags: state.allTags.concat({
         id: `tag-${uuidv4()}`,

@@ -15,3 +15,12 @@ export const TagArrayType = RtArray(TagType);
 
 export type Tag = RtStatic<typeof TagType>;
 export type Tags = RtStatic<typeof TagArrayType>;
+
+export type SetTagsPayload = {
+  allTags: Tags,
+};
+
+export type AddTagPayload = {
+  label: string,
+  color: string,
+};
