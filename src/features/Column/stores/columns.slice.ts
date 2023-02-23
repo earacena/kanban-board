@@ -1,10 +1,15 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
-import { Static as RtStatic } from 'runtypes';
-import { Columns } from '../types/column.types';
+import type {
+  AddColumnPayload,
+  Columns,
+  DeleteColumnPayload,
+  SetColumnsPayload,
+  UpdateColumnPayload,
+} from '../types/column.types';
 
 type ColumnsState = {
-  allColumns: RtStatic<typeof Columns>,
+  allColumns: Columns;
 };
 
 const initialState: ColumnsState = {
@@ -15,21 +20,38 @@ const columnsSlice = createSlice({
   name: 'columns',
   initialState,
   reducers: {
-    setColumns: (state, action) => action.payload,
-    addColumn: (state, action) => ({
+    setColumns: (
+      state: ColumnsState,
+      action: PayloadAction<SetColumnsPayload>,
+    ) => ({
+      ...state,
+      allColumns: action.payload.allColumns,
+    }),
+    addColumn: (
+      state: ColumnsState,
+      action: PayloadAction<AddColumnPayload>,
+    ) => ({
       ...state,
       allColumns: state.allColumns.concat({
         id: `column-${uuidv4()}`,
         label: action.payload.label,
       }),
     }),
-    deleteColumn: (state, action) => ({
+    deleteColumn: (
+      state: ColumnsState,
+      action: PayloadAction<DeleteColumnPayload>,
+    ) => ({
       ...state,
       allColumns: state.allColumns.filter((c) => c.id !== action.payload.id),
     }),
-    updateColumn: (state, action) => ({
+    updateColumn: (
+      state: ColumnsState,
+      action: PayloadAction<UpdateColumnPayload>,
+    ) => ({
       ...state,
-      allColumns: state.allColumns.map((c) => ((c.id === action.payload.id) ? action.payload : c)),
+      allColumns: state.allColumns.map((c) => (
+        c.id === action.payload.id ? action.payload.updatedColumn : c
+      )),
     }),
     resetColumns: () => initialState,
   },
