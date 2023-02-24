@@ -6,7 +6,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { BsCheck2, BsX } from 'react-icons/bs';
 import { ActionIcon, Group, TextInput } from '@mantine/core';
 import { useAppDispatch } from '../../hooks';
-import { updateColumn } from './stores/columns.slice';
+import { updateColumnLabel } from './stores/columns.slice';
 import { columnEditFormStyle, textInputStyle } from './styles/columnEditForm.styles';
 
 type Inputs = {
@@ -39,7 +39,7 @@ function ColumnEditForm({
 
   const onSubmit: SubmitHandler<Inputs> = (formData) => {
     const { label } = formData;
-    dispatch(updateColumn({ id, label }));
+    dispatch(updateColumnLabel({ columnId: id, updatedColumnLabel: label }));
     setBeingEdited(!beingEdited);
   };
 

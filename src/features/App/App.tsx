@@ -53,7 +53,7 @@ function App() {
   }, []);
 
   const handleDragStart = (event: DragStartEvent) => {
-    dispatch(setActiveCardId(event.active.id));
+    dispatch(setActiveCardId({ activeCardId: event.active.id }));
   };
 
   const handleDragOver = (event: DragOverEvent) => {
@@ -64,9 +64,9 @@ function App() {
       const overCard = cards.find((c) => c.id === over.id);
 
       if (overColumn) {
-        dispatch(setCardColumnId({ id: active.id, newColumnId: over.id }));
+        dispatch(setCardColumnId({ cardId: active.id, newColumnId: over.id }));
       } else if (overCard) {
-        dispatch(setCardColumnId({ id: active.id, newColumnId: overCard.columnId }));
+        dispatch(setCardColumnId({ cardId: active.id, newColumnId: overCard.columnId }));
       }
     }
   };
@@ -77,7 +77,7 @@ function App() {
     if (over) {
       if (over.id === 'trash' && active.id !== over.id) {
         // Card dragged to trashable area, therefore delete
-        dispatch(removeCard({ id: active.id }));
+        dispatch(removeCard({ cardId: active.id }));
         return;
       }
 
@@ -89,7 +89,7 @@ function App() {
           const oldIndex = cards.indexOf(oldCard);
           const newIndex = cards.indexOf(newCard);
           const cardsCopy = [...cards];
-          dispatch(setCards(arrayMove(cardsCopy, oldIndex, newIndex)));
+          dispatch(setCards({ allCards: arrayMove(cardsCopy, oldIndex, newIndex) }));
         }
       }
     }

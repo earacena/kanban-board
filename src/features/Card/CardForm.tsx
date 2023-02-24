@@ -42,6 +42,9 @@ function CardForm({ columnId, setCardFormOpened }: CardFormProps) {
       addCard({
         brief,
         columnId,
+        body: undefined,
+        color: undefined,
+        tags: [],
       }),
     );
 

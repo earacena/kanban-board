@@ -43,9 +43,10 @@ function Column({ id, label }: ColumnProps) {
   const cardIds = cardsInThisColumn.map((card) => card.id.toString());
 
   const handleDelete = () => {
-    dispatch(deleteColumn({ id }));
-    dispatch(removeCardsWithColumnId({ id }));
+    dispatch(deleteColumn({ columnId: id }));
+    dispatch(removeCardsWithColumnId({ columnId: id }));
   };
+
   return (
     <Droppable id={id} key={id} style={columnStyle}>
       {beingEdited ? (
