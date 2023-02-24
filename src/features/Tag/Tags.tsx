@@ -5,7 +5,7 @@ import { jsx } from '@emotion/react';
 import { Badge, MantineSize } from '@mantine/core';
 import { tagStyle, tagContainerStyle } from './styles/tags.styles';
 import { useAppSelector } from '../../hooks';
-import type { TagsType } from './types/tag.types';
+import type { Tags as TagsType } from './types/tag.types';
 
 type TagsProps = {
   tags?: TagsType,

@@ -2,14 +2,13 @@ import React from 'react';
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import { Static as RtStatic } from 'runtypes';
-import { Columns as ColumnArray } from './types/column.types';
+import type { Columns as ColumnsType } from './types/column.types';
 import Column from './Column';
 import columnsStyle from './styles/columns.styles';
 
-interface ColumnsProps {
-  columns: RtStatic<typeof ColumnArray>;
-}
+type ColumnsProps = {
+  columns: ColumnsType;
+};
 
 function Columns({ columns }: ColumnsProps) {
   return (

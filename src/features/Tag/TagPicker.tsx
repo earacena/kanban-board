@@ -5,13 +5,13 @@ import { jsx } from '@emotion/react';
 import { Badge } from '@mantine/core';
 import { IoMdCheckmark } from 'react-icons/io';
 import { tagStyle, tagPickerStyle } from './styles/tagPicker.styles';
-import { TagsType } from './types/tag.types';
+import type { Tags } from './types/tag.types';
 
-interface TagPickerProps {
-  tags: TagsType;
-  appliedTags: TagsType;
-  setAppliedTags: (value: React.SetStateAction<TagsType>) => void;
-}
+type TagPickerProps = {
+  tags: Tags;
+  appliedTags: Tags;
+  setAppliedTags: (value: React.SetStateAction<Tags>) => void;
+};
 
 function TagPicker({ tags, appliedTags, setAppliedTags }: TagPickerProps) {
   return (

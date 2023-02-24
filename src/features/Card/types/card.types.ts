@@ -5,6 +5,7 @@ import {
   Optional as RtOptional,
   Static as RtStatic,
 } from 'runtypes';
+import { UniqueIdentifier } from '@dnd-kit/core';
 import { TagsType } from '../../Tag';
 import { Tags } from '../../Tag/types/tag.types';
 
@@ -41,7 +42,7 @@ export type AddCardPayload = {
   tags: TagsType;
 };
 export type RemoveCardPayload = {
-  id: string;
+  cardId: UniqueIdentifier;
 };
 
 export type RemoveCardsWithColumnIdPayload = {
@@ -49,8 +50,8 @@ export type RemoveCardsWithColumnIdPayload = {
 };
 
 export type SetCardColumnIdPayload = {
-  id: string;
-  newColumnId: string;
+  cardId: UniqueIdentifier;
+  newColumnId: UniqueIdentifier;
 };
 
 export type UpdateCardBriefPayload = {
@@ -64,7 +65,7 @@ export type UpdateCardBodyPayload = {
 };
 
 export type SetActiveCardIdPayload = {
-  activeCardId: string;
+  activeCardId: UniqueIdentifier;
 };
 
 export type UpdateTagsPayload = {

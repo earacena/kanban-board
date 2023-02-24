@@ -24,10 +24,10 @@ export type AddColumnPayload = {
 };
 
 export type DeleteColumnPayload = {
-  id: string,
+  columnId: string,
 };
 
 export type UpdateColumnPayload = {
-  id: string,
-  updatedColumn: Column,
+  columnId: string,
+  updatedColumnLabel: string,
 };
