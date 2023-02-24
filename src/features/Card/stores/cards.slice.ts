@@ -47,7 +47,7 @@ const cardsSlice = createSlice({
       action: PayloadAction<RemoveCardPayload>,
     ) => ({
       ...state,
-      allCards: state.allCards.filter((c) => c.id !== action.payload.id),
+      allCards: state.allCards.filter((c) => c.id !== action.payload.cardId),
     }),
     removeCardsWithColumnId: (
       state: CardsState,
@@ -62,10 +62,12 @@ const cardsSlice = createSlice({
       state: CardsState,
       action: PayloadAction<SetCardColumnIdPayload>,
     ) => {
-      const { id, newColumnId } = action.payload;
+      const { cardId, newColumnId } = action.payload;
       return {
         ...state,
-        allCards: state.allCards.map((c) => (c.id === id ? { ...c, columnId: newColumnId } : c)),
+        allCards: state.allCards.map(
+          (c) => (c.id === cardId ? { ...c, columnId: String(newColumnId) } : c),
+        ),
       };
     },
     updateCardBrief: (
@@ -93,7 +95,7 @@ const cardsSlice = createSlice({
       action: PayloadAction<SetActiveCardIdPayload>,
     ) => ({
       ...state,
-      activeCardId: action.payload.activeCardId,
+      activeCardId: String(action.payload.activeCardId),
     }),
     resetActiveCardId: (state: CardsState) => ({
       ...state,

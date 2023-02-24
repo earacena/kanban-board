@@ -42,15 +42,17 @@ const columnsSlice = createSlice({
       action: PayloadAction<DeleteColumnPayload>,
     ) => ({
       ...state,
-      allColumns: state.allColumns.filter((c) => c.id !== action.payload.id),
+      allColumns: state.allColumns.filter((c) => c.id !== action.payload.columnId),
     }),
-    updateColumn: (
+    updateColumnLabel: (
       state: ColumnsState,
       action: PayloadAction<UpdateColumnPayload>,
     ) => ({
       ...state,
       allColumns: state.allColumns.map((c) => (
-        c.id === action.payload.id ? action.payload.updatedColumn : c
+        c.id === action.payload.columnId
+          ? { ...c, label: action.payload.updatedColumnLabel }
+          : c
       )),
     }),
     resetColumns: () => initialState,
@@ -61,7 +63,7 @@ export const {
   setColumns,
   addColumn,
   deleteColumn,
-  updateColumn,
+  updateColumnLabel,
   resetColumns,
 } = columnsSlice.actions;
 
