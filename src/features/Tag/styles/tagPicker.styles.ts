@@ -2,9 +2,9 @@ import { css } from '@emotion/react';
 
 export const tagPickerStyle = css({
   display: 'flex',
-  padding: '0.5rem',
   justifyContent: 'center',
   flexWrap: 'wrap',
+  marginLeft: '10px',
 });
 
 export const tagStyle = css({

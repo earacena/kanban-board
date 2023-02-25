@@ -67,7 +67,7 @@ function TagPicker({
           color={tag.color}
           key={tag.id}
           radius="sm"
-          size="lg"
+          size="md"
           onClick={() => (
             appliedTags?.find((t) => t.id === tag.id)
               ? updateCardTags(appliedTags.filter((t) => t.id !== tag.id))

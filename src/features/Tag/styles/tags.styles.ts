@@ -7,9 +7,7 @@ export const tagStyle = css({
 
 export const tagContainerStyle = css({
   display: 'flex',
-  justifyContent: 'center',
   alignItems: 'center',
-  width: '100%',
   flexWrap: 'wrap',
-  marginBottom: '10px',
+  marginLeft: '10px',
 });
