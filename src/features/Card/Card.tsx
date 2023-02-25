@@ -32,12 +32,12 @@ function Card({
 
   return (
     <div css={{ ...cardStyle, cursor: 'pointer' }} key={id}>
-      <Group position="center" onClick={() => setCardModalOpened(true)}>
-        <Text truncate css={{ width: '90%' }}>
+      {tags && <Tags appliedTags={tags} />}
+      <Group position="center" onClick={() => setCardModalOpened(true)} css={{ marginTop: '10px' }}>
+        <Text fw={300} truncate css={{ width: '90%' }}>
           {brief}
         </Text>
       </Group>
-      {tags && <Tags appliedTags={tags} />}
       <ExpandedCard
         id={id}
         cardModalOpened={cardModalOpened}
