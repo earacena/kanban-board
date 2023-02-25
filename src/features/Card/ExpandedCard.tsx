@@ -8,7 +8,7 @@ import React, { SetStateAction, useState } from 'react';
 import { BsCardText, BsTextLeft, BsPen } from 'react-icons/bs';
 import { MdArrowBackIosNew, MdArrowForwardIos } from 'react-icons/md';
 import CardDescriptionForm from './CardDescriptionForm';
-import { TagPicker, Tags, TagsType } from '../Tag';
+import { TagPickerForm, Tags, TagsType } from '../Tag';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { updateTags } from './stores/cards.slice';
 
@@ -71,7 +71,7 @@ function ExpandedCard({
         <Text fw={300} css={{ minWidth: 'fit-content' }}>Tags</Text>
         {!tagPickerOpened && <Tags appliedTags={tags} size="xl" />}
         {tagPickerOpened && (
-          <TagPicker
+          <TagPickerForm
             tags={allTags}
             appliedTags={tags}
             updateCardTags={updateCardTags}

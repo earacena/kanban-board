@@ -1,5 +1,5 @@
 export { default as Tags } from './Tags';
-export { default as TagPicker } from './TagPicker';
+export { default as TagPickerForm } from './TagPickerForm';
 export { default as TagForm } from './TagForm';
 export { default as tagsReducer } from './stores/tag.slice';
 
