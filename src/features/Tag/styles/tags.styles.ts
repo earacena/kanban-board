@@ -1,10 +1,13 @@
 import { css } from '@emotion/react';
 
 export const tagStyle = css({
-  margin: '0.1rem',
+  margin: '5px',
+  cursor: 'pointer',
 });
 
 export const tagContainerStyle = css({
-  margin: 'auto',
-  marginBottom: '0.5rem',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  marginBottom: '10px',
 });
