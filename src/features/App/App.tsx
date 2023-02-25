@@ -25,7 +25,6 @@ import {
 import { addColumn } from '../Column';
 import { Container } from '../Container';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { TagForm } from '../Tag';
 import {
   appStyle,
   globalStyle,
@@ -35,7 +34,6 @@ import NavBar from '../NavBar';
 
 function App() {
   const dispatch = useAppDispatch();
-  const [tagFormOpened, setTagFormOpened] = useState(false);
   const [settingsOpened, setSettingsOpened] = useState(false);
   const cards = useAppSelector((state) => state.cards.allCards);
   const columns = useAppSelector((state) => state.columns.allColumns);
@@ -109,10 +107,8 @@ function App() {
       />
       <NavBar
         handleAddColumn={handleAddColumn}
-        setTagFormOpened={setTagFormOpened}
         setSettingsOpened={setSettingsOpened}
       />
-      <TagForm tagFormOpened={tagFormOpened} setTagFormOpened={setTagFormOpened} />
       <Settings settingsOpened={settingsOpened} setSettingsOpened={setSettingsOpened} />
       <DndContext
         collisionDetection={closestCenter}

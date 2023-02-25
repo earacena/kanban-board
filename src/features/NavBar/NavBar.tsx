@@ -1,9 +1,8 @@
 /** @jsxRuntime classic */
 import React from 'react';
 /** @jsx jsx */
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 import { BsGearFill, BsPlus, BsFileFill } from 'react-icons/bs';
-import { FaTags } from 'react-icons/fa';
 import {
   navStyle,
   buttonLabelStyle,
@@ -12,13 +11,11 @@ import NavButton from './NavButton';
 
 type NavBarProps = {
   handleAddColumn: () => void,
-  setTagFormOpened: (value: React.SetStateAction<boolean>) => void,
   setSettingsOpened: (value: React.SetStateAction<boolean>) => void,
 };
 
 function NavBar({
   handleAddColumn,
-  setTagFormOpened,
   setSettingsOpened,
 }: NavBarProps) {
   return (
@@ -32,17 +29,6 @@ function NavBar({
           css={buttonLabelStyle}
         >
           ADD COLUMN
-        </span>
-      </NavButton>
-      <NavButton
-        onClick={() => setTagFormOpened(true)}
-      >
-        <BsPlus size={17} css={css({ marginRight: '0' })} />
-        <FaTags size={17} />
-        <span
-          css={buttonLabelStyle}
-        >
-          ADD TAG
         </span>
       </NavButton>
       <NavButton
