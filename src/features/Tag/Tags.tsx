@@ -3,50 +3,39 @@ import React from 'react';
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import { Badge, MantineSize } from '@mantine/core';
-import { tagStyle, tagContainerStyle } from './styles/tags.styles';
-import { useAppSelector } from '../../hooks';
+import { tagContainerStyle } from './styles/tags.styles';
 import type { Tags as TagsType } from './types/tag.types';
 
 type TagsProps = {
-  tags?: TagsType,
-  size?: MantineSize | undefined,
+  appliedTags?: TagsType;
+  size?: MantineSize | undefined;
 };
 
-function Tags({ tags, size }: TagsProps) {
-  const allTags = useAppSelector((state) => state.tags.allTags);
-
+function Tags({
+  appliedTags,
+  size,
+}: TagsProps) {
   return (
     <div css={tagContainerStyle}>
-      {tags && tags.map((tag) => (
-        <Badge
-          color={tag.color}
-          size={size ?? 'sm'}
-          radius="sm"
-          variant="filled"
-          css={tagStyle}
-          key={tag.id}
-        >
-          {tag.label}
-        </Badge>
-      ))}
-      {!tags && allTags && allTags.map((tag) => (
-        <Badge
-          color={tag.color}
-          size={size ?? 'sm'}
-          radius="sm"
-          variant="filled"
-          css={tagStyle}
-          key={tag.id}
-        >
-          {tag.label}
-        </Badge>
-      ))}
+      {appliedTags
+        && appliedTags.map((tag) => (
+          <Badge
+            color={tag.color}
+            size={size ?? 'sm'}
+            radius="sm"
+            variant="filled"
+            css={{ marginLeft: '5px' }}
+            key={tag.id}
+          >
+            {tag.label}
+          </Badge>
+        ))}
     </div>
   );
 }
 
 Tags.defaultProps = {
-  tags: undefined,
+  appliedTags: undefined,
   size: undefined,
 };
 

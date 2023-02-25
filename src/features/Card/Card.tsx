@@ -37,7 +37,7 @@ function Card({
           {brief}
         </Text>
       </Group>
-      {tags && <Tags tags={tags} />}
+      {tags && <Tags appliedTags={tags} />}
       <ExpandedCard
         id={id}
         cardModalOpened={cardModalOpened}
