@@ -63,13 +63,12 @@ function ExpandedCard({
     >
       <div
         css={{
-          fontFamily: 'Open Sans',
           display: 'flex',
           alignItems: 'center',
           marginLeft: '50px',
         }}
       >
-        Tags
+        <Text fw={300} css={{ minWidth: 'fit-content' }}>Tags</Text>
         {!tagPickerOpened && <Tags appliedTags={tags} size="xl" />}
         {tagPickerOpened && (
           <TagPicker

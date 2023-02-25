@@ -9,5 +9,7 @@ export const tagContainerStyle = css({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
+  width: '100%',
+  flexWrap: 'wrap',
   marginBottom: '10px',
 });
