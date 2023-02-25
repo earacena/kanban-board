@@ -82,8 +82,8 @@ function ExpandedCard({
           onClick={() => setTagPickerOpened(!tagPickerOpened)}
           css={{ marginLeft: '10px' }}
         >
-          {!tagPickerOpened && <MdArrowBackIosNew />}
-          {tagPickerOpened && <MdArrowForwardIos />}
+          {tagPickerOpened && <MdArrowBackIosNew />}
+          {!tagPickerOpened && <MdArrowForwardIos />}
         </ActionIcon>
       </div>
       <div css={{ marginTop: '60px' }}>
