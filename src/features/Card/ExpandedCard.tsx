@@ -2,24 +2,24 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import {
-  ActionIcon,
-  Badge,
-  Group, Modal, Text, Title,
+  ActionIcon, Badge, Group, Modal, Text, Title,
 } from '@mantine/core';
 import React, { SetStateAction, useState } from 'react';
 import { BsCardText, BsTextLeft, BsPen } from 'react-icons/bs';
+import { MdArrowBackIosNew, MdArrowForwardIos } from 'react-icons/md';
 import CardDescriptionForm from './CardDescriptionForm';
 import { TagPicker, Tags, TagsType } from '../Tag';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { updateTags } from './stores/cards.slice';
 
 type ExpandedCardProps = {
-  id: string,
-  cardModalOpened: boolean,
-  setCardModalOpened: (value: SetStateAction<boolean>) => void,
-  brief: string,
-  body: string | undefined,
-  tags: TagsType | undefined,
-  columnLabel: string,
+  id: string;
+  cardModalOpened: boolean;
+  setCardModalOpened: (value: SetStateAction<boolean>) => void;
+  brief: string;
+  body: string | undefined;
+  tags: TagsType | undefined;
+  columnLabel: string;
 };
 
 function ExpandedCard({
@@ -31,9 +31,16 @@ function ExpandedCard({
   cardModalOpened,
   setCardModalOpened,
 }: ExpandedCardProps) {
+  const dispatch = useAppDispatch();
   const allTags = useAppSelector((state) => state.tags.allTags);
+
   const [cardDescriptionFormOpened, setCardDescriptionFormOpened] = useState(false);
-  const [appliedTags, setAppliedTags] = useState<TagsType | []>(tags ?? []);
+  const [tagPickerOpened, setTagPickerOpened] = useState(false);
+
+  const updateCardTags = (updatedTags: TagsType) => {
+    dispatch(updateTags({ id, updatedTags }));
+  };
+
   return (
     <Modal
       opened={cardModalOpened}
@@ -47,26 +54,42 @@ function ExpandedCard({
           <Group align="center">
             <BsCardText />
             {brief}
-            <Badge color="gray" size="lg" radius="sm" variant="filled">{columnLabel}</Badge>
+            <Badge color="gray" size="lg" radius="sm" variant="filled">
+              {columnLabel}
+            </Badge>
           </Group>
         </Title>
       )}
     >
-      <Group position="left" css={{ marginLeft: '50px' }}>
-        {false && <Tags size="lg" /> }
-        {false && (
-        <TagPicker
-          tags={allTags}
-          appliedTags={appliedTags}
-          setAppliedTags={setAppliedTags}
-        />
+      <div
+        css={{
+          fontFamily: 'Open Sans',
+          display: 'flex',
+          alignItems: 'center',
+          marginLeft: '50px',
+        }}
+      >
+        Tags
+        {!tagPickerOpened && <Tags appliedTags={tags} size="xl" />}
+        {tagPickerOpened && (
+          <TagPicker
+            tags={allTags}
+            appliedTags={tags}
+            updateCardTags={updateCardTags}
+          />
         )}
-      </Group>
+        <ActionIcon
+          variant="filled"
+          onClick={() => setTagPickerOpened(!tagPickerOpened)}
+          css={{ marginLeft: '10px' }}
+        >
+          {!tagPickerOpened && <MdArrowBackIosNew />}
+          {tagPickerOpened && <MdArrowForwardIos />}
+        </ActionIcon>
+      </div>
       <div css={{ marginTop: '60px' }}>
         <Title order={2}>
-          <Group
-            align="center"
-          >
+          <Group align="center">
             <BsTextLeft />
             Description
             {!cardDescriptionFormOpened && (
