@@ -55,7 +55,7 @@ function ColumnEditForm({
         {...register('label', { required: true })}
         error={errors.label?.type === 'required' ? 'Columns must have a label' : null}
       />
-      <ActionIcon type="submit" radius="xl" variant="filled" color="green" css={{ marginLeft: '20px' }}>
+      <ActionIcon type="submit" radius="xl" variant="filled" color="blue" css={{ marginLeft: '20px' }}>
         <BsCheck2 />
       </ActionIcon>
       <ActionIcon type="submit" radius="xl" variant="light" color="red" css={{ marginLeft: '20px' }}>
