@@ -8,10 +8,21 @@ import {
 export const BoardType = RtRecord({
   id: RtString,
   label: RtString,
-  columnId: RtString,
+  columnIds: RtArray(RtString),
 });
 
 export const BoardArrayType = RtArray(BoardType);
-
 export type Board = RtStatic<typeof BoardType>;
 export type Boards = RtStatic<typeof BoardArrayType>;
+
+export type SetBoardsPayload = {
+  allBoards: Boards,
+};
+
+export type AddBoardPayload = {
+  label: string,
+};
+
+export type RemoveBoardPayload = {
+  boardId: string,
+};
