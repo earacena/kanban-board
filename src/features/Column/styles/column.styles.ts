@@ -19,7 +19,7 @@ export const columnStyle = css({
   borderRadius: '20px',
   backgroundColor: '#EEEEEE',
   minWidth: '350px',
-  maxWidth: '450px',
+  maxWidth: '350px',
   marginRight: '1.5rem',
   marginBottom: '1.5rem',
   color: 'black',

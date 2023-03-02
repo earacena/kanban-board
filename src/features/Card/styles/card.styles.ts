@@ -3,9 +3,9 @@ import { css } from '@emotion/react';
 export const cardStyle = css({
   display: 'flex',
   flexDirection: 'column',
-  width: '100%',
   height: '100%',
-  margin: 'auto',
+  flexGrow: 1,
+  alignItems: 'center',
   cursor: 'pointer',
 });
 
