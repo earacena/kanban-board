@@ -25,12 +25,10 @@ import {
 import { addColumn } from '../Column';
 import { Container } from '../Container';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import {
-  appStyle,
-  globalStyle,
-} from './styles/app.styles';
+import { appStyle, globalStyle } from './styles/app.styles';
 import { Settings } from '../Settings';
 import NavBar from '../NavBar';
+import SideBar from '../SideBar';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -64,7 +62,9 @@ function App() {
       if (overColumn) {
         dispatch(setCardColumnId({ cardId: active.id, newColumnId: over.id }));
       } else if (overCard) {
-        dispatch(setCardColumnId({ cardId: active.id, newColumnId: overCard.columnId }));
+        dispatch(
+          setCardColumnId({ cardId: active.id, newColumnId: overCard.columnId }),
+        );
       }
     }
   };
@@ -87,7 +87,9 @@ function App() {
           const oldIndex = cards.indexOf(oldCard);
           const newIndex = cards.indexOf(newCard);
           const cardsCopy = [...cards];
-          dispatch(setCards({ allCards: arrayMove(cardsCopy, oldIndex, newIndex) }));
+          dispatch(
+            setCards({ allCards: arrayMove(cardsCopy, oldIndex, newIndex) }),
+          );
         }
       }
     }
@@ -98,27 +100,50 @@ function App() {
   const handleAddColumn = () => dispatch(addColumn({ label: 'Column' }));
 
   return (
-    <div
-      className="App"
-      css={appStyle}
-    >
+    <div className="App" css={appStyle}>
       <Global
-        styles={css({ ...globalStyle, body: { backgroundColor: themeColor } })}
+        styles={css({
+          ...globalStyle,
+          html: {
+            height: '100%',
+          },
+          body: {
+            backgroundColor: themeColor,
+            margin: 0,
+            padding: 0,
+            minHeight: '100%',
+            overflow: 'auto',
+            fontFamily: 'Open Sans',
+          },
+        })}
       />
-      <NavBar
-        handleAddColumn={handleAddColumn}
-        setSettingsOpened={setSettingsOpened}
-      />
-      <Settings settingsOpened={settingsOpened} setSettingsOpened={setSettingsOpened} />
-      <DndContext
-        collisionDetection={closestCenter}
-        sensors={sensors}
-        onDragStart={handleDragStart}
-        onDragOver={handleDragOver}
-        onDragEnd={handleDragEnd}
+      <SideBar />
+      <div
+        css={{
+          display: 'flex',
+          flexDirection: 'column',
+          flexGrow: 1,
+          overflowY: 'auto',
+        }}
       >
-        <Container />
-      </DndContext>
+        <NavBar
+          handleAddColumn={handleAddColumn}
+          setSettingsOpened={setSettingsOpened}
+        />
+        <Settings
+          settingsOpened={settingsOpened}
+          setSettingsOpened={setSettingsOpened}
+        />
+        <DndContext
+          collisionDetection={closestCenter}
+          sensors={sensors}
+          onDragStart={handleDragStart}
+          onDragOver={handleDragOver}
+          onDragEnd={handleDragEnd}
+        >
+          <Container />
+        </DndContext>
+      </div>
     </div>
   );
 }
