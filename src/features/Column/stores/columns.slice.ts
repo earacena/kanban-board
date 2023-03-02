@@ -35,6 +35,7 @@ const columnsSlice = createSlice({
       allColumns: state.allColumns.concat({
         id: `column-${uuidv4()}`,
         label: action.payload.label,
+        boardId: action.payload.boardId,
       }),
     }),
     deleteColumn: (
