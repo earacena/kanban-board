@@ -52,13 +52,15 @@ function BoardForm({ setBoardFormOpened }: BoardFormProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} css={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <textarea
         style={{
           ...sortableItemStyle,
           fontFamily: 'Open Sans',
           flexGrow: 1,
           resize: 'none',
+          width: '100%',
+          height: '30px',
         } as React.CSSProperties}
         aria-label="board label"
         {...register('label', { required: true })}
