@@ -7,8 +7,8 @@ import { Button, Text } from '@mantine/core';
 import { BsPlus } from 'react-icons/bs';
 import { FcCancel } from 'react-icons/fc';
 import { cardFormButtonStyle, sortableItemStyle } from '../Column/styles/column.styles';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { addBoard, setSelectedBoard } from './stores/boards.slice';
+import { useAppDispatch } from '../../hooks';
+import { addBoard } from './stores/boards.slice';
 
 type Inputs = {
   label: string;
@@ -20,7 +20,6 @@ type BoardFormProps = {
 
 function BoardForm({ setBoardFormOpened }: BoardFormProps) {
   const dispatch = useAppDispatch();
-  const boards = useAppSelector((state) => state.boards.allBoards);
 
   const {
     register,
@@ -40,10 +39,6 @@ function BoardForm({ setBoardFormOpened }: BoardFormProps) {
       addBoard({
         label,
       }),
-    );
-
-    dispatch(
-      setSelectedBoard({ boardId: boards[boards.length - 1].id }),
     );
 
     reset({

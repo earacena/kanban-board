@@ -29,13 +29,17 @@ const boardsSlice = createSlice({
       ...state,
       allBoards: action.payload.allBoards,
     }),
-    addBoard: (state: BoardsState, action: PayloadAction<AddBoardPayload>) => ({
-      ...state,
-      allBoards: state.allBoards.concat({
-        id: `${uuidv4()}`,
-        label: action.payload.label,
-      }),
-    }),
+    addBoard: (state: BoardsState, action: PayloadAction<AddBoardPayload>) => {
+      const newBoardId = uuidv4();
+      return {
+        ...state,
+        allBoards: state.allBoards.concat({
+          id: newBoardId,
+          label: action.payload.label,
+        }),
+        selectedBoardId: newBoardId,
+      };
+    },
     setSelectedBoard: (state: BoardsState, action: PayloadAction<SetSelectedBoardPayload>) => ({
       ...state,
       selectedBoardId: action.payload.boardId,
