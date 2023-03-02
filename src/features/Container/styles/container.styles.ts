@@ -12,7 +12,7 @@ const fadeIn = keyframes({
 export const containerStyle = css({
   display: 'flex',
   flexDirection: 'row',
-  padding: '0.5rem',
+  height: '100%',
   clear: 'both',
 });
 
