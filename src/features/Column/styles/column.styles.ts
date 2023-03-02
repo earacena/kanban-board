@@ -2,12 +2,11 @@ import { css, keyframes } from '@emotion/react';
 
 export const stretch = keyframes({
   '0%': {
-    transform: 'scale(0.3)',
+    filter: 'blur(20px)',
     opacity: '0%',
-    borderRadius: '100%',
   },
   '100%': {
-    transform: 'scale(1)',
+    filter: 'blur(0)',
     opacity: '100%',
   },
 });
