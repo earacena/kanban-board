@@ -5,14 +5,17 @@ import {
   Boards,
   RemoveBoardPayload,
   SetBoardsPayload,
+  SetSelectedBoardPayload,
 } from '../types/board.types';
 
 type BoardsState = {
-  allBoards: Boards;
+  allBoards: Boards,
+  selectedBoardId: string,
 };
 
 const initialState: BoardsState = {
   allBoards: [],
+  selectedBoardId: '',
 };
 
 const boardsSlice = createSlice({
@@ -31,8 +34,11 @@ const boardsSlice = createSlice({
       allBoards: state.allBoards.concat({
         id: `${uuidv4()}`,
         label: action.payload.label,
-        columnIds: [],
       }),
+    }),
+    setSelectedBoard: (state: BoardsState, action: PayloadAction<SetSelectedBoardPayload>) => ({
+      ...state,
+      selectedBoardId: action.payload.boardId,
     }),
     removeBoard: (
       state: BoardsState,
@@ -50,6 +56,7 @@ export const {
   addBoard,
   removeBoard,
   resetBoards,
+  setSelectedBoard,
 } = boardsSlice.actions;
 
 export default boardsSlice.reducer;
