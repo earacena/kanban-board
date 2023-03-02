@@ -4,12 +4,21 @@ import { jsx } from '@emotion/react';
 import React from 'react';
 import { Button, Text } from '@mantine/core';
 import { Board as BoardType } from './types/board.types';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { setSelectedBoard } from './stores/boards.slice';
 
 type BoardProps = {
   board: BoardType,
 };
 
 function Board({ board }: BoardProps) {
+  const dispatch = useAppDispatch();
+  const selectedBoardId = useAppSelector((state) => state.boards.selectedBoardId);
+
+  const handleClick = () => {
+    dispatch(setSelectedBoard({ boardId: board.id }));
+  };
+
   return (
     <Button
       style={{
@@ -19,8 +28,9 @@ function Board({ board }: BoardProps) {
         width: '300px',
         borderRadius: '4px',
       } as React.CSSProperties}
-      variant="light"
+      variant={selectedBoardId === board.id ? 'light' : 'default'}
       size="xl"
+      onClick={handleClick}
     >
       <Text truncate>
         {board.label}
