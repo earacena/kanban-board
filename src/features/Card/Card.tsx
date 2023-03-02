@@ -33,7 +33,7 @@ function Card({
   return (
     <div css={{ ...cardStyle, cursor: 'pointer' }} key={id}>
       {tags && <Tags appliedTags={tags} />}
-      <Group position="center" onClick={() => setCardModalOpened(true)} css={{ marginTop: '10px' }}>
+      <Group position="center" onClick={() => setCardModalOpened(true)}>
         <Text fw={300} truncate css={{ width: '90%' }}>
           {brief}
         </Text>
