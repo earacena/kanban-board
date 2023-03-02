@@ -5,6 +5,7 @@ import { DragOverlay } from '@dnd-kit/core';
 import { jsx } from '@emotion/react';
 import { createPortal } from 'react-dom';
 import { BsFillTrashFill } from 'react-icons/bs';
+import { Group, Text } from '@mantine/core';
 import { Card } from '../Card';
 import { Columns } from '../Column';
 import { useAppSelector } from '../../hooks';
@@ -52,8 +53,12 @@ function Container() {
         && activeCard
         && (
           <Droppable id="trash" style={trashDroppableStyle}>
-            Drop here to delete
-            <BsFillTrashFill />
+            <Group>
+              <Text>
+                Drop here to delete
+              </Text>
+              <BsFillTrashFill />
+            </Group>
           </Droppable>
         )}
     </div>
