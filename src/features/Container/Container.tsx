@@ -19,6 +19,8 @@ import { sortableItemStyle } from '../Column/styles/column.styles';
 
 function Container() {
   const columns = useAppSelector((state) => state.columns.allColumns);
+  const selectedBoardId = useAppSelector((state) => state.boards.selectedBoardId);
+  const columnsInBoard = columns.filter((c) => c.boardId === selectedBoardId);
   const activeCardId = useAppSelector((state) => state.cards.activeCardId);
   const activeCard = useAppSelector(
     (state) => state.cards.allCards.find((c) => c.id === activeCardId),
@@ -27,7 +29,7 @@ function Container() {
 
   return (
     <div css={containerStyle}>
-      <Columns columns={columns} />
+      <Columns columns={columnsInBoard} />
       {createPortal(
         <DragOverlay>
           {activeCardId
