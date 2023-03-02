@@ -45,4 +45,11 @@ const boardsSlice = createSlice({
   },
 });
 
+export const {
+  setBoards,
+  addBoard,
+  removeBoard,
+  resetBoards,
+} = boardsSlice.actions;
+
 export default boardsSlice.reducer;
