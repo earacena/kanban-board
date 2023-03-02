@@ -35,6 +35,7 @@ function App() {
   const [settingsOpened, setSettingsOpened] = useState(false);
   const cards = useAppSelector((state) => state.cards.allCards);
   const columns = useAppSelector((state) => state.columns.allColumns);
+  const selectedBoardId = useAppSelector((state) => state.boards.selectedBoardId);
   const { themeColor } = useAppSelector((state) => state.settings);
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -97,7 +98,11 @@ function App() {
     dispatch(resetActiveCardId());
   };
 
-  const handleAddColumn = () => dispatch(addColumn({ label: 'Column' }));
+  const handleAddColumn = () => {
+    if (selectedBoardId) {
+      dispatch(addColumn({ label: 'Column', boardId: selectedBoardId }));
+    }
+  };
 
   return (
     <div className="App" css={appStyle}>
@@ -126,10 +131,12 @@ function App() {
           overflowY: 'auto',
         }}
       >
-        <NavBar
-          handleAddColumn={handleAddColumn}
-          setSettingsOpened={setSettingsOpened}
-        />
+        {selectedBoardId && (
+          <NavBar
+            handleAddColumn={handleAddColumn}
+            setSettingsOpened={setSettingsOpened}
+          />
+        )}
         <Settings
           settingsOpened={settingsOpened}
           setSettingsOpened={setSettingsOpened}
