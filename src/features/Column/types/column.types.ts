@@ -8,6 +8,7 @@ import {
 export const ColumnType = RtRecord({
   id: RtString,
   label: RtString,
+  boardId: RtString,
 });
 
 export const ColumnArrayType = RtArray(ColumnType);
@@ -21,6 +22,7 @@ export type SetColumnsPayload = {
 
 export type AddColumnPayload = {
   label: string,
+  boardId: string,
 };
 
 export type DeleteColumnPayload = {
