@@ -64,7 +64,7 @@ function CardForm({ columnId, setCardFormOpened }: CardFormProps) {
           flexGrow: 1,
           resize: 'none',
         } as React.CSSProperties}
-        aria-label="card brief textarea"
+        aria-label="card brief"
         {...register('brief', { required: true })}
       />
       <Text color="red" size={14}>
