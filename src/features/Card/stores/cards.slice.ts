@@ -44,7 +44,7 @@ const cardsSlice = createSlice({
         activity: [
           {
             id: uuidv4(),
-            date: new Date().toISOString(),
+            dateInMs: Date.now(),
             type: 'task created',
             content: `'${action.payload.brief}' task created.`,
           },
@@ -131,7 +131,7 @@ const cardsSlice = createSlice({
           ...c,
           activity: c.activity.concat({
             id: uuidv4(),
-            date: new Date().toISOString(),
+            dateInMs: Date.now(),
             type: action.payload.type,
             content: action.payload.content,
           }),

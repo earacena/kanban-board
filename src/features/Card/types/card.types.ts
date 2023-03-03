@@ -1,4 +1,5 @@
 import {
+  Number as RtNumber,
   String as RtString,
   Record as RtRecord,
   Array as RtArray,
@@ -11,7 +12,7 @@ import { Tags } from '../../Tag/types/tag.types';
 
 export const CardActivityType = RtRecord({
   id: RtString,
-  date: RtString.withConstraint((d) => !Number.isNaN(Date.parse(d))),
+  dateInMs: RtNumber,
   content: RtString,
   type: RtString,
 });
