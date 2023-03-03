@@ -9,6 +9,15 @@ import { UniqueIdentifier } from '@dnd-kit/core';
 import { TagsType } from '../../Tag';
 import { Tags } from '../../Tag/types/tag.types';
 
+export const CardActivityType = RtRecord({
+  id: RtString,
+  date: RtString.withConstraint((d) => !Number.isNaN(Date.parse(d))),
+  content: RtString,
+  type: RtString,
+});
+
+export const CardActivityArrayType = RtArray(CardActivityType);
+
 export const CardType = RtRecord({
   id: RtString,
   columnId: RtString,
@@ -24,6 +33,7 @@ export const CardType = RtRecord({
       }),
     ),
   ),
+  activity: CardActivityArrayType,
 });
 
 export const CardArrayType = RtArray(CardType);
@@ -31,6 +41,9 @@ export const CardArrayType = RtArray(CardType);
 export type Card = RtStatic<typeof CardType>;
 
 export type Cards = RtStatic<typeof CardArrayType>;
+
+export type CardActivityEvent = RtStatic<typeof CardActivityType>;
+export type CardActivity = RtStatic<typeof CardActivityArrayType>;
 
 export type SetCardsPayload = { allCards: Cards };
 
@@ -71,4 +84,10 @@ export type SetActiveCardIdPayload = {
 export type UpdateTagsPayload = {
   id: string;
   updatedTags: Tags;
+};
+
+export type AddCardActivity = {
+  cardId: string,
+  type: string,
+  content: string,
 };
