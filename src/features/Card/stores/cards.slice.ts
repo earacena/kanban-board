@@ -1,6 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
 import type {
+  AddCardActivity,
   AddCardPayload,
   Cards,
   RemoveCardPayload,
@@ -40,6 +41,14 @@ const cardsSlice = createSlice({
         body: action.payload.body,
         color: action.payload.color,
         tags: action.payload.tags,
+        activity: [
+          {
+            id: uuidv4(),
+            date: new Date().toISOString(),
+            type: 'task created',
+            content: `'${action.payload.brief}' task created.`,
+          },
+        ],
       }),
     }),
     removeCard: (
@@ -112,6 +121,23 @@ const cardsSlice = createSlice({
         allCards: state.allCards.map((c) => (c.id === id ? { ...c, tags: updatedTags } : c)),
       };
     },
+    addCardActivity: (
+      state: CardsState,
+      action: PayloadAction<AddCardActivity>,
+    ) => ({
+      ...state,
+      allCards: state.allCards.map((c) => (c.id === action.payload.cardId
+        ? {
+          ...c,
+          activity: c.activity.concat({
+            id: uuidv4(),
+            date: new Date().toISOString(),
+            type: action.payload.type,
+            content: action.payload.content,
+          }),
+        }
+        : c)),
+    }),
     resetCards: () => initialState,
   },
 });
