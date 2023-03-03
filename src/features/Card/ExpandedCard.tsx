@@ -67,7 +67,7 @@ function ExpandedCard({
         css={{
           display: 'flex',
           alignItems: 'center',
-          marginLeft: '50px',
+          marginLeft: '43px',
         }}
       >
         <Text fw={300} css={{ minWidth: 'fit-content' }}>Tags</Text>
