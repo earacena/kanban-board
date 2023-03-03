@@ -152,6 +152,7 @@ export const {
   updateCardBody,
   setActiveCardId,
   resetActiveCardId,
+  addCardActivity,
   updateTags,
   resetCards,
 } = cardsSlice.actions;
