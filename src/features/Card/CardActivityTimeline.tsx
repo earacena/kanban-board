@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Text, Timeline } from '@mantine/core';
 import { useAppSelector } from '../../hooks';
+import CardActivityForm from './CardActivityForm';
 
 type CardActivityProps = {
   cardId: string,
@@ -46,7 +47,7 @@ function timeElapsedFromToday(dateInMs: number, currentDateInMs: number): string
 function CardActivityTimeline({ cardId }: CardActivityProps) {
   const allCards = useAppSelector((state) => state.cards.allCards);
   const card = allCards.find((c) => c.id === cardId);
-  const [currentDateInMs, setCurrentDateInMs] = useState(Date.now());
+  const [currentDateInMs, setCurrentDateInMs] = useState<number>(Date.now());
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -57,13 +58,16 @@ function CardActivityTimeline({ cardId }: CardActivityProps) {
   }, []);
 
   return (
-    <Timeline active={1}>
-      {card && card.activity.map((event) => (
-        <Timeline.Item key={event.id}>
+    <Timeline active={card ? card.activity.length - 1 : 1}>
+      {card && card.activity.map((event, idx) => (
+        <Timeline.Item key={event.id} lineVariant={idx === card.activity.length - 1 ? 'dashed' : 'solid'}>
           <Text fw={300}>{event.content}</Text>
           <Text size="xs" color="dark">{timeElapsedFromToday(event.dateInMs, currentDateInMs)}</Text>
         </Timeline.Item>
       ))}
+      <Timeline.Item>
+        <CardActivityForm cardId={cardId} />
+      </Timeline.Item>
     </Timeline>
   );
 }
