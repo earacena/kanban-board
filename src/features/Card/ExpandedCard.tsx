@@ -2,15 +2,17 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import {
-  ActionIcon, Badge, Group, Modal, Text, Title,
+  ActionIcon, Badge, Divider, Group, Modal, Text, Title,
 } from '@mantine/core';
 import React, { SetStateAction, useState } from 'react';
 import { BsCardText, BsTextLeft, BsPen } from 'react-icons/bs';
+import { FiActivity } from 'react-icons/fi';
 import { MdArrowBackIosNew, MdArrowForwardIos } from 'react-icons/md';
 import CardDescriptionForm from './CardDescriptionForm';
 import { TagPickerForm, Tags, TagsType } from '../Tag';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { updateTags } from './stores/cards.slice';
+import CardActivityTimeline from './CardActivityTimeline';
 
 type ExpandedCardProps = {
   id: string;
@@ -50,15 +52,15 @@ function ExpandedCard({
       size="xl"
       radius="lg"
       title={(
-        <Title order={1}>
-          <Group align="center">
-            <BsCardText />
+        <Group align="center">
+          <BsCardText size={26} />
+          <Title order={1}>
             {brief}
-            <Badge color="gray" size="lg" radius="sm" variant="filled">
-              {columnLabel}
-            </Badge>
-          </Group>
-        </Title>
+          </Title>
+          <Badge color="gray" size="lg" radius="sm" variant="filled">
+            {columnLabel}
+          </Badge>
+        </Group>
       )}
     >
       <div
@@ -69,6 +71,7 @@ function ExpandedCard({
         }}
       >
         <Text fw={300} css={{ minWidth: 'fit-content' }}>Tags</Text>
+        <Divider css={{ marginLeft: '10px' }} orientation="vertical" />
         {!tagPickerOpened && <Tags appliedTags={tags} size="xl" />}
         {tagPickerOpened && (
           <TagPickerForm
@@ -87,20 +90,21 @@ function ExpandedCard({
         </ActionIcon>
       </div>
       <div css={{ marginTop: '60px' }}>
-        <Title order={2}>
-          <Group align="center">
-            <BsTextLeft />
+        <Group align="center">
+          <BsTextLeft size={26} />
+          <Title order={2}>
             Description
-            {!cardDescriptionFormOpened && (
-              <ActionIcon onClick={() => setCardDescriptionFormOpened(true)}>
-                <BsPen />
-              </ActionIcon>
-            )}
-          </Group>
-        </Title>
+          </Title>
+          {!cardDescriptionFormOpened && (
+            <ActionIcon onClick={() => setCardDescriptionFormOpened(true)}>
+              <BsPen />
+            </ActionIcon>
+          )}
+        </Group>
         {!cardDescriptionFormOpened && (
-          <Text fw={300} css={{ marginLeft: '42px', marginTop: '10px' }}>
+          <Text fw={300} css={{ marginLeft: '42px', marginTop: '10px' }} color={!body ? 'dimmed' : ''}>
             {body}
+            {!body && 'No description provided.'}
           </Text>
         )}
         {cardDescriptionFormOpened && (
@@ -110,6 +114,17 @@ function ExpandedCard({
             setCardDescriptionFormOpened={setCardDescriptionFormOpened}
           />
         )}
+      </div>
+      <div css={{ marginTop: '60px' }}>
+        <Group>
+          <FiActivity size={26} />
+          <Title order={2}>
+            Activity
+          </Title>
+        </Group>
+        <div css={{ marginTop: '10px', marginLeft: '45px' }}>
+          <CardActivityTimeline cardId={id} />
+        </div>
       </div>
     </Modal>
   );
