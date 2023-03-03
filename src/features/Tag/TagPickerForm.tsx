@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { jsx } from '@emotion/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import {
-  Button, Chip, ColorPicker, Popover, createStyles,
+  Button, Chip, ColorPicker, Popover, Text, createStyles,
 } from '@mantine/core';
 import { tagPickerStyle } from './styles/tagPicker.styles';
 import type { Tags as TagsType } from './types/tag.types';
@@ -78,9 +78,11 @@ function TagPicker({
           {tag.label}
         </Chip>
       ))}
-      {
-        tags.length === 0 && 'No existing tags'
-      }
+      <Text fw={300} color="dimmed">
+        {
+          tags.length === 0 && 'No existing tags'
+        }
+      </Text>
       <Popover trapFocus shadow="md">
         <Popover.Target>
           <Button css={{ marginLeft: '10px' }} radius="xl" variant="subtle">
