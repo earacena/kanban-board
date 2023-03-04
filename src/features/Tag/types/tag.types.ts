@@ -24,3 +24,7 @@ export type AddTagPayload = {
   label: string,
   color: string,
 };
+
+export type RemoveTagPayload = {
+  tagId: string,
+};
