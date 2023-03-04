@@ -1,9 +1,14 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
-import type { AddTagPayload, RemoveTagPayload, SetTagsPayload, Tags } from '../types/tag.types';
+import type {
+  AddTagPayload,
+  RemoveTagPayload,
+  SetTagsPayload,
+  Tags,
+} from '../types/tag.types';
 
 type TagsState = {
-  allTags: Tags,
+  allTags: Tags;
 };
 
 const initialState: TagsState = {
@@ -35,10 +40,7 @@ const tagsSlice = createSlice({
 });
 
 export const {
-  setTags,
-  addTag,
-  removeTag,
-  resetTags,
+  setTags, addTag, removeTag, resetTags,
 } = tagsSlice.actions;
 
 export default tagsSlice.reducer;
