@@ -1,11 +1,12 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
 import type {
-  AddCardActivity,
+  AddCardActivityPayload,
   AddCardPayload,
   Cards,
   RemoveCardPayload,
   RemoveCardsWithColumnIdPayload,
+  RemoveTagFromAllCardsPayload,
   SetActiveCardIdPayload,
   SetCardColumnIdPayload,
   SetCardsPayload,
@@ -123,7 +124,7 @@ const cardsSlice = createSlice({
     },
     addCardActivity: (
       state: CardsState,
-      action: PayloadAction<AddCardActivity>,
+      action: PayloadAction<AddCardActivityPayload>,
     ) => ({
       ...state,
       allCards: state.allCards.map((c) => (c.id === action.payload.cardId
@@ -137,6 +138,16 @@ const cardsSlice = createSlice({
           }),
         }
         : c)),
+    }),
+    removeTagFromAllCards: (
+      state: CardsState,
+      action: PayloadAction<RemoveTagFromAllCardsPayload>,
+    ) => ({
+      ...state,
+      allCards: state.allCards.map((c) => ({
+        ...c,
+        tags: c.tags?.filter((t) => t.id !== action.payload.tagId),
+      })),
     }),
     resetCards: () => initialState,
   },
@@ -154,6 +165,7 @@ export const {
   resetActiveCardId,
   addCardActivity,
   updateTags,
+  removeTagFromAllCards,
   resetCards,
 } = cardsSlice.actions;
 

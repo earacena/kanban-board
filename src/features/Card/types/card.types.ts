@@ -87,8 +87,12 @@ export type UpdateTagsPayload = {
   updatedTags: Tags;
 };
 
-export type AddCardActivity = {
+export type AddCardActivityPayload = {
   cardId: string,
   type: string,
   content: string,
+};
+
+export type RemoveTagFromAllCardsPayload = {
+  tagId: string,
 };
