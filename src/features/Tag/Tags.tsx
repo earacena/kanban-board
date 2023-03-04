@@ -20,10 +20,10 @@ function Tags({
       {appliedTags
         && appliedTags.map((tag) => (
           <Badge
-            color={tag.color}
             size={size ?? 'sm'}
             radius="sm"
-            variant="filled"
+            variant="gradient"
+            gradient={{ from: tag.color, to: tag.color }}
             css={{ marginLeft: '5px' }}
             key={tag.id}
           >
