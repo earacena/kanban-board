@@ -11,7 +11,7 @@ import { MdArrowBackIosNew, MdArrowForwardIos } from 'react-icons/md';
 import CardDescriptionForm from './CardDescriptionForm';
 import { TagPickerForm, Tags, TagsType } from '../Tag';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { updateTags } from './stores/cards.slice';
+import { removeTagFromAllCards, updateTags } from './stores/cards.slice';
 import CardActivityTimeline from './CardActivityTimeline';
 
 type ExpandedCardProps = {
@@ -78,6 +78,7 @@ function ExpandedCard({
             tags={allTags}
             appliedTags={tags}
             updateCardTags={updateCardTags}
+            removeTagFromCards={(tagId: string) => dispatch(removeTagFromAllCards({ tagId }))}
           />
         )}
         <ActionIcon
