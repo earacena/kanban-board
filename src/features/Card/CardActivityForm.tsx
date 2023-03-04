@@ -47,7 +47,7 @@ function CardActivityForm({ cardId }: CardActivityProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} css={{ display: 'flex', flexDirection: 'column' }}>
       <Stack>
         <textarea
           style={
@@ -69,7 +69,7 @@ function CardActivityForm({ cardId }: CardActivityProps) {
             : null}
         </Text>
       </Stack>
-      <Button radius="xl" type="submit">
+      <Button radius="xl" type="submit" css={{ marginRight: '5px', alignSelf: 'flex-end' }}>
         Post
       </Button>
     </form>
