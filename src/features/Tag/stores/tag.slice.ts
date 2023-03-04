@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
-import type { AddTagPayload, SetTagsPayload, Tags } from '../types/tag.types';
+import type { AddTagPayload, RemoveTagPayload, SetTagsPayload, Tags } from '../types/tag.types';
 
 type TagsState = {
   allTags: Tags,
@@ -26,6 +26,10 @@ const tagsSlice = createSlice({
         color: action.payload.color,
       }),
     }),
+    removeTag: (state: TagsState, action: PayloadAction<RemoveTagPayload>) => ({
+      ...state,
+      allTags: state.allTags.filter((t) => t.id !== action.payload.tagId),
+    }),
     resetTags: () => initialState,
   },
 });
@@ -33,6 +37,7 @@ const tagsSlice = createSlice({
 export const {
   setTags,
   addTag,
+  removeTag,
   resetTags,
 } = tagsSlice.actions;
 
