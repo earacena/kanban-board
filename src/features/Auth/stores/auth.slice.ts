@@ -42,12 +42,14 @@ const authSlice = createSlice({
       ...state,
       isFetching: action.payload.isFetching,
     }),
+    resetUser: () => initialState,
   },
 });
 
 export const {
   setUser,
   setIsFetching,
+  resetUser,
 } = authSlice.actions;
 
 export default authSlice.reducer;
