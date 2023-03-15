@@ -1,12 +1,13 @@
-import { Button } from '@mantine/core';
+import { Button, Text, TextInput } from '@mantine/core';
 import React, { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { setUser } from '../Auth';
 import { useAppDispatch } from '../../hooks';
+import loginService from '../../services/login.service';
 
 interface UserCredentialInputs {
-  username: string,
-  password: string,
+  username: string;
+  password: string;
 }
 
 function LoginForm() {
@@ -25,7 +26,9 @@ function LoginForm() {
 
   const [loading, setLoading] = useState(false);
 
-  const onSubmit: SubmitHandler<UserCredentialInputs> = async (formData: UserCredentialInputs) => {
+  const onSubmit: SubmitHandler<UserCredentialInputs> = async (
+    formData: UserCredentialInputs,
+  ) => {
     try {
       setLoading(true);
 
@@ -45,8 +48,30 @@ function LoginForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <input id="username-input" aria-label="username" {...register('username', { required: true })} />
-      <input id="password-input" aria-label="password" {...register('password', { required: true })} />
+      <TextInput
+        id="username-input"
+        aria-label="username"
+        {...register('username', { required: true })}
+        error={
+          errors.username?.type === 'required' && (
+            <Text color="red" size="sm">
+              Please enter a username
+            </Text>
+          )
+        }
+      />
+      <TextInput
+        id="password-input"
+        aria-label="password"
+        error={
+          errors.username?.type === 'required' && (
+            <Text color="red" size="sm">
+              Please enter a username
+            </Text>
+          )
+        }
+        {...register('password', { required: true })}
+      />
       <Button type="submit" loading={loading} />
     </form>
   );
