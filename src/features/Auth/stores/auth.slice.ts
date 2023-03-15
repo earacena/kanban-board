@@ -1,23 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-interface UserSessionInfo {
-  id: number,
-  name: string,
-  username: string,
-}
-
-interface AuthState {
-  user: UserSessionInfo | undefined,
-  isFetching: boolean,
-}
-
-interface SetUserPayload {
-  user: UserSessionInfo,
-}
-
-interface SetIsFetchingPayload {
-  isFetching: boolean,
-}
+import { AuthState, SetIsFetchingPayload, SetUserPayload } from '../types/auth.types';
 
 const initialState: AuthState = {
   user: undefined,
