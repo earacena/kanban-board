@@ -15,6 +15,7 @@ import {
   DragOverEvent,
 } from '@dnd-kit/core';
 import { arrayMove, sortableKeyboardCoordinates } from '@dnd-kit/sortable';
+import { Route, Routes } from 'react-router-dom';
 import {
   removeCard,
   setActiveCardId,
@@ -104,6 +105,40 @@ function App() {
     }
   };
 
+  const appWithSidebar = () => (
+    <div>
+      <SideBar />
+      <div
+        css={{
+          display: 'flex',
+          flexDirection: 'column',
+          flexGrow: 1,
+          overflowY: 'auto',
+        }}
+      >
+        {selectedBoardId && (
+        <NavBar
+          handleAddColumn={handleAddColumn}
+          setSettingsOpened={setSettingsOpened}
+        />
+        )}
+        <Settings
+          settingsOpened={settingsOpened}
+          setSettingsOpened={setSettingsOpened}
+        />
+        <DndContext
+          collisionDetection={closestCenter}
+          sensors={sensors}
+          onDragStart={handleDragStart}
+          onDragOver={handleDragOver}
+          onDragEnd={handleDragEnd}
+        >
+          <Container />
+        </DndContext>
+      </div>
+    </div>
+  );
+
   return (
     <div className="App" css={appStyle}>
       <Global
@@ -122,35 +157,13 @@ function App() {
           },
         })}
       />
-      <SideBar />
-      <div
-        css={{
-          display: 'flex',
-          flexDirection: 'column',
-          flexGrow: 1,
-          overflowY: 'auto',
-        }}
-      >
-        {selectedBoardId && (
-          <NavBar
-            handleAddColumn={handleAddColumn}
-            setSettingsOpened={setSettingsOpened}
-          />
-        )}
-        <Settings
-          settingsOpened={settingsOpened}
-          setSettingsOpened={setSettingsOpened}
+      <Routes>
+        <Route
+          path="/"
+          element={appWithSidebar()}
         />
-        <DndContext
-          collisionDetection={closestCenter}
-          sensors={sensors}
-          onDragStart={handleDragStart}
-          onDragOver={handleDragOver}
-          onDragEnd={handleDragEnd}
-        >
-          <Container />
-        </DndContext>
-      </div>
+
+      </Routes>
     </div>
   );
 }
