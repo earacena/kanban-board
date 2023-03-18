@@ -5,10 +5,12 @@ import { columnsReducer } from './features/Column';
 import { tagsReducer } from './features/Tag';
 import { settingsReducer } from './features/Settings';
 import { boardsReducer } from './features/Board';
+import { authReducer } from './features/Auth';
 import { loadState, saveState } from './features/App/localStorage';
 
 const store = configureStore({
   reducer: {
+    auth: authReducer,
     boards: boardsReducer,
     columns: columnsReducer,
     cards: cardsReducer,
