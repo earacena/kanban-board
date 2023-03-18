@@ -2,8 +2,9 @@
 /** @jsx jsx */
 import React from 'react';
 import { jsx } from '@emotion/react';
-import { Title } from '@mantine/core';
+import { Divider, Stack, Title } from '@mantine/core';
 import { Boards } from '../Board';
+import UserCard from '../User';
 
 function SideBar() {
   return (
@@ -21,6 +22,10 @@ function SideBar() {
     >
       <Title color="dark">Boards</Title>
       <Boards />
+      <Stack align="center" css={{ marginTop: 'auto', marginBottom: '40px', width: '100%' }}>
+        <Divider my="sm" css={{ width: '100%', marginBottom: '0' }} />
+        <UserCard />
+      </Stack>
     </div>
   );
 }
