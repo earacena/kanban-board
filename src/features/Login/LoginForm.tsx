@@ -1,6 +1,7 @@
 import { Button, Text, TextInput } from '@mantine/core';
 import React, { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { setUser } from '../Auth';
 import { useAppDispatch } from '../../hooks';
 import loginService from '../../services/login.service';
@@ -12,6 +13,8 @@ interface UserCredentialInputs {
 
 function LoginForm() {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -41,6 +44,7 @@ function LoginForm() {
         username: '',
         password: '',
       });
+      navigate('/');
     } catch (error: unknown) {
       setLoading(false);
     }
