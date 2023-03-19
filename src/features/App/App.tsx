@@ -30,6 +30,8 @@ import { appStyle, globalStyle } from './styles/app.styles';
 import { Settings } from '../Settings';
 import NavBar from '../NavBar';
 import SideBar from '../SideBar';
+import LoginForm from '../Login';
+import RegisterForm from '../Login/RegisterForm';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -162,7 +164,14 @@ function App() {
           path="/"
           element={appWithSidebar()}
         />
-
+        <Route
+          path="/login"
+          element={<LoginForm />}
+        />
+        <Route
+          path="/register"
+          element={<RegisterForm />}
+        />
       </Routes>
     </div>
   );
