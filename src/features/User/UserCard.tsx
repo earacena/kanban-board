@@ -13,18 +13,7 @@ function UserCard() {
   const userSession = useAppSelector((state) => state.auth.user);
 
   return (
-    <button
-      type="button"
-      css={{
-        backgroundColor: 'transparent',
-        border: 'none',
-        borderRadius: '10px',
-        '&:hover': {
-          backgroundColor: 'lightgray',
-          cursor: 'pointer',
-        },
-      }}
-    >
+    <div>
       <Group css={{ padding: '10px' }}>
         <Avatar radius="xl" size="lg" color="dark" />
         <Text size="lg" fw={400}>
@@ -34,7 +23,7 @@ function UserCard() {
           {userSession && userSession?.name}
         </Text>
       </Group>
-    </button>
+    </div>
   );
 }
 
