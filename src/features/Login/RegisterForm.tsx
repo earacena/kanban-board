@@ -1,4 +1,9 @@
-import { Button, Text, TextInput } from '@mantine/core';
+/** @jsxRuntime classic */
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+import {
+  Button, Divider, Text, TextInput, Stack,
+} from '@mantine/core';
 import React, { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -7,7 +12,7 @@ import { useAppDispatch } from '../../hooks';
 import userService from '../../services/user.service';
 
 interface NewUserCredentialInputs {
-  name: string,
+  name: string;
   username: string;
   password: string;
 }
@@ -36,7 +41,11 @@ function RegisterForm() {
       setLoading(true);
 
       const { name, username, password } = formData;
-      const userSession = await userService.create({ name, username, password });
+      const userSession = await userService.create({
+        name,
+        username,
+        password,
+      });
 
       dispatch(setUser({ user: userSession }));
 
@@ -51,44 +60,75 @@ function RegisterForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <TextInput
-        id="name-input"
-        aria-label="name"
-        {...register('name', { required: true })}
-        error={
-          errors.name?.type === 'required' && (
-            <Text color="red" size="sm">
-              Please enter a name
-            </Text>
-          )
-        }
-      />
-      <TextInput
-        id="username-input"
-        aria-label="username"
-        {...register('username', { required: true })}
-        error={
-          errors.username?.type === 'required' && (
-            <Text color="red" size="sm">
-              Please enter a username
-            </Text>
-          )
-        }
-      />
-      <TextInput
-        id="password-input"
-        aria-label="password"
-        error={
-          errors.username?.type === 'required' && (
-            <Text color="red" size="sm">
-              Please enter a username
-            </Text>
-          )
-        }
-        {...register('password', { required: true })}
-      />
-      <Button type="submit" loading={loading} />
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      css={{
+        display: 'flex',
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      <Stack
+        css={{
+          backgroundColor: 'white',
+          padding: '32px',
+          borderRadius: '16px',
+        }}
+      >
+        <TextInput
+          id="name-input"
+          label="Name"
+          aria-label="name"
+          {...register('name', { required: true })}
+          error={
+            errors.name?.type === 'required' && (
+              <Text color="red" size="sm">
+                Please enter a name
+              </Text>
+            )
+          }
+          radius="md"
+          size="lg"
+        />
+        <TextInput
+          id="username-input"
+          label="Username"
+          aria-label="username"
+          {...register('username', { required: true })}
+          error={
+            errors.username?.type === 'required' && (
+              <Text color="red" size="sm">
+                Please enter a username
+              </Text>
+            )
+          }
+          radius="md"
+          size="lg"
+        />
+        <TextInput
+          id="password-input"
+          aria-label="password"
+          label="Password"
+          error={
+            errors.username?.type === 'required' && (
+              <Text color="red" size="sm">
+                Please enter a password
+              </Text>
+            )
+          }
+          {...register('password', { required: true })}
+          radius="md"
+          size="lg"
+        />
+        <Button size="lg" type="submit" loading={loading}>
+          Create New Account
+        </Button>
+        <Divider size="xs" label="Have an account?" labelPosition="center" />
+        <Button size="lg" variant="outline" onClick={() => navigate('/login')}>
+          Sign In
+        </Button>
+      </Stack>
     </form>
   );
 }
