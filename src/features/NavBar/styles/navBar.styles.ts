@@ -5,6 +5,7 @@ export const navStyle = css({
   flexDirection: 'row',
   alignItems: 'flex-start',
   margin: '16px',
+  marginLeft: '22px',
 });
 
 export const baseNavButtonStyle = css({
@@ -15,7 +16,7 @@ export const baseNavButtonStyle = css({
   border: '1px lightgray solid',
   borderRadius: '30px',
   padding: '10px',
-  marginLeft: '24px',
+  marginLeft: '20px',
   boxShadow: '0px 3px 10px rgb(0, 0, 0, 0.2)',
   '&:hover': {
     backgroundColor: 'lightgray',
