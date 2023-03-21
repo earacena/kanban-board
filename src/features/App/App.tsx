@@ -108,14 +108,13 @@ function App() {
   };
 
   const appWithSidebar = () => (
-    <div>
+    <div css={appStyle}>
       <SideBar />
       <div
         css={{
           display: 'flex',
           flexDirection: 'column',
-          flexGrow: 1,
-          overflowY: 'auto',
+          width: '100%',
         }}
       >
         {selectedBoardId && (
@@ -153,8 +152,8 @@ function App() {
             backgroundColor: themeColor,
             margin: 0,
             padding: 0,
-            minHeight: '100%',
-            overflow: 'auto',
+            maxHeight: '100vh',
+            overflow: 'hidden',
             fontFamily: 'Open Sans',
           },
         })}

@@ -3,7 +3,8 @@ import { css } from '@emotion/react';
 export const navStyle = css({
   display: 'flex',
   flexDirection: 'row',
-  justifyContent: 'center',
+  alignItems: 'flex-start',
+  margin: '16px',
 });
 
 export const baseNavButtonStyle = css({
@@ -14,7 +15,7 @@ export const baseNavButtonStyle = css({
   border: '1px lightgray solid',
   borderRadius: '30px',
   padding: '10px',
-  margin: '10px',
+  marginLeft: '24px',
   boxShadow: '0px 3px 10px rgb(0, 0, 0, 0.2)',
   '&:hover': {
     backgroundColor: 'lightgray',

@@ -19,8 +19,9 @@ function SideBar() {
       minWidth: '350px',
       maxWidth: '350px',
       minHeight: '100%',
-      overflow: 'auto',
+      overflow: 'hidden',
       padding: '10px',
+      paddingBottom: '0',
     }}
     >
       <Title color="dark">Boards</Title>
