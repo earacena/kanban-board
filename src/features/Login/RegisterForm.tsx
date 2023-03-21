@@ -2,8 +2,9 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import {
-  Button, Divider, Text, TextInput, Stack,
+  Button, Divider, Text, TextInput, Stack, Group,
 } from '@mantine/core';
+import { BsExclamationLg } from 'react-icons/bs';
 import React, { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -27,6 +28,7 @@ function RegisterForm() {
     formState: { errors },
   } = useForm<NewUserCredentialInputs>({
     defaultValues: {
+      name: '',
       username: '',
       password: '',
     },
@@ -58,6 +60,8 @@ function RegisterForm() {
       setLoading(false);
     }
   };
+
+  console.log(errors);
 
   return (
     <form
@@ -114,16 +118,85 @@ function RegisterForm() {
           label="Password"
           type="password"
           error={
-            errors.username?.type === 'required' && (
+            errors.password && (
               <Text color="red" size="sm">
-                Please enter a password
+                Invalid password
               </Text>
             )
           }
-          {...register('password', { required: true })}
+          {...register(
+            'password',
+            {
+              required: true,
+              validate: {
+                validLength: (v: string) => (v.length >= 8 && v.length <= 64),
+                containsOneNumber: (v: string) => (/[0-9]/).test(v),
+                containsOneUppercaseLetter: (v: string) => (/[A-Z]/).test(v),
+                containsOneLowercaseLetter: (v: string) => (/[a-z]/).test(v),
+                containsOneSpecialSymbol: (v: string) => (/[!@#$%^&*=+-]/).test(v),
+              },
+            },
+          )}
           radius="md"
           size="lg"
         />
+        <Group
+          spacing="xs"
+          style={{
+            display: (errors.password && errors.password?.type === 'validLength') ? '' : 'none',
+          }}
+        >
+          <BsExclamationLg />
+          <Text size="sm">
+            Password must be between 8 and 64 characters
+          </Text>
+        </Group>
+        <Group
+          spacing="xs"
+          style={{
+            display: (errors.password && errors.password?.type === 'containsOneUppercaseLetter') ? '' : 'none',
+          }}
+        >
+          <BsExclamationLg />
+          <Text size="sm">
+            Password must have at least 1 uppercase letter
+          </Text>
+        </Group>
+        <Group
+          spacing="xs"
+          style={{
+            display: (errors.password && errors.password?.type === 'containsOneLowercaseLetter') ? '' : 'none',
+          }}
+        >
+          <BsExclamationLg />
+          <Text
+            size="sm"
+          >
+            Password must have at least 1 lowercase letter
+          </Text>
+        </Group>
+        <Group
+          spacing="xs"
+          style={{
+            display: (errors.password && errors.password?.type === 'containsOneNumber') ? '' : 'none',
+          }}
+        >
+          <BsExclamationLg />
+          <Text size="sm">
+            Password must have at least 1 number
+          </Text>
+        </Group>
+        <Group
+          spacing="xs"
+          style={{
+            display: (errors.password && errors.password?.type === 'containsOneSpecialSymbol') ? '' : 'none',
+          }}
+        >
+          <BsExclamationLg />
+          <Text size="sm">
+            Password must have at least 1 special symbol (!@#$%^&*+-=)
+          </Text>
+        </Group>
         <Button size="lg" type="submit" loading={loading}>
           Create New Account
         </Button>
