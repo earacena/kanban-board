@@ -78,6 +78,7 @@ function RegisterForm() {
       >
         <TextInput
           id="name-input"
+          type="text"
           label="Name"
           aria-label="name"
           {...register('name', { required: true })}
@@ -93,6 +94,7 @@ function RegisterForm() {
         />
         <TextInput
           id="username-input"
+          type="text"
           label="Username"
           aria-label="username"
           {...register('username', { required: true })}
@@ -110,6 +112,7 @@ function RegisterForm() {
           id="password-input"
           aria-label="password"
           label="Password"
+          type="password"
           error={
             errors.username?.type === 'required' && (
               <Text color="red" size="sm">
