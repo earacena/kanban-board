@@ -4,7 +4,7 @@ import { jsx } from '@emotion/react';
 import {
   Button, Divider, Text, TextInput, Stack, Group,
 } from '@mantine/core';
-import { BsExclamationLg } from 'react-icons/bs';
+import { BsCheck2, BsExclamationLg } from 'react-icons/bs';
 import React, { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -32,6 +32,8 @@ function RegisterForm() {
       username: '',
       password: '',
     },
+    criteriaMode: 'all',
+    mode: 'onTouched',
   });
 
   const [loading, setLoading] = useState(false);
@@ -141,59 +143,59 @@ function RegisterForm() {
           size="lg"
         />
         <Group
-          spacing="xs"
+          spacing="sm"
           style={{
-            display: (errors.password && errors.password?.type === 'validLength') ? '' : 'none',
+            color: (errors.password?.types?.validLength) ? 'red' : 'green',
           }}
         >
-          <BsExclamationLg />
-          <Text size="sm">
+          {errors.password?.types?.validLength ? <BsExclamationLg /> : <BsCheck2 />}
+          <Text size="xs">
             Password must be between 8 and 64 characters
           </Text>
         </Group>
         <Group
-          spacing="xs"
+          spacing="sm"
           style={{
-            display: (errors.password && errors.password?.type === 'containsOneUppercaseLetter') ? '' : 'none',
+            color: (errors.password?.types?.containsOneUppercaseLetter) ? 'red' : 'green',
           }}
         >
-          <BsExclamationLg />
-          <Text size="sm">
+          {errors.password?.types?.containsOneUppercaseLetter ? <BsExclamationLg /> : <BsCheck2 />}
+          <Text size="xs">
             Password must have at least 1 uppercase letter
           </Text>
         </Group>
         <Group
-          spacing="xs"
+          spacing="sm"
           style={{
-            display: (errors.password && errors.password?.type === 'containsOneLowercaseLetter') ? '' : 'none',
+            color: (errors.password?.types?.containsOneLowercaseLetter) ? 'red' : 'green',
           }}
         >
-          <BsExclamationLg />
+          {errors.password?.types?.containsOneLowercaseLetter ? <BsExclamationLg /> : <BsCheck2 />}
           <Text
-            size="sm"
+            size="xs"
           >
             Password must have at least 1 lowercase letter
           </Text>
         </Group>
         <Group
-          spacing="xs"
+          spacing="sm"
           style={{
-            display: (errors.password && errors.password?.type === 'containsOneNumber') ? '' : 'none',
+            color: (errors.password?.types?.containsOneNumber) ? 'red' : 'green',
           }}
         >
-          <BsExclamationLg />
-          <Text size="sm">
+          {errors.password?.types?.containsOneNumber ? <BsExclamationLg /> : <BsCheck2 />}
+          <Text size="xs">
             Password must have at least 1 number
           </Text>
         </Group>
         <Group
-          spacing="xs"
+          spacing="sm"
           style={{
-            display: (errors.password && errors.password?.type === 'containsOneSpecialSymbol') ? '' : 'none',
+            color: (errors.password?.types?.containsOneSpecialSymbol) ? 'red' : 'green',
           }}
         >
-          <BsExclamationLg />
-          <Text size="sm">
+          {errors.password?.types?.containsOneSpecialSymbol ? <BsExclamationLg /> : <BsCheck2 />}
+          <Text size="xs">
             Password must have at least 1 special symbol (!@#$%^&*+-=)
           </Text>
         </Group>
