@@ -4,13 +4,16 @@ import { jsx } from '@emotion/react';
 import {
   Button, Divider, Text, TextInput, Stack, Group,
 } from '@mantine/core';
-import { BsExclamationLg } from 'react-icons/bs';
+import { BsExclamationLg, BsX } from 'react-icons/bs';
 import React, { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { notifications } from '@mantine/notifications';
 import { setUser } from '../Auth';
 import { useAppDispatch } from '../../hooks';
 import userService from '../../services/user.service';
+import decodeWith from '../../util/decode';
+import { ErrorType } from './types/registerForm.types';
 
 interface NewUserCredentialInputs {
   name: string;
@@ -59,6 +62,21 @@ function RegisterForm() {
       });
       navigate('/');
     } catch (error: unknown) {
+      const decoded = decodeWith(ErrorType)(error);
+      let message: string = '';
+
+      if (decoded.message.includes('NetworkError')) {
+        message = 'Unable to connect to server';
+      } else if (decoded.message.includes('invalid credentials')) {
+        message = 'Incorrect credentials, please try again.';
+      }
+
+      notifications.show({
+        title: 'Login Error',
+        icon: <BsX />,
+        color: 'red',
+        message,
+      });
       setLoading(false);
     }
   };

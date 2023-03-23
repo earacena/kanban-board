@@ -16,6 +16,7 @@ import {
 } from '@dnd-kit/core';
 import { arrayMove, sortableKeyboardCoordinates } from '@dnd-kit/sortable';
 import { Route, Routes } from 'react-router-dom';
+import { Notifications } from '@mantine/notifications';
 import {
   removeCard,
   setActiveCardId,
@@ -172,6 +173,7 @@ function App() {
           element={<RegisterForm />}
         />
       </Routes>
+      <Notifications position="bottom-center" />
     </div>
   );
 }
