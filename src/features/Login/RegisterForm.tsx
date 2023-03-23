@@ -4,7 +4,7 @@ import { jsx } from '@emotion/react';
 import {
   Button, Divider, Text, TextInput, Stack, Group,
 } from '@mantine/core';
-import { BsCheck2, BsExclamationLg } from 'react-icons/bs';
+import { BsExclamationLg } from 'react-icons/bs';
 import React, { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -33,7 +33,7 @@ function RegisterForm() {
       password: '',
     },
     criteriaMode: 'all',
-    mode: 'onTouched',
+    mode: 'onChange',
   });
 
   const [loading, setLoading] = useState(false);
@@ -103,7 +103,7 @@ function RegisterForm() {
           type="text"
           label="Username"
           aria-label="username"
-          {...register('username', { required: true })}
+          {...register('username', { required: true, minLength: 8, maxLength: 64 })}
           error={
             errors.username?.type === 'required' && (
               <Text color="red" size="sm">
@@ -114,6 +114,18 @@ function RegisterForm() {
           radius="md"
           size="lg"
         />
+        <Group
+          spacing="sm"
+          style={{
+            display: (errors.username?.types?.minLength || errors.username?.types?.maxLength) ? '' : 'none',
+            color: 'red',
+          }}
+        >
+          <BsExclamationLg />
+          <Text size="xs">
+            Username should be at least 8 characters, but less than 64 characters
+          </Text>
+        </Group>
         <TextInput
           id="password-input"
           aria-label="password"
@@ -145,10 +157,11 @@ function RegisterForm() {
         <Group
           spacing="sm"
           style={{
+            display: errors.password?.types?.validLength ? '' : 'none',
             color: (errors.password?.types?.validLength) ? 'red' : 'green',
           }}
         >
-          {errors.password?.types?.validLength ? <BsExclamationLg /> : <BsCheck2 />}
+          <BsExclamationLg />
           <Text size="xs">
             Password must be between 8 and 64 characters
           </Text>
@@ -156,10 +169,11 @@ function RegisterForm() {
         <Group
           spacing="sm"
           style={{
+            display: errors.password?.types?.containsOneUppercaseLetter ? '' : 'none',
             color: (errors.password?.types?.containsOneUppercaseLetter) ? 'red' : 'green',
           }}
         >
-          {errors.password?.types?.containsOneUppercaseLetter ? <BsExclamationLg /> : <BsCheck2 />}
+          <BsExclamationLg />
           <Text size="xs">
             Password must have at least 1 uppercase letter
           </Text>
@@ -167,10 +181,11 @@ function RegisterForm() {
         <Group
           spacing="sm"
           style={{
+            display: errors.password?.types?.containsOneLowercaseLetter ? '' : 'none',
             color: (errors.password?.types?.containsOneLowercaseLetter) ? 'red' : 'green',
           }}
         >
-          {errors.password?.types?.containsOneLowercaseLetter ? <BsExclamationLg /> : <BsCheck2 />}
+          <BsExclamationLg />
           <Text
             size="xs"
           >
@@ -180,10 +195,11 @@ function RegisterForm() {
         <Group
           spacing="sm"
           style={{
+            display: errors.password?.types?.containsOneNumber ? '' : 'none',
             color: (errors.password?.types?.containsOneNumber) ? 'red' : 'green',
           }}
         >
-          {errors.password?.types?.containsOneNumber ? <BsExclamationLg /> : <BsCheck2 />}
+          <BsExclamationLg />
           <Text size="xs">
             Password must have at least 1 number
           </Text>
@@ -191,10 +207,11 @@ function RegisterForm() {
         <Group
           spacing="sm"
           style={{
+            display: errors.password?.types?.containsOneSpecialSymbol ? '' : 'none',
             color: (errors.password?.types?.containsOneSpecialSymbol) ? 'red' : 'green',
           }}
         >
-          {errors.password?.types?.containsOneSpecialSymbol ? <BsExclamationLg /> : <BsCheck2 />}
+          <BsExclamationLg />
           <Text size="xs">
             Password must have at least 1 special symbol (!@#$%^&*+-=)
           </Text>
