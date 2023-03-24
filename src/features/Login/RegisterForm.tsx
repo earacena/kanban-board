@@ -68,11 +68,11 @@ function RegisterForm() {
       if (decoded.message.includes('NetworkError')) {
         message = 'Unable to connect to server';
       } else if (decoded.message.includes('invalid credentials')) {
-        message = 'Incorrect credentials, please try again.';
+        message = 'Invalid credentials used, please try again.';
       }
 
       notifications.show({
-        title: 'Login Error',
+        title: 'Error trying to register',
         icon: <BsX />,
         color: 'red',
         message,
