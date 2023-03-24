@@ -10,6 +10,10 @@ import { useNavigate } from 'react-router-dom';
 import { setUser } from '../Auth';
 import { useAppDispatch } from '../../hooks';
 import loginService from '../../services/login.service';
+import decodeWith from '../../util/decode';
+import { ErrorType } from './types/registerForm.types';
+import { notifications } from '@mantine/notifications';
+import { BsX } from 'react-icons/bs';
 
 interface UserCredentialInputs {
   username: string;
@@ -51,6 +55,21 @@ function LoginForm() {
       });
       navigate('/');
     } catch (error: unknown) {
+      const decoded = decodeWith(ErrorType)(error);
+      let message: string = '';
+
+      if (decoded.message.includes('NetworkError')) {
+        message = 'Unable to connect to server';
+      } else if (decoded.message.includes('invalid credentials')) {
+        message = 'Incorrect credentials, please try again.';
+      }
+
+      notifications.show({
+        title: 'Error while logging in',
+        icon: <BsX />,
+        color: 'red',
+        message,
+      });
       setLoading(false);
     }
   };
