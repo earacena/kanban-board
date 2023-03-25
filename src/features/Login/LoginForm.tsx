@@ -7,13 +7,13 @@ import {
 } from '@mantine/core';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { notifications } from '@mantine/notifications';
+import { BsX } from 'react-icons/bs';
 import { setUser } from '../Auth';
 import { useAppDispatch } from '../../hooks';
 import loginService from '../../services/login.service';
 import decodeWith from '../../util/decode';
 import { ErrorType } from './types/registerForm.types';
-import { notifications } from '@mantine/notifications';
-import { BsX } from 'react-icons/bs';
 
 interface UserCredentialInputs {
   username: string;
