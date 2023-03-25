@@ -1,14 +1,17 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
-import React from 'react';
+import React, { useState } from 'react';
 import { jsx } from '@emotion/react';
 import { Divider, Stack, Title } from '@mantine/core';
 import { useNavigate } from 'react-router';
 import { Boards } from '../Board';
-import UserCard from '../User';
+import { UserCard, UserDetails } from '../User';
+import { useAppSelector } from '../../hooks';
 
 function SideBar() {
   const navigate = useNavigate();
+  const userSession = useAppSelector((state) => state.auth.user);
+  const [userCardModelOpened, setUserCardModalOpened] = useState<boolean>(false);
 
   return (
     <div css={{
@@ -39,9 +42,10 @@ function SideBar() {
               cursor: 'pointer',
             },
           }}
-          onClick={() => navigate('/login')}
+          onClick={userSession !== undefined ? () => navigate('/login') : () => setUserCardModalOpened(true)}
         >
           <UserCard />
+          { userCardModelOpened && <UserDetails /> }
         </button>
       </Stack>
     </div>

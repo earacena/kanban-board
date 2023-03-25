@@ -1,3 +1,2 @@
-import UserCard from './UserCard';
-
-export default UserCard;
+export { default as UserCard } from './UserCard';
+export { default as UserDetails } from './UserDetails';
