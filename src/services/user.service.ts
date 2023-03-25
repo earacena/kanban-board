@@ -22,7 +22,7 @@ const create = async ({ name, username, password }: CreateUserProps) => {
   if (responseJson.error) {
     throw new Error(responseJson.error);
   } else {
-    const userSessionInfo: UserSessionInfo = decodeWith(UserSessionInfoType)(responseJson);
+    const userSessionInfo: UserSessionInfo = decodeWith(UserSessionInfoType)(responseJson.user);
     return userSessionInfo;
   }
 };
@@ -33,7 +33,7 @@ const fetchUserSession = async () => {
   if (responseJson.error) {
     throw new Error(responseJson.error);
   } else {
-    const userSessionInfo: UserSessionInfo = decodeWith(UserSessionInfoType)(responseJson);
+    const userSessionInfo: UserSessionInfo = decodeWith(UserSessionInfoType)(responseJson.user);
     return userSessionInfo;
   }
 };
