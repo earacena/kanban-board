@@ -4,7 +4,7 @@ import { jsx } from '@emotion/react';
 import {
   Button, Divider, Text, TextInput, Stack, Group,
 } from '@mantine/core';
-import { BsExclamationLg, BsX } from 'react-icons/bs';
+import { BsCheckLg, BsExclamationLg, BsX } from 'react-icons/bs';
 import React, { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -60,11 +60,18 @@ function RegisterForm() {
         username: '',
         password: '',
       });
+
+      notifications.show({
+        title: 'Account successfully created',
+        icon: <BsCheckLg />,
+        color: 'green',
+        message: '',
+      });
+
       navigate('/');
     } catch (error: unknown) {
       const decoded = decodeWith(ErrorType)(error);
       let message: string = '';
-
       if (decoded.message.includes('NetworkError')) {
         message = 'Unable to connect to server';
       } else if (decoded.message.includes('invalid credentials')) {
@@ -72,7 +79,7 @@ function RegisterForm() {
       }
 
       notifications.show({
-        title: 'Error trying to register',
+        title: 'Error trying to create a new account.',
         icon: <BsX />,
         color: 'red',
         message,
@@ -80,8 +87,6 @@ function RegisterForm() {
       setLoading(false);
     }
   };
-
-  console.log(errors);
 
   return (
     <form
