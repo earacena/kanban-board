@@ -34,15 +34,18 @@ function SideBar() {
         <button
           type="button"
           css={{
+            display: 'flex',
+            flexDirection: 'row',
             backgroundColor: 'transparent',
             border: 'none',
+            width: '100%',
             borderRadius: '10px',
             '&:hover': {
               backgroundColor: 'lightgray',
               cursor: 'pointer',
             },
           }}
-          onClick={userSession !== undefined ? () => navigate('/login') : () => setUserCardModalOpened(true)}
+          onClick={!userSession ? () => navigate('/login') : () => setUserCardModalOpened(!userCardModelOpened)}
         >
           { userCardModelOpened && <UserCard /> }
           <UserDetails />
