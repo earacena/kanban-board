@@ -5,7 +5,7 @@ import { jsx } from '@emotion/react';
 import { Divider, Stack, Title } from '@mantine/core';
 import { useNavigate } from 'react-router';
 import { Boards } from '../Board';
-import { UserCard, UserDetails } from '../User';
+import { UserCardModal, UserDetails } from '../User';
 import { useAppSelector } from '../../hooks';
 
 function SideBar() {
@@ -47,7 +47,13 @@ function SideBar() {
           }}
           onClick={!userSession ? () => navigate('/login') : () => setUserCardModalOpened(!userCardModelOpened)}
         >
-          { userCardModelOpened && <UserCard /> }
+          { userCardModelOpened
+          && (
+          <UserCardModal
+            userCardModalOpened={userCardModelOpened}
+            setUserCardModalOpened={setUserCardModalOpened}
+          />
+          )}
           <UserDetails />
         </button>
       </Stack>

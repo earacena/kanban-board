@@ -1,2 +1,2 @@
-export { default as UserCard } from './UserCard';
+export { default as UserCardModal } from './UserCardModal';
 export { default as UserDetails } from './UserDetails';
