@@ -33,6 +33,11 @@ import NavBar from '../NavBar';
 import SideBar from '../SideBar';
 import LoginForm from '../Login';
 import RegisterForm from '../Login/RegisterForm';
+import userService from '../../services/user.service';
+import { setUser } from '../Auth';
+import decodeWith from '../../util/decode';
+import { ErrorType } from '../Login/types/registerForm.types';
+import logger from '../../util/Logger';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -47,6 +52,21 @@ function App() {
       coordinateGetter: sortableKeyboardCoordinates,
     }),
   );
+
+  // Use existing session cookies to fetch current user if not logged out in server
+  useEffect(() => {
+    const fetchSession = async () => {
+      try {
+        const userSession = await userService.fetchUserSession();
+        setUser({ user: userSession });
+      } catch (error: unknown) {
+        const decoded = decodeWith(ErrorType)(error);
+        logger.log(decoded.message);
+      }
+    };
+
+    fetchSession();
+  }, []);
 
   // Set tab title
   useEffect(() => {
