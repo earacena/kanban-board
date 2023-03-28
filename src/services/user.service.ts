@@ -28,7 +28,13 @@ const create = async ({ name, username, password }: CreateUserProps) => {
 };
 
 const fetchUserSession = async () => {
-  const response = await fetch(`${backendUrl}/api/users/fetch-user`);
+  const response = await fetch(
+    `${backendUrl}/api/users/fetch-user`,
+    {
+      method: 'POST',
+      credentials: 'include',
+    },
+  );
   const responseJson = await response.json();
   if (responseJson.error) {
     throw new Error(responseJson.error);
