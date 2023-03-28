@@ -22,7 +22,7 @@ const login = async ({ username, password }: LoginProps) => {
   if (responseJson.error) {
     throw new Error(responseJson.error);
   } else {
-    const userSessionInfo: UserSessionInfo = decodeWith(UserSessionInfoType)(responseJson);
+    const userSessionInfo: UserSessionInfo = decodeWith(UserSessionInfoType)(responseJson.user);
     return userSessionInfo;
   }
 };
