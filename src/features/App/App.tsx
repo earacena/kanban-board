@@ -34,7 +34,7 @@ import SideBar from '../SideBar';
 import LoginForm from '../Login';
 import RegisterForm from '../Login/RegisterForm';
 import userService from '../../services/user.service';
-import { setUser } from '../Auth';
+import { resetUser, setUser } from '../Auth';
 import decodeWith from '../../util/decode';
 import { ErrorType } from '../Login/types/registerForm.types';
 import logger from '../../util/Logger';
@@ -60,8 +60,9 @@ function App() {
         const userSession = await userService.fetchUserSession();
         setUser({ user: userSession });
       } catch (error: unknown) {
+        resetUser();
         const decoded = decodeWith(ErrorType)(error);
-        logger.log(decoded.message);
+        logger.logError(decoded);
       }
     };
 
