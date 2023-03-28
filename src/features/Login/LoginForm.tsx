@@ -14,6 +14,7 @@ import { useAppDispatch } from '../../hooks';
 import loginService from '../../services/login.service';
 import decodeWith from '../../util/decode';
 import { ErrorType } from './types/registerForm.types';
+import logger from '../../util/Logger';
 
 interface UserCredentialInputs {
   username: string;
@@ -56,6 +57,7 @@ function LoginForm() {
       navigate('/');
     } catch (error: unknown) {
       const decoded = decodeWith(ErrorType)(error);
+      logger.logError(decoded);
       let message: string = '';
 
       if (decoded.message.includes('NetworkError')) {
@@ -65,7 +67,7 @@ function LoginForm() {
       }
 
       notifications.show({
-        title: 'Error while logging in',
+        title: 'Error while logging in, please try again.',
         icon: <BsX />,
         color: 'red',
         message,
