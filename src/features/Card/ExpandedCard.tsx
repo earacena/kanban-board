@@ -56,8 +56,6 @@ function ExpandedCard({
     <Modal
       opened={cardModalOpened}
       onClose={() => setCardModalOpened(false)}
-      overlayBlur={3}
-      overlayOpacity={0.55}
       size="xl"
       radius="lg"
     >
