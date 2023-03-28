@@ -12,6 +12,18 @@ class Logger {
     }
   }
 
+  logError(error: Error): void {
+    if (this.isDevEnv()) {
+      console.error(error);
+    }
+  }
+
+  logErrorMsg(message: string | undefined): void {
+    if (this.isDevEnv()) {
+      console.error(message);
+    }
+  }
+
   isDevEnv(): boolean {
     const validDevEnvs = [
       'testing',
