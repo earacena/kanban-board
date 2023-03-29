@@ -15,6 +15,7 @@ const create = async ({ name, username, password }: CreateUserProps) => {
     headers: {
       'Content-Type': 'application/json',
     },
+    credentials: 'include',
     body: JSON.stringify({ name, username, password }),
   });
 

@@ -15,6 +15,7 @@ const login = async ({ username, password }: LoginProps) => {
     headers: {
       'Content-Type': 'application/json',
     },
+    credentials: 'include',
     body: JSON.stringify({ username, password }),
   });
 
