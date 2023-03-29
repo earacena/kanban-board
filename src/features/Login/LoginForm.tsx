@@ -60,7 +60,7 @@ function LoginForm() {
       logger.logError(decoded);
       let message: string = '';
 
-      if (decoded.message.includes('NetworkError')) {
+      if (decoded.message.includes('NetworkError') || decoded.message.includes('Failed to fetch')) {
         message = 'Unable to connect to server';
       } else if (decoded.message.includes('invalid credentials')) {
         message = 'Incorrect credentials, please try again.';
