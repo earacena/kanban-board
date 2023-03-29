@@ -2,7 +2,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import {
-  ActionIcon, Badge, Button, Divider, Group, Modal, Stack, Text, Title,
+  ActionIcon, Badge, Divider, Group, Modal, Text, Title,
 } from '@mantine/core';
 import React, { SetStateAction, useState } from 'react';
 import { BsCardText, BsTextLeft, BsPen } from 'react-icons/bs';
@@ -11,7 +11,7 @@ import { MdArrowBackIosNew, MdArrowForwardIos } from 'react-icons/md';
 import CardDescriptionForm from './CardDescriptionForm';
 import { TagPickerForm, Tags, TagsType } from '../Tag';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { removeCard, removeTagFromAllCards, updateTags } from './stores/cards.slice';
+import { removeTagFromAllCards, updateTags } from './stores/cards.slice';
 import CardActivityTimeline from './CardActivityTimeline';
 import CardSettingsMenu from './CardSettingsMenu';
 import CardBriefEditForm from './CardBriefEditForm';
@@ -20,6 +20,7 @@ type ExpandedCardProps = {
   id: string;
   cardModalOpened: boolean;
   setCardModalOpened: (value: SetStateAction<boolean>) => void;
+  setBeingDeleted: (value: SetStateAction<boolean>) => void;
   brief: string;
   body: string | undefined;
   tags: TagsType | undefined;
@@ -33,6 +34,7 @@ function ExpandedCard({
   tags,
   columnLabel,
   cardModalOpened,
+  setBeingDeleted,
   setCardModalOpened,
 }: ExpandedCardProps) {
   const dispatch = useAppDispatch();
@@ -42,14 +44,9 @@ function ExpandedCard({
   const [tagPickerOpened, setTagPickerOpened] = useState<boolean>(false);
   const [cardSettingsOpened, setCardSettingsOpened] = useState<boolean>(false);
   const [beingEdited, setBeingEdited] = useState<boolean>(false);
-  const [beingDeleted, setBeingDeleted] = useState<boolean>(false);
 
   const updateCardTags = (updatedTags: TagsType) => {
     dispatch(updateTags({ id, updatedTags }));
-  };
-
-  const handleDelete = () => {
-    dispatch(removeCard({ cardId: id }));
   };
 
   return (
@@ -59,35 +56,7 @@ function ExpandedCard({
       size="xl"
       radius="lg"
     >
-      <Modal
-        opened={beingDeleted}
-        onClose={() => setBeingDeleted(false)}
-        radius="md"
-      >
-        <Stack align="center">
-          <Text size="xl" weight={500} css={{ margin: '20px' }}>
-            {`Delete '${brief}'?`}
-          </Text>
-          <Group>
-            <Button
-              css={{ marginRight: '0.5rem' }}
-              color="red"
-              variant="light"
-              type="button"
-              onClick={handleDelete}
-            >
-              Delete
-            </Button>
-            <Button
-              type="button"
-              variant="filled"
-              onClick={() => setBeingDeleted(false)}
-            >
-              Cancel
-            </Button>
-          </Group>
-        </Stack>
-      </Modal>
+
       <div css={{ marginBottom: '50px' }}>
         {beingEdited ? (
           <CardBriefEditForm

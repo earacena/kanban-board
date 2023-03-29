@@ -3,7 +3,8 @@
 import React, { useState } from 'react';
 import { jsx } from '@emotion/react';
 import {
-  Group, Text,
+  Button,
+  Group, Modal, Stack, Text,
 } from '@mantine/core';
 import { Tags } from '../Tag';
 import type { TagsType } from '../Tag';
@@ -11,6 +12,8 @@ import {
   cardStyle,
 } from './styles/card.styles';
 import ExpandedCard from './ExpandedCard';
+import { useAppDispatch } from '../../hooks';
+import { removeCard } from './stores/cards.slice';
 
 type CardProps = {
   id: string;
@@ -27,8 +30,14 @@ function Card({
   tags,
   columnLabel,
 }: CardProps) {
+  const dispatch = useAppDispatch();
+
   const [cardModalOpened, setCardModalOpened] = useState(false);
-  // const [cardEditFormOpened, setCardEditFormOpened] = useState(false);
+  const [beingDeleted, setBeingDeleted] = useState<boolean>(false);
+
+  const handleDelete = () => {
+    dispatch(removeCard({ cardId: id }));
+  };
 
   return (
     <div css={{ ...cardStyle, cursor: 'pointer' }} key={id}>
@@ -42,11 +51,41 @@ function Card({
         id={id}
         cardModalOpened={cardModalOpened}
         setCardModalOpened={setCardModalOpened}
+        setBeingDeleted={setBeingDeleted}
         brief={brief}
         body={body}
         tags={tags}
         columnLabel={columnLabel}
       />
+      <Modal
+        opened={beingDeleted}
+        onClose={() => setBeingDeleted(false)}
+        radius="md"
+      >
+        <Stack align="center">
+          <Text size="xl" weight={500} css={{ margin: '20px' }}>
+            {`Delete '${brief}'?`}
+          </Text>
+          <Group>
+            <Button
+              css={{ marginRight: '0.5rem' }}
+              color="red"
+              variant="light"
+              type="button"
+              onClick={handleDelete}
+            >
+              Delete
+            </Button>
+            <Button
+              type="button"
+              variant="filled"
+              onClick={() => setBeingDeleted(false)}
+            >
+              Cancel
+            </Button>
+          </Group>
+        </Stack>
+      </Modal>
     </div>
   );
 }
