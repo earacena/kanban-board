@@ -34,7 +34,7 @@ import SideBar from '../SideBar';
 import LoginForm from '../Login';
 import RegisterForm from '../Login/RegisterForm';
 import userService from '../../services/user.service';
-import { resetUser, setUser } from '../Auth';
+import { setIsFetching, setUser } from '../Auth';
 import decodeWith from '../../util/decode';
 import { ErrorType } from '../Login/types/registerForm.types';
 import logger from '../../util/Logger';
@@ -55,15 +55,16 @@ function App() {
 
   // Use existing session cookies to fetch current user if not logged out in server
   useEffect(() => {
+    dispatch(setIsFetching({ isFetching: true }));
     const fetchSession = async () => {
       try {
         const userSession = await userService.fetchUserSession();
-        setUser({ user: userSession });
+        dispatch(setUser({ user: userSession }));
       } catch (error: unknown) {
-        resetUser();
         const decoded = decodeWith(ErrorType)(error);
         logger.logError(decoded);
       }
+      dispatch(setIsFetching({ isFetching: false }));
     };
 
     fetchSession();
