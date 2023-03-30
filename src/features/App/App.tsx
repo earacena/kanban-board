@@ -16,7 +16,7 @@ import {
 } from '@dnd-kit/core';
 import { arrayMove, sortableKeyboardCoordinates } from '@dnd-kit/sortable';
 import { Route, Routes } from 'react-router-dom';
-import { Notifications } from '@mantine/notifications';
+import { notifications, Notifications } from '@mantine/notifications';
 import {
   removeCard,
   setActiveCardId,
@@ -68,6 +68,13 @@ function App() {
     };
 
     fetchSession();
+  }, []);
+
+  useEffect(() => {
+    notifications.show({
+      title: 'Give it a try!',
+      message: 'Nothing will be saved unless you are logged in. Once you make an account and log in, everything will be reset.',
+    });
   }, []);
 
   // Set tab title
