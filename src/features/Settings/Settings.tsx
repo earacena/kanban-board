@@ -5,6 +5,7 @@ import { jsx } from '@emotion/react';
 import {
   Button,
   ColorInput,
+  Divider,
   Modal,
   Stack,
   Text,
@@ -13,6 +14,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { setThemeColor } from './stores/settings.slice';
 import { removeBoard, setSelectedBoard } from '../Board/stores/boards.slice';
 import { removeCardsWithColumnId } from '../Card';
+import { DeleteConfirmationModal } from '../../components';
 
 interface SettingsProps {
   settingsOpened: boolean,
@@ -24,6 +26,7 @@ function Settings({
   setSettingsOpened,
 }: SettingsProps) {
   const dispatch = useAppDispatch();
+  const [beingDeleted, setBeingDeleted] = useState(false);
   const { themeColor } = useAppSelector((state) => state.settings);
   const selectedBoardId = useAppSelector((state) => state.boards.selectedBoardId);
   const boards = useAppSelector((state) => state.boards.allBoards);
@@ -64,7 +67,14 @@ function Settings({
           <Button type="button" onClick={handleSetColor}>Save color</Button>
 
         </div>
-        <Button variant="subtle" color="red" onClick={handleDeleteBoard}>{`Delete '${selectedBoard?.label}'`}</Button>
+        <Divider />
+        <Button variant="outline" color="red" onClick={(() => setBeingDeleted(true))}>{`Delete '${selectedBoard?.label}'`}</Button>
+        <DeleteConfirmationModal
+          opened={beingDeleted}
+          setOpened={setBeingDeleted}
+          handleDelete={handleDeleteBoard}
+          label={`Delete board '${selectedBoard?.label}'`}
+        />
       </Stack>
     </Modal>
   );
