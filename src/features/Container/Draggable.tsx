@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import { CSS } from '@dnd-kit/utilities';
 import { useDraggable } from '@dnd-kit/core';
 
@@ -19,7 +19,7 @@ function Draggable({ id, children }: DraggableProps) {
     transform,
   } = useDraggable({ id });
 
-  const style = {
+  const style: CSSProperties = {
     border: '1px lightgrey solid',
     backgroundColor: 'white',
     padding: '1rem',
@@ -28,6 +28,7 @@ function Draggable({ id, children }: DraggableProps) {
     boxShadow: '0px 3px 10px rgb(0, 0, 0, 0.2)',
     listStyleType: 'none',
     transform: CSS.Translate.toString(transform),
+    touchAction: 'none',
   };
 
   return (

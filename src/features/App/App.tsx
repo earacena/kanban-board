@@ -8,11 +8,12 @@ import {
   DragEndEvent,
   DragStartEvent,
   KeyboardSensor,
-  PointerSensor,
   useSensor,
   useSensors,
   closestCenter,
   DragOverEvent,
+  MouseSensor,
+  TouchSensor,
 } from '@dnd-kit/core';
 import { arrayMove, sortableKeyboardCoordinates } from '@dnd-kit/sortable';
 import { Route, Routes } from 'react-router-dom';
@@ -47,7 +48,8 @@ function App() {
   const selectedBoardId = useAppSelector((state) => state.boards.selectedBoardId);
   const { themeColor } = useAppSelector((state) => state.settings);
   const sensors = useSensors(
-    useSensor(PointerSensor),
+    useSensor(MouseSensor),
+    useSensor(TouchSensor),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
     }),
@@ -73,7 +75,7 @@ function App() {
   useEffect(() => {
     notifications.show({
       title: 'Give it a try!',
-      message: 'Nothing will be saved unless you are logged in. Once you make an account and log in, everything will be reset.',
+      message: 'Nothing will be saved unless you are logged in. Once you create an account and log in, everything will be reset and saved from that point on.',
     });
   }, []);
 
