@@ -5,6 +5,9 @@ export const appStyle = css({
   flexDirection: 'row',
   minHeight: '100vh',
   maxWidth: '100vw',
+  '@media(max-width: 800px)': {
+    flexDirection: 'column',
+  },
 });
 
 export const globalStyle = {

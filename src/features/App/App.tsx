@@ -31,7 +31,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { appStyle, globalStyle } from './styles/app.styles';
 import { Settings } from '../Settings';
 import NavBar from '../NavBar';
-import SideBar from '../SideBar';
+import { SideBar, CollapsableSideBar } from '../SideBar';
 import LoginForm from '../Login';
 import RegisterForm from '../Login/RegisterForm';
 import userService from '../../services/user.service';
@@ -54,6 +54,7 @@ function App() {
       coordinateGetter: sortableKeyboardCoordinates,
     }),
   );
+  const [sideBarOpened, setSideBarOpened] = useState(false);
 
   // Use existing session cookies to fetch current user if not logged out in server
   useEffect(() => {
@@ -142,9 +143,10 @@ function App() {
   const appWithSidebar = () => (
     <div css={appStyle}>
       <SideBar />
+      <CollapsableSideBar sideBarOpened={sideBarOpened} setSideBarOpened={setSideBarOpened} />
       <div
         css={{
-          display: 'flex',
+          display: sideBarOpened ? 'none' : 'flex',
           flexDirection: 'column',
           width: '100%',
         }}

@@ -14,4 +14,7 @@ export default css({
   '&:last-of-type': {
     marginRight: 'auto',
   },
+  '@media(max-width: 800)': {
+    padding: 0,
+  },
 });

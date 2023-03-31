@@ -4,15 +4,11 @@ import { DragOverlay } from '@dnd-kit/core';
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import { createPortal } from 'react-dom';
-import { BsFillTrashFill } from 'react-icons/bs';
-import { Group, Text } from '@mantine/core';
 import { Card } from '../Card';
 import { Columns } from '../Column';
 import { useAppSelector } from '../../hooks';
-import Droppable from './Droppable';
 import {
   containerStyle,
-  trashDroppableStyle,
 } from './styles/container.styles';
 import SortableItem from './SortableItem';
 import { sortableItemStyle } from '../Column/styles/column.styles';
@@ -51,18 +47,6 @@ function Container() {
         </DragOverlay>,
         document.body,
       )}
-      {activeCardId
-        && activeCard
-        && (
-          <Droppable id="trash" style={trashDroppableStyle}>
-            <Group>
-              <Text>
-                Drop here to delete
-              </Text>
-              <BsFillTrashFill />
-            </Group>
-          </Droppable>
-        )}
     </div>
   );
 }

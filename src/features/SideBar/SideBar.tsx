@@ -25,6 +25,9 @@ function SideBar() {
       overflow: 'hidden',
       padding: '10px',
       paddingBottom: '0',
+      '@media(max-width: 800px)': {
+        display: 'none',
+      },
     }}
     >
       <Title color="dark">Boards</Title>
