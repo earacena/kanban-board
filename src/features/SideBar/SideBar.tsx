@@ -50,16 +50,13 @@ function SideBar() {
           }}
           onClick={!userSession ? () => navigate('/login') : () => setUserCardModalOpened(!userCardModelOpened)}
         >
-          { userCardModelOpened
-          && (
-          <UserCardModal
-            userCardModalOpened={userCardModelOpened}
-            setUserCardModalOpened={setUserCardModalOpened}
-          />
-          )}
           <UserDetails />
         </button>
       </Stack>
+      <UserCardModal
+        userCardModalOpened={userCardModelOpened}
+        setUserCardModalOpened={setUserCardModalOpened}
+      />
     </div>
   );
 }
