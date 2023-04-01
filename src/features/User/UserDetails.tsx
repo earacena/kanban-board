@@ -26,7 +26,7 @@ function UserDetails() {
                   {isFetching && <Loader size="sm" variant="dots" /> }
                 </Group>
               )
-}
+          }
         </Text>
       </Stack>
     </Group>
