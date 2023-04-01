@@ -3,6 +3,7 @@ import {
 } from '@mantine/core';
 import React, { SetStateAction } from 'react';
 import { useAppSelector } from '../../hooks';
+import { LogOutButton } from './components';
 
 interface UserCardModalProps {
   userCardModalOpened: boolean,
@@ -13,7 +14,10 @@ function UserCardModal({ userCardModalOpened, setUserCardModalOpened }: UserCard
   const userSession = useAppSelector((state) => state.auth.user);
 
   return (
-    <Modal opened={userCardModalOpened} onClose={() => setUserCardModalOpened(false)}>
+    <Modal opened={userCardModalOpened} onClose={() => setUserCardModalOpened(false)} trapFocus>
+      <LogOutButton
+        setModalOpened={setUserCardModalOpened}
+      />
       <Group>
         <Avatar radius="xl" size="xl" />
         <Stack spacing={1}>
