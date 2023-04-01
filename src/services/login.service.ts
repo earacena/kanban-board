@@ -28,6 +28,19 @@ const login = async ({ username, password }: LoginProps) => {
   }
 };
 
+const logout = async () => {
+  const response = await fetch(`${backendUrl}/logout`, {
+    method: 'POST',
+    credentials: 'include',
+  });
+
+  const responseJson = await response.json();
+  if (responseJson.error) {
+    throw new Error(responseJson.error);
+  }
+};
+
 export default {
   login,
+  logout,
 };
