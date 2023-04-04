@@ -19,7 +19,6 @@ import { arrayMove, sortableKeyboardCoordinates } from '@dnd-kit/sortable';
 import { Route, Routes } from 'react-router-dom';
 import { notifications, Notifications } from '@mantine/notifications';
 import {
-  removeCard,
   setActiveCardId,
   setCardColumnId,
   resetActiveCardId,
@@ -110,11 +109,12 @@ function App() {
     const { active, over } = event;
 
     if (over) {
-      if (over.id === 'trash' && active.id !== over.id) {
-        // Card dragged to trashable area, therefore delete
-        dispatch(removeCard({ cardId: active.id }));
-        return;
-      }
+      // Trash droppable
+      // if (over.id === 'trash' && active.id !== over.id) {
+      //   // Card dragged to trashable area, therefore delete
+      //   dispatch(removeCard({ cardId: active.id }));
+      //   return;
+      // }
 
       const overCard = cards.find((c) => c.id === over.id);
       if (overCard && active.id !== over.id) {
