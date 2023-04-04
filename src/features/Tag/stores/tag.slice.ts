@@ -26,7 +26,7 @@ const tagsSlice = createSlice({
     addTag: (state: TagsState, action: PayloadAction<AddTagPayload>) => ({
       ...state,
       allTags: state.allTags.concat({
-        id: `tag-${uuidv4()}`,
+        id: uuidv4(),
         label: action.payload.label,
         color: action.payload.color,
       }),

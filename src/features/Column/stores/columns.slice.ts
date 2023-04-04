@@ -33,7 +33,7 @@ const columnsSlice = createSlice({
     ) => ({
       ...state,
       allColumns: state.allColumns.concat({
-        id: `column-${uuidv4()}`,
+        id: uuidv4(),
         label: action.payload.label,
         boardId: action.payload.boardId,
       }),

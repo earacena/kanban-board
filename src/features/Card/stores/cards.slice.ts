@@ -36,7 +36,7 @@ const cardsSlice = createSlice({
     addCard: (state: CardsState, action: PayloadAction<AddCardPayload>) => ({
       ...state,
       allCards: state.allCards.concat({
-        id: `card-${uuidv4()}`,
+        id: uuidv4(),
         columnId: action.payload.columnId,
         brief: action.payload.brief,
         body: action.payload.body,
