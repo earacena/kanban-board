@@ -1,16 +1,17 @@
 import { v4 as uuidv4 } from 'uuid';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import {
+import type {
   AddBoardPayload,
   Boards,
   RemoveBoardPayload,
   SetBoardsPayload,
   SetSelectedBoardPayload,
+  UpdateBoardLabelPayload,
 } from '../types/board.types';
 
 type BoardsState = {
-  allBoards: Boards,
-  selectedBoardId: string,
+  allBoards: Boards;
+  selectedBoardId: string;
 };
 
 const initialState: BoardsState = {
@@ -40,7 +41,10 @@ const boardsSlice = createSlice({
         selectedBoardId: newBoardId,
       };
     },
-    setSelectedBoard: (state: BoardsState, action: PayloadAction<SetSelectedBoardPayload>) => ({
+    setSelectedBoard: (
+      state: BoardsState,
+      action: PayloadAction<SetSelectedBoardPayload>,
+    ) => ({
       ...state,
       selectedBoardId: action.payload.boardId,
     }),
@@ -50,6 +54,17 @@ const boardsSlice = createSlice({
     ) => ({
       ...state,
       allBoards: state.allBoards.filter((b) => b.id !== action.payload.boardId),
+    }),
+    updateBoardLabel: (
+      state: BoardsState,
+      action: PayloadAction<UpdateBoardLabelPayload>,
+    ) => ({
+      ...state,
+      allBoards: state.allBoards.map((b) => (
+        b.id === action.payload.boardId
+          ? { ...b, label: action.payload.newLabel }
+          : b
+      )),
     }),
     resetBoards: () => initialState,
   },
@@ -61,6 +76,7 @@ export const {
   removeBoard,
   resetBoards,
   setSelectedBoard,
+  updateBoardLabel,
 } = boardsSlice.actions;
 
 export default boardsSlice.reducer;
