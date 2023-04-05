@@ -3,32 +3,27 @@ import React, { useState } from 'react';
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import {
-  Button,
-  ColorInput,
-  Divider,
-  Modal,
-  Stack,
-  Text,
+  Button, ColorInput, Divider, Modal, Stack, Text,
 } from '@mantine/core';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { setThemeColor } from './stores/settings.slice';
 import { removeBoard, setSelectedBoard } from '../Board/stores/boards.slice';
 import { removeCardsWithColumnId } from '../Card';
 import { DeleteConfirmationModal } from '../../components';
+import { BoardEditForm } from '../Board';
 
 interface SettingsProps {
-  settingsOpened: boolean,
-  setSettingsOpened: (value: React.SetStateAction<boolean>) => void,
+  settingsOpened: boolean;
+  setSettingsOpened: (value: React.SetStateAction<boolean>) => void;
 }
 
-function Settings({
-  settingsOpened,
-  setSettingsOpened,
-}: SettingsProps) {
+function Settings({ settingsOpened, setSettingsOpened }: SettingsProps) {
   const dispatch = useAppDispatch();
   const [beingDeleted, setBeingDeleted] = useState(false);
   const { themeColor } = useAppSelector((state) => state.settings);
-  const selectedBoardId = useAppSelector((state) => state.boards.selectedBoardId);
+  const selectedBoardId = useAppSelector(
+    (state) => state.boards.selectedBoardId,
+  );
   const boards = useAppSelector((state) => state.boards.allBoards);
   const selectedBoard = boards.find((b) => b.id === selectedBoardId);
   const [color, setColor] = useState(themeColor);
@@ -64,11 +59,25 @@ function Settings({
             value={color}
             onChange={setColor}
           />
-          <Button type="button" onClick={handleSetColor}>Save color</Button>
-
+          <Button type="button" onClick={handleSetColor}>
+            Save color
+          </Button>
         </div>
         <Divider />
-        <Button variant="outline" color="red" onClick={(() => setBeingDeleted(true))}>{`Delete '${selectedBoard?.label}'`}</Button>
+        {selectedBoard && (
+          <BoardEditForm
+            boardId={selectedBoard?.id}
+            boardLabel={selectedBoard?.label}
+          />
+        )}
+        <Divider />
+        <Button
+          variant="outline"
+          color="red"
+          onClick={() => setBeingDeleted(true)}
+        >
+          {`Delete '${selectedBoard?.label}'`}
+        </Button>
         <DeleteConfirmationModal
           opened={beingDeleted}
           setOpened={setBeingDeleted}
