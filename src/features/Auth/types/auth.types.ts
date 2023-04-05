@@ -1,9 +1,9 @@
 import {
-  TypeOf, number, string, type,
+  TypeOf, string, type,
 } from 'io-ts';
 
 export const UserSessionInfoType = type({
-  id: number,
+  id: string,
   name: string,
   username: string,
 });
