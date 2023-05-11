@@ -12,7 +12,6 @@ import { BsX } from 'react-icons/bs';
 import { setUser } from '../Auth';
 import { useAppDispatch } from '../../hooks';
 import loginService from '../../services/login.service';
-import decodeWith from '../../util/decode';
 import { ErrorType } from './types/registerForm.types';
 import logger from '../../util/Logger';
 
@@ -56,7 +55,7 @@ function LoginForm() {
       });
       navigate('/');
     } catch (error: unknown) {
-      const decoded = decodeWith(ErrorType)(error);
+      const decoded = ErrorType.parse(error);
       logger.logError(decoded);
       let message: string = '';
 

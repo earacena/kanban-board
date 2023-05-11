@@ -1,20 +1,15 @@
-import {
-  Array as RtArray,
-  Record as RtRecord,
-  String as RtString,
-  Static as RtStatic,
-} from 'runtypes';
+import { z } from 'zod';
 
-export const TagType = RtRecord({
-  id: RtString,
-  label: RtString,
-  color: RtString,
+export const TagType = z.object({
+  id: z.string(),
+  label: z.string(),
+  color: z.string(),
 });
 
-export const TagArrayType = RtArray(TagType);
+export const TagArrayType = z.array(TagType);
 
-export type Tag = RtStatic<typeof TagType>;
-export type Tags = RtStatic<typeof TagArrayType>;
+export type Tag = z.infer<typeof TagType>;
+export type Tags = z.infer<typeof TagArrayType>;
 
 export type SetTagsPayload = {
   allTags: Tags,

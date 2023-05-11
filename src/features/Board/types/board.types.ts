@@ -1,18 +1,13 @@
-import {
-  Record as RtRecord,
-  String as RtString,
-  Array as RtArray,
-  Static as RtStatic,
-} from 'runtypes';
+import { z } from 'zod';
 
-export const BoardType = RtRecord({
-  id: RtString,
-  label: RtString,
+export const BoardType = z.object({
+  id: z.string(),
+  label: z.string(),
 });
 
-export const BoardArrayType = RtArray(BoardType);
-export type Board = RtStatic<typeof BoardType>;
-export type Boards = RtStatic<typeof BoardArrayType>;
+export const BoardArrayType = z.array(BoardType);
+export type Board = z.infer<typeof BoardType>;
+export type Boards = z.infer<typeof BoardArrayType>;
 
 export type SetBoardsPayload = {
   allBoards: Boards,

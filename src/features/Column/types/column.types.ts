@@ -1,20 +1,15 @@
-import {
-  String as RtString,
-  Array as RtArray,
-  Record as RtRecord,
-  Static as RtStatic,
-} from 'runtypes';
+import { z } from 'zod';
 
-export const ColumnType = RtRecord({
-  id: RtString,
-  label: RtString,
-  boardId: RtString,
+export const ColumnType = z.object({
+  id: z.string(),
+  label: z.string(),
+  boardId: z.string(),
 });
 
-export const ColumnArrayType = RtArray(ColumnType);
+export const ColumnArrayType = z.array(ColumnType);
 
-export type Column = RtStatic<typeof ColumnType>;
-export type Columns = RtStatic<typeof ColumnArrayType>;
+export type Column = z.infer<typeof ColumnType>;
+export type Columns = z.infer<typeof ColumnArrayType>;
 
 export type SetColumnsPayload = {
   allColumns: Columns,

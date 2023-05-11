@@ -1,10 +1,8 @@
 /* eslint-disable import/prefer-default-export */
-import {
-  string, type, undefined, union,
-} from 'io-ts';
+import { z } from 'zod';
 
-export const ErrorType = type({
-  name: string,
-  message: string,
-  stack: union([string, undefined]),
+export const ErrorType = z.object({
+  name: z.string(),
+  message: z.string(),
+  stack: z.union([z.string(), z.undefined()]),
 });

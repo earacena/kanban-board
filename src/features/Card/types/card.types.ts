@@ -1,50 +1,43 @@
-import {
-  Number as RtNumber,
-  String as RtString,
-  Record as RtRecord,
-  Array as RtArray,
-  Optional as RtOptional,
-  Static as RtStatic,
-} from 'runtypes';
+import { z } from 'zod';
 import { UniqueIdentifier } from '@dnd-kit/core';
 import { TagsType } from '../../Tag';
 import { Tags } from '../../Tag/types/tag.types';
 
-export const CardActivityType = RtRecord({
-  id: RtString,
-  dateInMs: RtNumber,
-  content: RtString,
-  type: RtString,
+export const CardActivityType = z.object({
+  id: z.string(),
+  dateInMs: z.number(),
+  content: z.string(),
+  type: z.string(),
 });
 
-export const CardActivityArrayType = RtArray(CardActivityType);
+export const CardActivityArrayType = z.array(CardActivityType);
 
-export const CardType = RtRecord({
-  id: RtString,
-  columnId: RtString,
-  brief: RtString,
-  body: RtOptional(RtString),
-  color: RtOptional(RtString),
-  tags: RtOptional(
-    RtArray(
-      RtRecord({
-        id: RtString,
-        label: RtString,
-        color: RtString,
+export const CardType = z.object({
+  id: z.string(),
+  columnId: z.string(),
+  brief: z.string(),
+  body: z.optional(z.string()),
+  color: z.optional(z.string()),
+  tags: z.optional(
+    z.array(
+      z.object({
+        id: z.string(),
+        label: z.string(),
+        color: z.string(),
       }),
     ),
   ),
   activity: CardActivityArrayType,
 });
 
-export const CardArrayType = RtArray(CardType);
+export const CardArrayType = z.array(CardType);
 
-export type Card = RtStatic<typeof CardType>;
+export type Card = z.infer<typeof CardType>;
 
-export type Cards = RtStatic<typeof CardArrayType>;
+export type Cards = z.infer<typeof CardArrayType>;
 
-export type CardActivityEvent = RtStatic<typeof CardActivityType>;
-export type CardActivity = RtStatic<typeof CardActivityArrayType>;
+export type CardActivityEvent = z.infer<typeof CardActivityType>;
+export type CardActivity = z.infer<typeof CardActivityArrayType>;
 
 export type SetCardsPayload = { allCards: Cards };
 

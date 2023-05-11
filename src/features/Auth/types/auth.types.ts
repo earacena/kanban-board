@@ -1,14 +1,12 @@
-import {
-  TypeOf, string, type,
-} from 'io-ts';
+import { z } from 'zod';
 
-export const UserSessionInfoType = type({
-  id: string,
-  name: string,
-  username: string,
+export const UserSessionInfoType = z.object({
+  id: z.string(),
+  name: z.string(),
+  username: z.string(),
 });
 
-export type UserSessionInfo = TypeOf<typeof UserSessionInfoType>;
+export type UserSessionInfo = z.infer<typeof UserSessionInfoType>;
 
 export interface AuthState {
   user: UserSessionInfo | undefined,

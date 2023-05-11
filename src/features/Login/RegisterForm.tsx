@@ -12,7 +12,6 @@ import { notifications } from '@mantine/notifications';
 import { setUser } from '../Auth';
 import { useAppDispatch } from '../../hooks';
 import userService from '../../services/user.service';
-import decodeWith from '../../util/decode';
 import { ErrorType } from './types/registerForm.types';
 
 interface NewUserCredentialInputs {
@@ -70,7 +69,7 @@ function RegisterForm() {
 
       navigate('/');
     } catch (error: unknown) {
-      const decoded = decodeWith(ErrorType)(error);
+      const decoded = ErrorType.parse(error);
       let message: string = '';
       if (decoded.message.includes('NetworkError')) {
         message = 'Unable to connect to server';
