@@ -23,6 +23,9 @@ A kanban board web application used for task management. Deployed live [here](ht
 * Settings
   * Set background color
 
+* Authentication
+  * Session based user authentication
+
 ### Technologies
 
 * Typescript
@@ -55,5 +58,5 @@ npm install
 Run the following in the root project folder:
 
 ```bash
-npm run start
+HTTPS=true npm run start
 ```
