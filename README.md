@@ -2,7 +2,10 @@
 
 ## Description
 
-A kanban board web application used for task management. Deployed live [here](https://kanban-board.onrender.com).
+A kanban board web application used for task management.
+Deployed live [here](https://kanban-board.onrender.com).
+
+The backend of this project is located [here](https://github.com/earacena/kanban-board-backend).
 
 ### Features
 
