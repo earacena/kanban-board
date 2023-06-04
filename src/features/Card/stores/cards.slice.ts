@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import type {
   AddCardActivityPayload,
   AddCardPayload,
-  Cards,
+  CardArrayType,
   RemoveCardPayload,
   RemoveCardsWithColumnIdPayload,
   RemoveTagFromAllCardsPayload,
@@ -16,7 +16,7 @@ import type {
 } from '../types/card.types';
 
 type CardsState = {
-  allCards: Cards;
+  allCards: CardArrayType;
   activeCardId: string;
 };
 

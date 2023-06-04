@@ -3,16 +3,16 @@ import { UniqueIdentifier } from '@dnd-kit/core';
 import { TagsType } from '../../Tag';
 import { Tags } from '../../Tag/types/tag.types';
 
-export const CardActivityType = z.object({
+export const zActivity = z.object({
   id: z.string(),
   dateInMs: z.number(),
   content: z.string(),
   type: z.string(),
 });
 
-export const CardActivityArrayType = z.array(CardActivityType);
+export const zActivities = z.array(zActivity);
 
-export const CardType = z.object({
+export const zCard = z.object({
   id: z.string(),
   columnId: z.string(),
   brief: z.string(),
@@ -27,19 +27,19 @@ export const CardType = z.object({
       }),
     ),
   ),
-  activity: CardActivityArrayType,
+  activity: zActivities,
 });
 
-export const CardArrayType = z.array(CardType);
+export const zCards = z.array(zCard);
 
-export type Card = z.infer<typeof CardType>;
+export type CardType = z.infer<typeof zCard>;
 
-export type Cards = z.infer<typeof CardArrayType>;
+export type CardArrayType = z.infer<typeof zCards>;
 
-export type CardActivityEvent = z.infer<typeof CardActivityType>;
-export type CardActivity = z.infer<typeof CardActivityArrayType>;
+export type ActivityType = z.infer<typeof zActivity>;
+export type CardActivity = z.infer<typeof zActivities>;
 
-export type SetCardsPayload = { allCards: Cards };
+export type SetCardsPayload = { allCards: CardArrayType };
 
 export type AddCardPayload = {
   columnId: string;

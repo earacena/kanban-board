@@ -3,3 +3,10 @@ export { default as CardForm } from './CardForm';
 export { default as ExpandedCard } from './ExpandedCard';
 export { default as cardsReducer } from './stores/cards.slice';
 export * from './stores/cards.slice';
+
+export {
+  zCard,
+  zCards,
+  zActivity,
+  zActivities,
+} from './types/card.types';
