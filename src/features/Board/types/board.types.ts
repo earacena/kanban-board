@@ -1,20 +1,27 @@
 import { z } from 'zod';
 
-export const BoardType = z.object({
-  id: z.string(),
+export const zBoard = z.object({
+  id: z.string().uuid(),
   label: z.string(),
+  userId: z.string().uuid(),
+  dateCreated: z.coerce.date(),
 });
+export const zBoards = z.array(zBoard);
 
-export const BoardArrayType = z.array(BoardType);
-export type Board = z.infer<typeof BoardType>;
-export type Boards = z.infer<typeof BoardArrayType>;
+export type BoardType = z.infer<typeof zBoard>;
+export type BoardArrayType = z.infer<typeof zBoards>;
 
 export type SetBoardsPayload = {
-  allBoards: Boards,
+  allBoards: BoardArrayType,
 };
 
 export type AddBoardPayload = {
-  label: string,
+  board: {
+    id: string,
+    label: string,
+    userId: string,
+    dateCreated: Date,
+  },
 };
 
 export type RemoveBoardPayload = {

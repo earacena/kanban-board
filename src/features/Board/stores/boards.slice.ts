@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import type {
   AddBoardPayload,
-  Boards,
+  BoardArrayType,
   RemoveBoardPayload,
   SetBoardsPayload,
   SetSelectedBoardPayload,
@@ -10,7 +10,7 @@ import type {
 } from '../types/board.types';
 
 type BoardsState = {
-  allBoards: Boards;
+  allBoards: BoardArrayType;
   selectedBoardId: string;
 };
 
@@ -30,17 +30,11 @@ const boardsSlice = createSlice({
       ...state,
       allBoards: action.payload.allBoards,
     }),
-    addBoard: (state: BoardsState, action: PayloadAction<AddBoardPayload>) => {
-      const newBoardId = uuidv4();
-      return {
-        ...state,
-        allBoards: state.allBoards.concat({
-          id: newBoardId,
-          label: action.payload.label,
-        }),
-        selectedBoardId: newBoardId,
-      };
-    },
+    addBoard: (state: BoardsState, action: PayloadAction<AddBoardPayload>) => ({
+      ...state,
+      allBoards: state.allBoards.concat(action.payload.board),
+      selectedBoardId: action.payload.board.id,
+    }),
     setSelectedBoard: (
       state: BoardsState,
       action: PayloadAction<SetSelectedBoardPayload>,
