@@ -42,11 +42,7 @@ export type CardActivity = z.infer<typeof zActivities>;
 export type SetCardsPayload = { allCards: CardArrayType };
 
 export type AddCardPayload = {
-  columnId: string;
-  brief: string;
-  body: string | undefined;
-  color: string | undefined;
-  tags: TagsType;
+  card: CardType,
 };
 export type RemoveCardPayload = {
   cardId: UniqueIdentifier;

@@ -35,22 +35,7 @@ const cardsSlice = createSlice({
     }),
     addCard: (state: CardsState, action: PayloadAction<AddCardPayload>) => ({
       ...state,
-      allCards: state.allCards.concat({
-        id: uuidv4(),
-        columnId: action.payload.columnId,
-        brief: action.payload.brief,
-        body: action.payload.body,
-        color: action.payload.color,
-        tags: action.payload.tags,
-        activity: [
-          {
-            id: uuidv4(),
-            dateInMs: Date.now(),
-            type: 'task created',
-            content: `'${action.payload.brief}' task created.`,
-          },
-        ],
-      }),
+      allCards: state.allCards.concat(action.payload.card),
     }),
     removeCard: (
       state: CardsState,
