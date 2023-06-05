@@ -1,23 +1,24 @@
 import { z } from 'zod';
 
-export const ColumnType = z.object({
+export const zColumn = z.object({
   id: z.string(),
+  userId: z.string().uuid(),
   label: z.string(),
   boardId: z.string(),
+  dateCreated: z.coerce.date(),
 });
 
-export const ColumnArrayType = z.array(ColumnType);
+export const zColumns = z.array(zColumn);
 
-export type Column = z.infer<typeof ColumnType>;
-export type Columns = z.infer<typeof ColumnArrayType>;
+export type ColumnType = z.infer<typeof zColumn>;
+export type ColumnArrayType = z.infer<typeof zColumns>;
 
 export type SetColumnsPayload = {
-  allColumns: Columns,
+  allColumns: ColumnArrayType,
 };
 
 export type AddColumnPayload = {
-  label: string,
-  boardId: string,
+  column: ColumnType
 };
 
 export type DeleteColumnPayload = {

@@ -1,15 +1,14 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { v4 as uuidv4 } from 'uuid';
 import type {
   AddColumnPayload,
-  Columns,
+  ColumnArrayType,
   DeleteColumnPayload,
   SetColumnsPayload,
   UpdateColumnPayload,
 } from '../types/column.types';
 
 type ColumnsState = {
-  allColumns: Columns;
+  allColumns: ColumnArrayType;
 };
 
 const initialState: ColumnsState = {
@@ -32,11 +31,7 @@ const columnsSlice = createSlice({
       action: PayloadAction<AddColumnPayload>,
     ) => ({
       ...state,
-      allColumns: state.allColumns.concat({
-        id: uuidv4(),
-        label: action.payload.label,
-        boardId: action.payload.boardId,
-      }),
+      allColumns: state.allColumns.concat(action.payload.column),
     }),
     deleteColumn: (
       state: ColumnsState,

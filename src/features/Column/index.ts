@@ -4,3 +4,8 @@ export { default as ColumnEditForm } from './ColumnEditForm';
 
 export { default as columnsReducer } from './stores/columns.slice';
 export * from './stores/columns.slice';
+
+export {
+  zColumn,
+  zColumns,
+} from './types/column.types';
