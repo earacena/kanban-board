@@ -38,8 +38,10 @@ const fetchUserSession = async () => {
     },
   );
   const responseJson = await response.json();
-  if (responseJson.error) {
-    throw new Error(responseJson.error);
+  if (!responseJson.success) {
+    const errorResponse = ErrorResponse.parse(responseJson);
+    const errorMessages = errorResponse.errors?.map((err) => err.message);
+    throw new Error(errorMessages?.join(' '));
   } else {
     const userSessionInfo = UserDetailsPayload.parse(responseJson).user;
     return userSessionInfo;
