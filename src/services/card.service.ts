@@ -1,4 +1,4 @@
-import { ErrorResponse, CardResponse, CardsResponse } from "./common.types";
+import { ErrorResponse, CardResponse, CardsResponse } from './common.types';
 
 const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
