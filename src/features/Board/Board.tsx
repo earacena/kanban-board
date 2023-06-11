@@ -3,7 +3,7 @@
 import { jsx } from '@emotion/react';
 import React from 'react';
 import { Button, Text } from '@mantine/core';
-import { Board as BoardType } from './types/board.types';
+import { BoardType } from './types/board.types';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { setSelectedBoard } from './stores/boards.slice';
 
