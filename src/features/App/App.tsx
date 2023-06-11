@@ -34,13 +34,14 @@ import { SideBar, CollapsableSideBar } from '../SideBar';
 import LoginForm from '../Login';
 import RegisterForm from '../Login/RegisterForm';
 import userService from '../../services/user.service';
+import columnService from '../../services/column.service';
 import { setIsFetching, setUser } from '../Auth';
-import decodeWith from '../../util/decode';
 import { ErrorType } from '../Login/types/registerForm.types';
 import logger from '../../util/Logger';
 
 function App() {
   const dispatch = useAppDispatch();
+  const session = useAppSelector((state) => state.auth.user);
   const [settingsOpened, setSettingsOpened] = useState(false);
   const cards = useAppSelector((state) => state.cards.allCards);
   const columns = useAppSelector((state) => state.columns.allColumns);
@@ -63,7 +64,7 @@ function App() {
         const userSession = await userService.fetchUserSession();
         dispatch(setUser({ user: userSession }));
       } catch (error: unknown) {
-        const decoded = decodeWith(ErrorType)(error);
+        const decoded = ErrorType.parse(error);
         logger.logError(decoded);
       }
       dispatch(setIsFetching({ isFetching: false }));
@@ -109,13 +110,6 @@ function App() {
     const { active, over } = event;
 
     if (over) {
-      // Trash droppable
-      // if (over.id === 'trash' && active.id !== over.id) {
-      //   // Card dragged to trashable area, therefore delete
-      //   dispatch(removeCard({ cardId: active.id }));
-      //   return;
-      // }
-
       const overCard = cards.find((c) => c.id === over.id);
       if (overCard && active.id !== over.id) {
         const oldCard = cards.find((card) => card.id === active.id);
@@ -134,9 +128,20 @@ function App() {
     dispatch(resetActiveCardId());
   };
 
-  const handleAddColumn = () => {
-    if (selectedBoardId) {
-      dispatch(addColumn({ label: 'Column', boardId: selectedBoardId }));
+  const handleAddColumn = async () => {
+    try {
+      if (selectedBoardId && session) {
+        const newColumn = await columnService.create({
+          userId: session.id,
+          label: 'New Board',
+          boardId: selectedBoardId,
+        });
+
+        dispatch(addColumn({ column: newColumn }));
+      }
+    } catch (err: unknown) {
+      const decoded = ErrorType.parse(err);
+      logger.logError(decoded);
     }
   };
 
@@ -152,10 +157,10 @@ function App() {
         }}
       >
         {selectedBoardId && (
-        <NavBar
-          handleAddColumn={handleAddColumn}
-          setSettingsOpened={setSettingsOpened}
-        />
+          <NavBar
+            handleAddColumn={handleAddColumn}
+            setSettingsOpened={setSettingsOpened}
+          />
         )}
         <Settings
           settingsOpened={settingsOpened}
