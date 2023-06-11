@@ -35,7 +35,9 @@ const logout = async () => {
   });
 };
 
-export default {
+const loginServices = {
   login,
   logout,
 };
+
+export default loginServices;

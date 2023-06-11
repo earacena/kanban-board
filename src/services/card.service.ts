@@ -35,7 +35,7 @@ interface DeleteCardsOfColumnProps {
   columnId: string,
 }
 
-export const create = async ({
+const create = async ({
   userId,
   columnId,
   brief,
@@ -66,7 +66,7 @@ export const create = async ({
   }
 };
 
-export const fetchCardById = async ({ cardId }: FetchCardProps) => {
+const fetchCardById = async ({ cardId }: FetchCardProps) => {
   const response = await fetch(`${backendUrl}/api/cards/${cardId}`, {
     method: 'GET',
     headers: {
@@ -86,7 +86,7 @@ export const fetchCardById = async ({ cardId }: FetchCardProps) => {
   }
 };
 
-export const fetchCardsByColumnId = async ({ columnId }: FetchCardsOfColumnProps) => {
+const fetchCardsByColumnId = async ({ columnId }: FetchCardsOfColumnProps) => {
   const response = await fetch(`${backendUrl}/api/cards/column/${columnId}`, {
     method: 'GET',
     headers: {
@@ -106,7 +106,7 @@ export const fetchCardsByColumnId = async ({ columnId }: FetchCardsOfColumnProps
   }
 };
 
-export const update = async ({ cardId, changes }: UpdateProps) => {
+const update = async ({ cardId, changes }: UpdateProps) => {
   const response = await fetch(`${backendUrl}/api/cards/${cardId}`, {
     method: 'PUT',
     headers: {
@@ -127,7 +127,7 @@ export const update = async ({ cardId, changes }: UpdateProps) => {
   }
 };
 
-export const deleteCard = async ({ cardId }: DeleteCardProps) => {
+const deleteCard = async ({ cardId }: DeleteCardProps) => {
   const response = await fetch(`${backendUrl}/api/cards/${cardId}`, {
     method: 'DELETE',
     headers: {
@@ -144,7 +144,7 @@ export const deleteCard = async ({ cardId }: DeleteCardProps) => {
   }
 };
 
-export const deleteCardsByColumnId = async ({ columnId }: DeleteCardsOfColumnProps) => {
+const deleteCardsByColumnId = async ({ columnId }: DeleteCardsOfColumnProps) => {
   const response = await fetch(`${backendUrl}/api/cards/column/${columnId}`, {
     method: 'DELETE',
     headers: {
@@ -160,3 +160,14 @@ export const deleteCardsByColumnId = async ({ columnId }: DeleteCardsOfColumnPro
     throw new Error(errorMessages?.join(' '));
   }
 };
+
+const cardServices = {
+  create,
+  fetchCardById,
+  fetchCardsByColumnId,
+  update,
+  deleteCard,
+  deleteCardsByColumnId,
+};
+
+export default cardServices;

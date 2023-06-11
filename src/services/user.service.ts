@@ -48,7 +48,9 @@ const fetchUserSession = async () => {
   }
 };
 
-export default {
+const userServices = {
   create,
   fetchUserSession,
 };
+
+export default userServices;

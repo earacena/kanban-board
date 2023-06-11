@@ -12,7 +12,7 @@ interface FetchActivityByCardIdProps {
   cardId: string,
 }
 
-export const create = async ({ cardId, userId, description }: CreateProps) => {
+const create = async ({ cardId, userId, description }: CreateProps) => {
   const response = await fetch(`${backendUrl}/api/activities/`, {
     method: 'POST',
     headers: {
@@ -33,7 +33,7 @@ export const create = async ({ cardId, userId, description }: CreateProps) => {
   }
 };
 
-export const FetchActivityByCardId = async ({ cardId }: FetchActivityByCardIdProps) => {
+const FetchActivityByCardId = async ({ cardId }: FetchActivityByCardIdProps) => {
   const response = await fetch(`${backendUrl}/api/activities/card/${cardId}`, {
     method: 'GET',
     headers: {
@@ -52,3 +52,10 @@ export const FetchActivityByCardId = async ({ cardId }: FetchActivityByCardIdPro
     return fetchedActivities;
   }
 };
+
+const activityServices = {
+  create,
+  FetchActivityByCardId,
+};
+
+export default activityServices;

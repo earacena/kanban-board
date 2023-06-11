@@ -26,7 +26,7 @@ interface DeleteBoardByIdProps {
   boardId: string,
 }
 
-export const create = async ({
+const create = async ({
   userId,
   label,
 }: CreateBoardProps) => {
@@ -50,7 +50,7 @@ export const create = async ({
   }
 };
 
-export const fetchById = async ({ boardId }: FetchBoardByIdProps) => {
+const fetchById = async ({ boardId }: FetchBoardByIdProps) => {
   const response = await fetch(`${backendUrl}/api/boards/${boardId}`, {
     method: 'GET',
     headers: {
@@ -70,7 +70,7 @@ export const fetchById = async ({ boardId }: FetchBoardByIdProps) => {
   }
 };
 
-export const fetchByUserId = async ({ userId }: FetchBoardByUserIdProps) => {
+const fetchByUserId = async ({ userId }: FetchBoardByUserIdProps) => {
   const response = await fetch(`${backendUrl}/api/boards/user/${userId}`, {
     method: 'GET',
     headers: {
@@ -90,7 +90,7 @@ export const fetchByUserId = async ({ userId }: FetchBoardByUserIdProps) => {
   }
 };
 
-export const update = async ({ boardId, changes }: UpdateBoardByIdProps) => {
+const update = async ({ boardId, changes }: UpdateBoardByIdProps) => {
   const response = await fetch(`${backendUrl}/api/boards/${boardId}`, {
     method: 'PUT',
     headers: {
@@ -111,7 +111,7 @@ export const update = async ({ boardId, changes }: UpdateBoardByIdProps) => {
   }
 };
 
-export const deleteBoard = async ({ boardId }: DeleteBoardByIdProps) => {
+const deleteBoard = async ({ boardId }: DeleteBoardByIdProps) => {
   const response = await fetch(`${backendUrl}/api/boards/${boardId}`, {
     method: 'DELETE',
     headers: {
@@ -127,3 +127,13 @@ export const deleteBoard = async ({ boardId }: DeleteBoardByIdProps) => {
     throw new Error(errorMessages?.join(' '));
   }
 };
+
+const boardServices = {
+  create,
+  fetchById,
+  fetchByUserId,
+  update,
+  deleteBoard,
+};
+
+export default boardServices;

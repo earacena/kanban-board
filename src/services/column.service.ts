@@ -31,7 +31,7 @@ interface DeleteColumnProps {
   columnId: string,
 }
 
-export const create = async ({ userId, boardId, label }: CreateProps) => {
+const create = async ({ userId, boardId, label }: CreateProps) => {
   const response = await fetch(`${backendUrl}/api/columns/`, {
     method: 'POST',
     headers: {
@@ -52,7 +52,7 @@ export const create = async ({ userId, boardId, label }: CreateProps) => {
   }
 };
 
-export const fetchColumnById = async ({ columnId }: FetchColumnProps) => {
+const fetchColumnById = async ({ columnId }: FetchColumnProps) => {
   const response = await fetch(`${backendUrl}/api/columns/${columnId}`, {
     method: 'GET',
     headers: {
@@ -72,7 +72,7 @@ export const fetchColumnById = async ({ columnId }: FetchColumnProps) => {
   }
 };
 
-export const fetchColumnsOfBoard = async ({ boardId }: FetchColumnsOfBoardProps) => {
+const fetchColumnsOfBoard = async ({ boardId }: FetchColumnsOfBoardProps) => {
   const response = await fetch(`${backendUrl}/api/columns/board/${boardId}`, {
     method: 'GET',
     headers: {
@@ -92,7 +92,7 @@ export const fetchColumnsOfBoard = async ({ boardId }: FetchColumnsOfBoardProps)
   }
 };
 
-export const fetchColumnsOfUser = async ({ userId }: FetchColumnsOfUserProps) => {
+const fetchColumnsOfUser = async ({ userId }: FetchColumnsOfUserProps) => {
   const response = await fetch(`${backendUrl}/api/columns/user/${userId}`, {
     method: 'GET',
     headers: {
@@ -112,7 +112,7 @@ export const fetchColumnsOfUser = async ({ userId }: FetchColumnsOfUserProps) =>
   }
 };
 
-export const update = async ({ columnId, changes }: UpdateProps) => {
+const update = async ({ columnId, changes }: UpdateProps) => {
   const response = await fetch(`${backendUrl}/api/columns/${columnId}`, {
     method: 'PUT',
     headers: {
@@ -133,7 +133,7 @@ export const update = async ({ columnId, changes }: UpdateProps) => {
   }
 };
 
-export const deleteColumn = async ({ columnId }: DeleteColumnProps) => {
+const deleteColumn = async ({ columnId }: DeleteColumnProps) => {
   const response = await fetch(`${backendUrl}/api/columns/${columnId}`, {
     method: 'DELETE',
     headers: {
@@ -149,3 +149,14 @@ export const deleteColumn = async ({ columnId }: DeleteColumnProps) => {
     throw new Error(errorMessages?.join(' '));
   }
 };
+
+const columnServices = {
+  create,
+  fetchColumnById,
+  fetchColumnsOfUser,
+  fetchColumnsOfBoard,
+  update,
+  deleteColumn,
+};
+
+export default columnServices;
