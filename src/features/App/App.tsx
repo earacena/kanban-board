@@ -38,6 +38,7 @@ import columnService from '../../services/column.service';
 import { setIsFetching, setUser } from '../Auth';
 import { ErrorType } from '../Login/types/registerForm.types';
 import logger from '../../util/Logger';
+import { v4 as uuidv4 } from 'uuid';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -138,6 +139,17 @@ function App() {
         });
 
         dispatch(addColumn({ column: newColumn }));
+      } else {
+        // User is not logged in, or guest is trying out application
+        dispatch(addColumn({
+          column: {
+            id: uuidv4(),
+            userId: uuidv4(),
+            label: 'Column',
+            boardId: selectedBoardId,
+            dateCreated: new Date(),
+          },
+        }));
       }
     } catch (err: unknown) {
       const decoded = ErrorType.parse(err);
