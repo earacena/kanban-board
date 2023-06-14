@@ -6,9 +6,14 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { Button, Text } from '@mantine/core';
 import { BsPlus } from 'react-icons/bs';
 import { FcCancel } from 'react-icons/fc';
+import { v4 as uuidv4 } from 'uuid';
+
 import { cardFormButtonStyle, sortableItemStyle } from '../Column/styles/column.styles';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { addBoard } from './stores/boards.slice';
+import { ErrorType } from '../Login/types/registerForm.types';
+import logger from '../../util/Logger';
+import boardServices from '../../services/board.service';
 
 type Inputs = {
   label: string;
@@ -20,30 +25,44 @@ type BoardFormProps = {
 
 function BoardForm({ setBoardFormOpened }: BoardFormProps) {
   const dispatch = useAppDispatch();
+  const session = useAppSelector((state) => state.auth.user);
 
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
+    reset,
   } = useForm<Inputs>({
     defaultValues: {
       label: '',
     },
   });
 
-  const onSubmit: SubmitHandler<Inputs> = (formData) => {
-    const { label } = formData;
+  const onSubmit: SubmitHandler<Inputs> = async (formData) => {
+    try {
+      if (session) {
+        const newBoard = await boardServices.create({
+          userId: session.id,
+          label: formData.label,
+        });
 
-    dispatch(
-      addBoard({
-        label,
-      }),
-    );
+        dispatch(addBoard({ board: newBoard }));
+      } else {
+        dispatch(addBoard({
+          board: {
+            id: uuidv4(),
+            label: formData.label,
+            userId: uuidv4(),
+            dateCreated: new Date(),
+          },
+        }));
+      }
 
-    reset({
-      label: '',
-    });
+      reset({ label: '' });
+    } catch (err: unknown) {
+      const decoded = ErrorType.parse(err);
+      logger.logError(decoded);
+    }
   };
 
   return (
