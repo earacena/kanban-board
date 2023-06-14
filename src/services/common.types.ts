@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { zBoard, zBoards } from '../features/Board';
+import { zBoard, zBoards } from '../features/Board/types/board.types';
 import { zColumn, zColumns } from '../features/Column/types/column.types';
 import {
   zActivities,
