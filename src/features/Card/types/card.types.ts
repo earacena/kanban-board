@@ -1,6 +1,5 @@
 import { z } from 'zod';
 import { UniqueIdentifier } from '@dnd-kit/core';
-import { TagsType } from '../../Tag';
 import { Tags } from '../../Tag/types/tag.types';
 
 export const zActivity = z.object({
@@ -27,7 +26,7 @@ export const zCard = z.object({
       }),
     ),
   ),
-  activity: zActivities,
+  activity: z.optional(zActivities),
 });
 
 export const zCards = z.array(zCard);
