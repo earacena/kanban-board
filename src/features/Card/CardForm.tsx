@@ -10,8 +10,12 @@ import {
   cardFormButtonStyle,
   sortableItemStyle,
 } from '../Column/styles/column.styles';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { addCard } from './stores/cards.slice';
+import { ErrorType } from '../Login/types/registerForm.types';
+import logger from '../../util/Logger';
+import { v4 as uuidv4 } from 'uuid';
+import cardServices from '../../services/card.service';
 
 type CardFormProps = {
   columnId: string;
@@ -24,6 +28,9 @@ type CardFormInputs = {
 
 function CardForm({ columnId, setCardFormOpened }: CardFormProps) {
   const dispatch = useAppDispatch();
+
+  const session = useAppSelector((state) => state.auth.user);
+
   const {
     register,
     handleSubmit,
@@ -35,22 +42,35 @@ function CardForm({ columnId, setCardFormOpened }: CardFormProps) {
     },
   });
 
-  const onSubmit: SubmitHandler<CardFormInputs> = (formData) => {
-    const { brief } = formData;
+  const onSubmit: SubmitHandler<CardFormInputs> = async (formData) => {
+    try {
+      if (session) {
+        const newCard = await cardServices.create({
+          userId: session.id,
+          columnId,
+          brief: formData.brief,
+          body: '',
+        });
 
-    dispatch(
-      addCard({
-        brief,
-        columnId,
-        body: undefined,
-        color: undefined,
-        tags: [],
-      }),
-    );
+        dispatch(addCard({ card: newCard }));
+      } else {
+        dispatch(addCard({
+          card: {
+            id: uuidv4(),
+            columnId,
+            brief: formData.brief,
+            body: '',
+          },
+        }));
+      }
 
-    reset({
-      brief: '',
-    });
+      reset({
+        brief: '',
+      });
+    } catch (err: unknown) {
+      const decoded = ErrorType.parse(err);
+      logger.logError(decoded);
+    }
   };
   return (
     <form
