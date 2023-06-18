@@ -17,15 +17,6 @@ export const zCard = z.object({
   brief: z.string(),
   body: z.optional(z.string()),
   color: z.optional(z.string()),
-  tags: z.optional(
-    z.array(
-      z.object({
-        id: z.string(),
-        label: z.string(),
-        color: z.string(),
-      }),
-    ),
-  ),
   activity: z.optional(zActivities),
 });
 
