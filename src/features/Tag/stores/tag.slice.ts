@@ -1,14 +1,14 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { v4 as uuidv4 } from 'uuid';
+
 import type {
   AddTagPayload,
   RemoveTagPayload,
   SetTagsPayload,
-  Tags,
+  TagArrayType,
 } from '../types/tag.types';
 
 type TagsState = {
-  allTags: Tags;
+  allTags: TagArrayType;
 };
 
 const initialState: TagsState = {
@@ -25,11 +25,7 @@ const tagsSlice = createSlice({
     }),
     addTag: (state: TagsState, action: PayloadAction<AddTagPayload>) => ({
       ...state,
-      allTags: state.allTags.concat({
-        id: uuidv4(),
-        label: action.payload.label,
-        color: action.payload.color,
-      }),
+      allTags: state.allTags.concat(action.payload.tag),
     }),
     removeTag: (state: TagsState, action: PayloadAction<RemoveTagPayload>) => ({
       ...state,
