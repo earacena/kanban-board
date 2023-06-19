@@ -2,12 +2,12 @@ import React from 'react';
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import type { Columns as ColumnsType } from './types/column.types';
+import type { ColumnArrayType } from './types/column.types';
 import Column from './Column';
 import columnsStyle from './styles/columns.styles';
 
 type ColumnsProps = {
-  columns: ColumnsType;
+  columns: ColumnArrayType;
 };
 
 function Columns({ columns }: ColumnsProps) {
