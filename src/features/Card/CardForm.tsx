@@ -6,6 +6,8 @@ import { BsPlus } from 'react-icons/bs';
 import { FcCancel } from 'react-icons/fc';
 import { Button, Text } from '@mantine/core';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { v4 as uuidv4 } from 'uuid';
+
 import {
   cardFormButtonStyle,
   sortableItemStyle,
@@ -14,7 +16,6 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { addCard } from './stores/cards.slice';
 import { ErrorType } from '../Login/types/registerForm.types';
 import logger from '../../util/Logger';
-import { v4 as uuidv4 } from 'uuid';
 import cardServices from '../../services/card.service';
 
 type CardFormProps = {
@@ -60,6 +61,8 @@ function CardForm({ columnId, setCardFormOpened }: CardFormProps) {
             columnId,
             brief: formData.brief,
             body: '',
+            color: '#0DD9FE',
+            dateCreated: new Date(),
           },
         }));
       }
