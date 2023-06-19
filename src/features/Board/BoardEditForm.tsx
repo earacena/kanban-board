@@ -3,8 +3,11 @@ import {
 } from '@mantine/core';
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useAppDispatch } from '../../hooks';
-import { updateBoardLabel } from './stores/boards.slice';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { updateBoard, updateBoardLabel } from './stores/boards.slice';
+import { ErrorType } from '../Login/types/registerForm.types';
+import logger from '../../util/Logger';
+import boardServices from '../../services/board.service';
 
 interface Inputs {
   label: string,
@@ -17,6 +20,7 @@ interface BoardEditFormProps {
 
 function BoardEditForm({ boardId, boardLabel }: BoardEditFormProps) {
   const dispatch = useAppDispatch();
+  const session = useAppSelector((state) => state.auth.user);
 
   const {
     register,
@@ -28,10 +32,21 @@ function BoardEditForm({ boardId, boardLabel }: BoardEditFormProps) {
     },
   });
 
-  const onSubmit: SubmitHandler<Inputs> = (formData) => {
-    const { label } = formData;
+  const onSubmit: SubmitHandler<Inputs> = async (formData) => {
+    try {
+      const { label } = formData;
 
-    dispatch(updateBoardLabel({ boardId, newLabel: label }));
+      if (session) {
+        const updatedBoard = await boardServices.update({ boardId, changes: { label } });
+        dispatch(updateBoard({ updatedBoard }));
+      } else {
+        // Allow guest to update board label while logged out
+        dispatch(updateBoardLabel({ boardId, newLabel: label }));
+      }
+    } catch (err: unknown) {
+      const decoded = ErrorType.parse(err);
+      logger.logError(decoded);
+    }
   };
 
   return (
