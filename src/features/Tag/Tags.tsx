@@ -4,21 +4,24 @@ import React from 'react';
 import { jsx } from '@emotion/react';
 import { Badge, MantineSize } from '@mantine/core';
 import { tagContainerStyle } from './styles/tags.styles';
-import type { Tags as TagsType } from './types/tag.types';
+import { useAppSelector } from '../../hooks';
 
 type TagsProps = {
-  appliedTags?: TagsType;
-  size?: MantineSize | undefined;
+  cardId: string,
+  size?: MantineSize;
 };
 
 function Tags({
-  appliedTags,
+  cardId,
   size,
 }: TagsProps) {
+  const allTags = useAppSelector((state) => state.tags.allTags);
+  const cardTags = allTags.filter((t) => t.cardId === cardId);
+
   return (
     <div css={tagContainerStyle}>
-      {appliedTags
-        && appliedTags.map((tag) => (
+      {cardTags
+        && cardTags.map((tag) => (
           <Badge
             size={size ?? 'sm'}
             radius="sm"
@@ -35,7 +38,6 @@ function Tags({
 }
 
 Tags.defaultProps = {
-  appliedTags: undefined,
   size: undefined,
 };
 
