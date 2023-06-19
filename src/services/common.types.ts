@@ -2,12 +2,11 @@ import { z } from 'zod';
 import { zBoard, zBoards } from '../features/Board/types/board.types';
 import { zColumn, zColumns } from '../features/Column/types/column.types';
 import {
-  zActivities,
-  zActivity,
   zCard,
   zCards,
 } from '../features/Card/types/card.types';
-import { Tag, Tags } from '../features/Tag/types/tag.types';
+import { zTag, zTags } from '../features/Tag/types/tag.types';
+import { zActivities, zActivity } from '../features/Activity/types/activity.types';
 
 const ErrorPayload = z.object({
   code: z.union([z.string(), z.null()]),
@@ -61,8 +60,8 @@ export const ActivityResponse = ApiResponse.and(
 export const ActivitiesResponse = ApiResponse.and(
   z.object({ data: z.object({ activities: zActivities }) }),
 );
-export const TagResponse = ApiResponse.and(z.object({ data: z.object({ tag: Tag }) }));
-export const TagsResponse = ApiResponse.and(z.object({ data: z.object({ tags: Tags }) }));
+export const TagResponse = ApiResponse.and(z.object({ data: z.object({ tag: zTag }) }));
+export const TagsResponse = ApiResponse.and(z.object({ data: z.object({ tags: zTags }) }));
 
 export const ErrorResponse = ApiResponse.and(ErrorResponsePayload);
 export const SessionResponse = ApiResponse.and(z.object({ data: SessionPayload }));
