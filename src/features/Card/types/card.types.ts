@@ -1,23 +1,13 @@
 import { z } from 'zod';
 import { UniqueIdentifier } from '@dnd-kit/core';
-import { Tags } from '../../Tag/types/tag.types';
-
-export const zActivity = z.object({
-  id: z.string(),
-  dateInMs: z.number(),
-  content: z.string(),
-  type: z.string(),
-});
-
-export const zActivities = z.array(zActivity);
 
 export const zCard = z.object({
   id: z.string(),
   columnId: z.string(),
   brief: z.string(),
-  body: z.optional(z.string()),
-  color: z.optional(z.string()),
-  activity: z.optional(zActivities),
+  body: z.string(),
+  color: z.string(),
+  dateCreated: z.coerce.date(),
 });
 
 export const zCards = z.array(zCard);
@@ -26,52 +16,42 @@ export type CardType = z.infer<typeof zCard>;
 
 export type CardArrayType = z.infer<typeof zCards>;
 
-export type ActivityType = z.infer<typeof zActivity>;
-export type CardActivity = z.infer<typeof zActivities>;
+export interface SetCardsPayload { allCards: CardArrayType }
 
-export type SetCardsPayload = { allCards: CardArrayType };
-
-export type AddCardPayload = {
+export interface AddCardPayload {
   card: CardType,
-};
-export type RemoveCardPayload = {
-  cardId: UniqueIdentifier;
-};
+}
+export interface RemoveCardPayload {
+  cardId: UniqueIdentifier
+}
 
-export type RemoveCardsWithColumnIdPayload = {
-  columnId: string;
-};
+export interface RemoveCardsWithColumnIdPayload {
+  columnId: string
+}
 
-export type SetCardColumnIdPayload = {
-  cardId: UniqueIdentifier;
-  newColumnId: UniqueIdentifier;
-};
+export interface SetCardColumnIdPayload {
+  cardId: UniqueIdentifier
+  newColumnId: UniqueIdentifier
+}
 
-export type UpdateCardBriefPayload = {
-  id: string;
-  newBrief: string;
-};
+export interface UpdateCardPayload {
+  updatedCard: CardType,
+}
 
-export type UpdateCardBodyPayload = {
-  id: string;
-  newBody: string;
-};
+export interface UpdateCardBriefPayload {
+  id: string
+  newBrief: string
+}
 
-export type SetActiveCardIdPayload = {
-  activeCardId: UniqueIdentifier;
-};
+export interface UpdateCardBodyPayload {
+  id: string
+  newBody: string
+}
 
-export type UpdateTagsPayload = {
-  id: string;
-  updatedTags: Tags;
-};
+export interface SetActiveCardIdPayload {
+  activeCardId: UniqueIdentifier
+}
 
-export type AddCardActivityPayload = {
-  cardId: string,
-  type: string,
-  content: string,
-};
-
-export type RemoveTagFromAllCardsPayload = {
+export interface RemoveTagFromAllCardsPayload {
   tagId: string,
-};
+}
