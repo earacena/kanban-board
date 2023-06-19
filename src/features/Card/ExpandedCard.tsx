@@ -9,12 +9,11 @@ import { BsCardText, BsTextLeft, BsPen } from 'react-icons/bs';
 import { FiActivity } from 'react-icons/fi';
 import { MdArrowBackIosNew, MdArrowForwardIos } from 'react-icons/md';
 import CardDescriptionForm from './CardDescriptionForm';
-import { TagPickerForm, Tags, TagsType } from '../Tag';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { removeTagFromAllCards, updateTags } from './stores/cards.slice';
+import { TagPickerForm, Tags } from '../Tag';
 import CardActivityTimeline from './CardActivityTimeline';
 import CardSettingsMenu from './CardSettingsMenu';
 import CardBriefEditForm from './CardBriefEditForm';
+import logger from '../../util/Logger';
 
 type ExpandedCardProps = {
   id: string;
@@ -22,8 +21,7 @@ type ExpandedCardProps = {
   setCardModalOpened: (value: SetStateAction<boolean>) => void;
   setBeingDeleted: (value: SetStateAction<boolean>) => void;
   brief: string;
-  body: string | undefined;
-  tags: TagsType | undefined;
+  body: string;
   columnLabel: string;
 };
 
@@ -31,23 +29,15 @@ function ExpandedCard({
   id,
   brief,
   body,
-  tags,
   columnLabel,
   cardModalOpened,
   setBeingDeleted,
   setCardModalOpened,
 }: ExpandedCardProps) {
-  const dispatch = useAppDispatch();
-  const allTags = useAppSelector((state) => state.tags.allTags);
-
   const [cardDescriptionFormOpened, setCardDescriptionFormOpened] = useState<boolean>(false);
   const [tagPickerOpened, setTagPickerOpened] = useState<boolean>(false);
   const [cardSettingsOpened, setCardSettingsOpened] = useState<boolean>(false);
   const [beingEdited, setBeingEdited] = useState<boolean>(false);
-
-  const updateCardTags = (updatedTags: TagsType) => {
-    dispatch(updateTags({ id, updatedTags }));
-  };
 
   return (
     <Modal
@@ -91,13 +81,11 @@ function ExpandedCard({
       >
         <Text fw={300} css={{ minWidth: 'fit-content' }}>Tags</Text>
         <Divider css={{ marginLeft: '10px' }} orientation="vertical" />
-        {!tagPickerOpened && <Tags appliedTags={tags} size="xl" />}
+        {!tagPickerOpened && <Tags cardId={id} size="xl" />}
         {tagPickerOpened && (
           <TagPickerForm
-            tags={allTags}
-            appliedTags={tags}
-            updateCardTags={updateCardTags}
-            removeTagFromCards={(tagId: string) => dispatch(removeTagFromAllCards({ tagId }))}
+            cardId={id}
+            removeTagFromCards={(tagId: string) => logger.log(`removing tag with same label/color pair as tag: ${tagId}`)}
           />
         )}
         <ActionIcon
