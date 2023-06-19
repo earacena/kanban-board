@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const Tag = z.object({
+export const zTag = z.object({
   id: z.string(),
   cardId: z.string(),
   userId: z.string(),
@@ -8,20 +8,17 @@ export const Tag = z.object({
   color: z.string(),
 });
 
-export const Tags = z.array(Tag);
+export const zTags = z.array(zTag);
 
-export type TagType = z.infer<typeof Tag>;
-export type TagArrayType = z.infer<typeof Tags>;
+export type TagType = z.infer<typeof zTag>;
+export type TagArrayType = z.infer<typeof zTags>;
 
 export type SetTagsPayload = {
   allTags: TagArrayType,
 };
 
 export type AddTagPayload = {
-  cardId: string,
-  userId: string,
-  label: string,
-  color: string,
+  tag: TagType,
 };
 
 export type RemoveTagPayload = {
