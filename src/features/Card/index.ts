@@ -7,6 +7,4 @@ export * from './stores/cards.slice';
 export {
   zCard,
   zCards,
-  zActivity,
-  zActivities,
 } from './types/card.types';
