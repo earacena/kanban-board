@@ -4,8 +4,11 @@ import { jsx } from '@emotion/react';
 import React, { SetStateAction } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Button, Group, Stack } from '@mantine/core';
-import { useAppDispatch } from '../../hooks';
-import { updateCardBody } from './stores/cards.slice';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { updateCard, updateCardBody } from './stores/cards.slice';
+import cardServices from '../../services/card.service';
+import { ErrorType } from '../Login/types/registerForm.types';
+import logger from '../../util/Logger';
 
 type CardDescriptionFormProps = {
   id: string,
@@ -23,6 +26,9 @@ function CardDescriptionForm({
   setCardDescriptionFormOpened,
 }:CardDescriptionFormProps) {
   const dispatch = useAppDispatch();
+  const session = useAppSelector((state) => state.auth.user);
+  const allCards = useAppSelector((state) => state.cards.allCards);
+  const card = allCards.find((c) => c.id === id);
 
   const {
     register,
@@ -33,8 +39,24 @@ function CardDescriptionForm({
     },
   });
 
-  const onSubmit: SubmitHandler<Inputs> = (formData: Inputs) => {
-    dispatch(updateCardBody({ id, newBody: formData.body }));
+  const onSubmit: SubmitHandler<Inputs> = async (formData: Inputs) => {
+    if (session && card) {
+      try {
+        const updatedCard = await cardServices.update({
+          cardId: id,
+          changes: {
+            ...card,
+            body: formData.body,
+          },
+        });
+        dispatch(updateCard({ updatedCard }));
+      } catch (err: unknown) {
+        const decoded = ErrorType.parse(err);
+        logger.logError(decoded);
+      }
+    } else {
+      dispatch(updateCardBody({ id, newBody: formData.body }));
+    }
     setCardDescriptionFormOpened(false);
   };
 
