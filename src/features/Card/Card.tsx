@@ -1,6 +1,6 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { jsx } from '@emotion/react';
 import {
   Group, Text,
@@ -11,15 +11,19 @@ import {
   cardStyle,
 } from './styles/card.styles';
 import ExpandedCard from './ExpandedCard';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { removeCard } from './stores/cards.slice';
 import { DeleteConfirmationModal } from '../../components';
+import { ErrorType } from '../Login/types/registerForm.types';
+import logger from '../../util/Logger';
+import cardServices from '../../services/card.service';
+import tagServices from '../../services/tag.service';
+import { setTags } from '../Tag/stores/tag.slice';
 
 type CardProps = {
   id: string;
   brief: string;
   body: string | undefined,
-  tags: TagsType | undefined,
   columnLabel: string,
 };
 
@@ -27,15 +31,40 @@ function Card({
   id,
   brief,
   body,
-  tags,
   columnLabel,
 }: CardProps) {
   const dispatch = useAppDispatch();
+  const session = useAppSelector((state) => state.auth.user);
 
+  const tags = useAppSelector((state) => state.tags.allTags);
   const [cardModalOpened, setCardModalOpened] = useState(false);
   const [beingDeleted, setBeingDeleted] = useState<boolean>(false);
 
-  const handleDelete = () => {
+  useEffect(() => {
+    const fetchTags = async () => {
+      try {
+        if (session) {
+          const fetchedTags = await tagServices.fetchUserTags({ userId: session.id });
+          dispatch(setTags({ allTags: fetchedTags }));
+        }
+      } catch (err: unknown) {
+        const decoded = ErrorType.parse(err);
+        logger.logError(decoded);
+      }
+    };
+
+    fetchTags();
+  });
+
+  const handleDelete = async () => {
+    if (session) {
+      try {
+        await cardServices.deleteCard({ cardId: id });
+      } catch (err: unknown) {
+        const decoded = ErrorType.parse(err);
+        logger.logError(decoded);
+      }
+    }
     dispatch(removeCard({ cardId: id }));
   };
 
