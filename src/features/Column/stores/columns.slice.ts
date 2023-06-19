@@ -4,6 +4,7 @@ import type {
   ColumnArrayType,
   DeleteColumnPayload,
   SetColumnsPayload,
+  UpdateColumnLabelPayload,
   UpdateColumnPayload,
 } from '../types/column.types';
 
@@ -42,12 +43,23 @@ const columnsSlice = createSlice({
     }),
     updateColumnLabel: (
       state: ColumnsState,
-      action: PayloadAction<UpdateColumnPayload>,
+      action: PayloadAction<UpdateColumnLabelPayload>,
     ) => ({
       ...state,
       allColumns: state.allColumns.map((c) => (
         c.id === action.payload.columnId
           ? { ...c, label: action.payload.updatedColumnLabel }
+          : c
+      )),
+    }),
+    updateColumn: (
+      state: ColumnsState,
+      action: PayloadAction<UpdateColumnPayload>,
+    ) => ({
+      ...state,
+      allColumns: state.allColumns.map((c) => (
+        c.id === action.payload.updatedColumn.id
+          ? action.payload.updatedColumn
           : c
       )),
     }),
@@ -60,6 +72,7 @@ export const {
   addColumn,
   deleteColumn,
   updateColumnLabel,
+  updateColumn,
   resetColumns,
 } = columnsSlice.actions;
 
