@@ -6,12 +6,16 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import {
   Button, Stack, Text,
 } from '@mantine/core';
+import { v4 as uuidv4 } from 'uuid';
 import { sortableItemStyle } from '../Column/styles/column.styles';
-import { useAppDispatch } from '../../hooks';
-import { addCardActivity } from './stores/cards.slice';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { ErrorType } from '../Login/types/registerForm.types';
+import logger from '../../util/Logger';
+import activityServices from '../../services/activity.service';
+import { addActivity } from '../Activity/stores/activity.store';
 
 type Inputs = {
-  content: string;
+  description: string;
 };
 
 type CardActivityProps = {
@@ -20,6 +24,7 @@ type CardActivityProps = {
 
 function CardActivityForm({ cardId }: CardActivityProps) {
   const dispatch = useAppDispatch();
+  const session = useAppSelector((state) => state.auth.user);
 
   const {
     register,
@@ -28,21 +33,42 @@ function CardActivityForm({ cardId }: CardActivityProps) {
     formState: { errors },
   } = useForm<Inputs>({
     defaultValues: {
-      content: '',
+      description: '',
     },
   });
 
-  const onSubmit: SubmitHandler<Inputs> = ({ content }) => {
-    dispatch(
-      addCardActivity({
-        cardId,
-        type: 'contribution',
-        content,
-      }),
-    );
+  const onSubmit: SubmitHandler<Inputs> = async ({ description }) => {
+    if (session) {
+      try {
+        const newActivity = await activityServices.create({
+          userId: session.id,
+          cardId,
+          type: 'contribution',
+          description,
+        });
+
+        dispatch(addActivity({ activity: newActivity }));
+      } catch (err: unknown) {
+        const decoded = ErrorType.parse(err);
+        logger.logError(decoded);
+      }
+    } else {
+      dispatch(
+        addActivity({
+          activity: {
+            id: uuidv4(),
+            cardId,
+            userId: uuidv4(),
+            type: 'contribution',
+            description,
+            dateCreated: new Date(),
+          },
+        }),
+      );
+    }
 
     reset({
-      content: '',
+      description: '',
     });
   };
 
@@ -61,11 +87,11 @@ function CardActivityForm({ cardId }: CardActivityProps) {
           }
           aria-label="activity content"
           placeholder="How have you contributed towards this task?"
-          {...register('content', { required: true })}
+          {...register('description', { required: true })}
         />
         <Text size="sm" color="red" align="center" css={{ marginTop: '0' }}>
-          {errors.content?.type === 'required'
-            ? 'Activity posts must have content'
+          {errors.description?.type === 'required'
+            ? 'Activity posts must have a description'
             : null}
         </Text>
       </Stack>
