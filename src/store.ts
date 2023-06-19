@@ -6,10 +6,12 @@ import { tagsReducer } from './features/Tag';
 import { settingsReducer } from './features/Settings';
 import { boardsReducer } from './features/Board';
 import { authReducer } from './features/Auth';
+import { activityReducer } from './features/Activity';
 // import { saveState } from './features/App/localStorage';
 
 const store = configureStore({
   reducer: {
+    activity: activityReducer,
     auth: authReducer,
     boards: boardsReducer,
     columns: columnsReducer,
