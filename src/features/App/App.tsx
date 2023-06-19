@@ -18,6 +18,8 @@ import {
 import { arrayMove, sortableKeyboardCoordinates } from '@dnd-kit/sortable';
 import { Route, Routes } from 'react-router-dom';
 import { notifications, Notifications } from '@mantine/notifications';
+import { v4 as uuidv4 } from 'uuid';
+
 import {
   setActiveCardId,
   setCardColumnId,
@@ -38,7 +40,6 @@ import columnService from '../../services/column.service';
 import { setIsFetching, setUser } from '../Auth';
 import { ErrorType } from '../Login/types/registerForm.types';
 import logger from '../../util/Logger';
-import { v4 as uuidv4 } from 'uuid';
 
 function App() {
   const dispatch = useAppDispatch();
