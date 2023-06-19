@@ -13,19 +13,23 @@ export const zColumns = z.array(zColumn);
 export type ColumnType = z.infer<typeof zColumn>;
 export type ColumnArrayType = z.infer<typeof zColumns>;
 
-export type SetColumnsPayload = {
+export interface SetColumnsPayload {
   allColumns: ColumnArrayType,
-};
+}
 
-export type AddColumnPayload = {
+export interface AddColumnPayload {
   column: ColumnType
-};
+}
 
-export type DeleteColumnPayload = {
+export interface DeleteColumnPayload {
   columnId: string,
-};
+}
 
-export type UpdateColumnPayload = {
+export interface UpdateColumnLabelPayload {
   columnId: string,
   updatedColumnLabel: string,
-};
+}
+
+export interface UpdateColumnPayload {
+  updatedColumn: ColumnType,
+}
