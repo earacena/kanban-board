@@ -4,7 +4,6 @@ import React, { SetStateAction } from 'react';
 import { IoMdExit } from 'react-icons/io';
 import { useAppDispatch } from '../../../hooks';
 import loginService from '../../../services/login.service';
-import decodeWith from '../../../util/decode';
 import logger from '../../../util/Logger';
 import { resetUser } from '../../Auth';
 import { ErrorType } from '../../Login/types/registerForm.types';
@@ -23,8 +22,8 @@ function LogOutButton({
       await loginService.logout();
       dispatch(resetUser());
       setModalOpened(false);
-    } catch (error: unknown) {
-      const decoded = decodeWith(ErrorType)(error);
+    } catch (err: unknown) {
+      const decoded = ErrorType.parse(err);
       logger.logError(decoded);
 
       notifications.show({
