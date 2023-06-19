@@ -32,6 +32,10 @@ export type SetSelectedBoardPayload = {
   boardId: string,
 };
 
+export interface UpdateBoardPayload {
+  updatedBoard: BoardType,
+}
+
 export interface UpdateBoardLabelPayload {
   boardId: string,
   newLabel: string,
