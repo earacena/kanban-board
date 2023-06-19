@@ -5,6 +5,7 @@ const backendUrl = process.env.REACT_APP_BACKEND_URL;
 interface CreateProps {
   cardId: string,
   userId: string,
+  type: string,
   description: string,
 }
 
@@ -12,14 +13,18 @@ interface FetchActivityByCardIdProps {
   cardId: string,
 }
 
-const create = async ({ cardId, userId, description }: CreateProps) => {
+const create = async ({
+  cardId, userId, type, description,
+}: CreateProps) => {
   const response = await fetch(`${backendUrl}/api/activities/`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     credentials: 'include',
-    body: JSON.stringify({ cardId, userId, description }),
+    body: JSON.stringify({
+      cardId, userId, type, description,
+    }),
   });
 
   const responseJson = await response.json();
