@@ -45,8 +45,8 @@ function timeElapsedFromToday(dateInMs: number, currentDateInMs: number): string
 }
 
 function CardActivityTimeline({ cardId }: CardActivityProps) {
-  const allCards = useAppSelector((state) => state.cards.allCards);
-  const card = allCards.find((c) => c.id === cardId);
+  const allActivities = useAppSelector((state) => state.activity.allActivities);
+  const activities = allActivities.filter((a) => a.cardId === cardId);
   const [currentDateInMs, setCurrentDateInMs] = useState<number>(Date.now());
 
   useEffect(() => {
@@ -58,11 +58,11 @@ function CardActivityTimeline({ cardId }: CardActivityProps) {
   }, []);
 
   return (
-    <Timeline active={card ? card.activity.length - 1 : 1}>
-      {card && card.activity.map((event, idx) => (
-        <Timeline.Item key={event.id} lineVariant={idx === card.activity.length - 1 ? 'dashed' : 'solid'}>
-          <Text fw={300}>{event.content}</Text>
-          <Text size="xs" color="dark">{timeElapsedFromToday(event.dateInMs, currentDateInMs)}</Text>
+    <Timeline active={activities ? activities.length - 1 : 1}>
+      {activities.map((event, idx) => (
+        <Timeline.Item key={event.id} lineVariant={idx === activities.length - 1 ? 'dashed' : 'solid'}>
+          <Text fw={300}>{event.description}</Text>
+          <Text size="xs" color="dark">{timeElapsedFromToday(Number(event.dateCreated), currentDateInMs)}</Text>
         </Timeline.Item>
       ))}
       <Timeline.Item>
