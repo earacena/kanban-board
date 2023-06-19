@@ -27,6 +27,9 @@ import { removeCardsWithColumnId } from '../Card/stores/cards.slice';
 import ColumnSettingsMenu from './ColumnSettingsMenu';
 import CardForm from '../Card/CardForm';
 import { DeleteConfirmationModal } from '../../components';
+import { ErrorType } from '../Login/types/registerForm.types';
+import logger from '../../util/Logger';
+import columnServices from '../../services/column.service';
 
 type ColumnProps = {
   id: string;
@@ -35,6 +38,8 @@ type ColumnProps = {
 
 function Column({ id, label }: ColumnProps) {
   const dispatch = useAppDispatch();
+  const session = useAppSelector((state) => state.auth.user);
+
   const [beingEdited, setBeingEdited] = useState(false);
   const [beingDeleted, setBeingDeleted] = useState(false);
   const [menuOpened, setMenuOpened] = useState(false);
@@ -43,7 +48,16 @@ function Column({ id, label }: ColumnProps) {
   const cardsInThisColumn = cards.filter((card) => card.columnId === id);
   const cardIds = cardsInThisColumn.map((card) => card.id.toString());
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
+    if (session) {
+      try {
+        await columnServices.deleteColumn({ columnId: id });
+      } catch (err: unknown) {
+        const decoded = ErrorType.parse(err);
+        logger.logError(decoded);
+      }
+    }
+
     dispatch(deleteColumn({ columnId: id }));
     dispatch(removeCardsWithColumnId({ columnId: id }));
   };
@@ -87,7 +101,6 @@ function Column({ id, label }: ColumnProps) {
               brief={card.brief}
               body={card.body}
               columnLabel={label}
-              tags={card.tags}
             />
           </SortableItem>
         ))}
