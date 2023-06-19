@@ -7,6 +7,7 @@ import type {
   SetBoardsPayload,
   SetSelectedBoardPayload,
   UpdateBoardLabelPayload,
+  UpdateBoardPayload,
 } from '../types/board.types';
 
 type BoardsState = {
@@ -49,6 +50,17 @@ const boardsSlice = createSlice({
       ...state,
       allBoards: state.allBoards.filter((b) => b.id !== action.payload.boardId),
     }),
+    updateBoard: (
+      state: BoardsState,
+      action: PayloadAction<UpdateBoardPayload>,
+    ) => ({
+      ...state,
+      allBoards: state.allBoards.map((b) => (
+        (b.id === action.payload.updatedBoard.id)
+          ? action.payload.updatedBoard
+          : b
+      )),
+    }),
     updateBoardLabel: (
       state: BoardsState,
       action: PayloadAction<UpdateBoardLabelPayload>,
@@ -71,6 +83,7 @@ export const {
   resetBoards,
   setSelectedBoard,
   updateBoardLabel,
+  updateBoard,
 } = boardsSlice.actions;
 
 export default boardsSlice.reducer;
