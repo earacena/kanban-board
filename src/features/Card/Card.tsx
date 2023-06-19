@@ -6,7 +6,6 @@ import {
   Group, Text,
 } from '@mantine/core';
 import { Tags } from '../Tag';
-import type { TagsType } from '../Tag';
 import {
   cardStyle,
 } from './styles/card.styles';
@@ -23,7 +22,7 @@ import { setTags } from '../Tag/stores/tag.slice';
 type CardProps = {
   id: string;
   brief: string;
-  body: string | undefined,
+  body: string,
   columnLabel: string,
 };
 
@@ -36,7 +35,6 @@ function Card({
   const dispatch = useAppDispatch();
   const session = useAppSelector((state) => state.auth.user);
 
-  const tags = useAppSelector((state) => state.tags.allTags);
   const [cardModalOpened, setCardModalOpened] = useState(false);
   const [beingDeleted, setBeingDeleted] = useState<boolean>(false);
 
@@ -70,7 +68,7 @@ function Card({
 
   return (
     <div css={{ ...cardStyle, cursor: 'pointer' }} key={id}>
-      {tags && <Tags appliedTags={tags} />}
+      <Tags cardId={id} size="sm" />
       <Group position="center" onClick={() => setCardModalOpened(true)}>
         <Text fw={300} truncate css={{ width: '200px' }}>
           {brief}
@@ -83,7 +81,6 @@ function Card({
         setBeingDeleted={setBeingDeleted}
         brief={brief}
         body={body}
-        tags={tags}
         columnLabel={columnLabel}
       />
       <DeleteConfirmationModal
