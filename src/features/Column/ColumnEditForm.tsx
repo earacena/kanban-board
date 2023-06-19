@@ -5,9 +5,12 @@ import { jsx } from '@emotion/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { BsCheck2, BsX } from 'react-icons/bs';
 import { ActionIcon, TextInput } from '@mantine/core';
-import { useAppDispatch } from '../../hooks';
-import { updateColumnLabel } from './stores/columns.slice';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { updateColumn, updateColumnLabel } from './stores/columns.slice';
 import { columnEditFormStyle, textInputStyle } from './styles/columnEditForm.styles';
+import { ErrorType } from '../Login/types/registerForm.types';
+import logger from '../../util/Logger';
+import columnServices from '../../services/column.service';
 
 type Inputs = {
   label: string,
@@ -27,6 +30,8 @@ function ColumnEditForm({
   setBeingEdited,
 }: ColumnEditFormProps) {
   const dispatch = useAppDispatch();
+  const session = useAppSelector((state) => state.auth.user);
+
   const {
     register,
     handleSubmit,
@@ -37,9 +42,21 @@ function ColumnEditForm({
     },
   });
 
-  const onSubmit: SubmitHandler<Inputs> = (formData) => {
+  const onSubmit: SubmitHandler<Inputs> = async (formData) => {
     const { label } = formData;
-    dispatch(updateColumnLabel({ columnId: id, updatedColumnLabel: label }));
+
+    if (session) {
+      try {
+        const updatedColumn = await columnServices.update({ columnId: id, changes: { label } });
+        dispatch(updateColumn({ updatedColumn }));
+      } catch (err: unknown) {
+        const decoded = ErrorType.parse(err);
+        logger.logError(decoded);
+      }
+    } else {
+      dispatch(updateColumnLabel({ columnId: id, updatedColumnLabel: label }));
+    }
+
     setBeingEdited(!beingEdited);
   };
 
