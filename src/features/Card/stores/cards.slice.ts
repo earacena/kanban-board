@@ -1,18 +1,15 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { v4 as uuidv4 } from 'uuid';
 import type {
-  AddCardActivityPayload,
   AddCardPayload,
   CardArrayType,
   RemoveCardPayload,
   RemoveCardsWithColumnIdPayload,
-  RemoveTagFromAllCardsPayload,
   SetActiveCardIdPayload,
   SetCardColumnIdPayload,
   SetCardsPayload,
   UpdateCardBodyPayload,
   UpdateCardBriefPayload,
-  UpdateTagsPayload,
+  UpdateCardPayload,
 } from '../types/card.types';
 
 type CardsState = {
@@ -65,6 +62,16 @@ const cardsSlice = createSlice({
         ),
       };
     },
+    updateCard: (
+      state: CardsState,
+      action: PayloadAction<UpdateCardPayload>,
+    ) => ({
+      ...state,
+      allCards: state.allCards.map((c) => (
+        (c.id === action.payload.updatedCard.id)
+          ? action.payload.updatedCard
+          : c)),
+    }),
     updateCardBrief: (
       state: CardsState,
       action: PayloadAction<UpdateCardBriefPayload>,
@@ -96,44 +103,6 @@ const cardsSlice = createSlice({
       ...state,
       activeCardId: initialState.activeCardId,
     }),
-    updateTags: (
-      state: CardsState,
-      action: PayloadAction<UpdateTagsPayload>,
-    ) => {
-      const { id, updatedTags } = action.payload;
-
-      return {
-        ...state,
-        allCards: state.allCards.map((c) => (c.id === id ? { ...c, tags: updatedTags } : c)),
-      };
-    },
-    addCardActivity: (
-      state: CardsState,
-      action: PayloadAction<AddCardActivityPayload>,
-    ) => ({
-      ...state,
-      allCards: state.allCards.map((c) => (c.id === action.payload.cardId
-        ? {
-          ...c,
-          activity: c.activity.concat({
-            id: uuidv4(),
-            dateInMs: Date.now(),
-            type: action.payload.type,
-            content: action.payload.content,
-          }),
-        }
-        : c)),
-    }),
-    removeTagFromAllCards: (
-      state: CardsState,
-      action: PayloadAction<RemoveTagFromAllCardsPayload>,
-    ) => ({
-      ...state,
-      allCards: state.allCards.map((c) => ({
-        ...c,
-        tags: c.tags?.filter((t) => t.id !== action.payload.tagId),
-      })),
-    }),
     resetCards: () => initialState,
   },
 });
@@ -144,13 +113,11 @@ export const {
   removeCard,
   removeCardsWithColumnId,
   setCardColumnId,
+  updateCard,
   updateCardBrief,
   updateCardBody,
   setActiveCardId,
   resetActiveCardId,
-  addCardActivity,
-  updateTags,
-  removeTagFromAllCards,
   resetCards,
 } = cardsSlice.actions;
 
