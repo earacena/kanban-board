@@ -62,7 +62,7 @@ function CardActivityTimeline({ cardId }: CardActivityProps) {
       {activities.map((event, idx) => (
         <Timeline.Item key={event.id} lineVariant={idx === activities.length - 1 ? 'dashed' : 'solid'}>
           <Text fw={300}>{event.description}</Text>
-          <Text size="xs" color="dark">{timeElapsedFromToday(Number(event.dateCreated), currentDateInMs)}</Text>
+          <Text size="xs" color="dark">{timeElapsedFromToday(Number(new Date(event.dateCreated)), currentDateInMs)}</Text>
         </Timeline.Item>
       ))}
       <Timeline.Item>
