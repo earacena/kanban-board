@@ -4,7 +4,7 @@ export const zBoard = z.object({
   id: z.string().uuid(),
   label: z.string(),
   userId: z.string().uuid(),
-  dateCreated: z.coerce.date(),
+  dateCreated: z.string().datetime(),
 });
 export const zBoards = z.array(zBoard);
 
@@ -16,12 +16,7 @@ export type SetBoardsPayload = {
 };
 
 export type AddBoardPayload = {
-  board: {
-    id: string,
-    label: string,
-    userId: string,
-    dateCreated: Date,
-  },
+  board: BoardType,
 };
 
 export type RemoveBoardPayload = {

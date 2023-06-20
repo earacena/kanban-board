@@ -61,7 +61,7 @@ function CardActivityForm({ cardId }: CardActivityProps) {
             userId: uuidv4(),
             type: 'contribution',
             description,
-            dateCreated: new Date(),
+            dateCreated: new Date().toISOString(),
           },
         }),
       );

@@ -7,7 +7,7 @@ export const zCard = z.object({
   brief: z.string(),
   body: z.string(),
   color: z.string(),
-  dateCreated: z.coerce.date(),
+  dateCreated: z.string().datetime(),
 });
 
 export const zCards = z.array(zCard);

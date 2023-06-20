@@ -62,7 +62,7 @@ function CardForm({ columnId, setCardFormOpened }: CardFormProps) {
             brief: formData.brief,
             body: '',
             color: '#0DD9FE',
-            dateCreated: new Date(),
+            dateCreated: new Date().toISOString(),
           },
         }));
       }

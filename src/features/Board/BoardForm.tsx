@@ -53,7 +53,7 @@ function BoardForm({ setBoardFormOpened }: BoardFormProps) {
             id: uuidv4(),
             label: formData.label,
             userId: uuidv4(),
-            dateCreated: new Date(),
+            dateCreated: new Date().toISOString(),
           },
         }));
       }

@@ -6,7 +6,7 @@ export const zActivity = z.object({
   userId: z.string().uuid(),
   description: z.string(),
   type: z.string(),
-  dateCreated: z.coerce.date(),
+  dateCreated: z.string().datetime(),
 });
 
 export const zActivities = z.array(zActivity);

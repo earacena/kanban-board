@@ -5,7 +5,7 @@ export const zColumn = z.object({
   userId: z.string().uuid(),
   label: z.string(),
   boardId: z.string(),
-  dateCreated: z.coerce.date(),
+  dateCreated: z.string().datetime(),
 });
 
 export const zColumns = z.array(zColumn);

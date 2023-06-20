@@ -148,7 +148,7 @@ function App() {
             userId: uuidv4(),
             label: 'Column',
             boardId: selectedBoardId,
-            dateCreated: new Date(),
+            dateCreated: new Date().toISOString(),
           },
         }));
       }
