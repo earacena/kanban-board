@@ -34,7 +34,7 @@ function Boards() {
     };
 
     fetchBoards();
-  }, []);
+  }, [session]);
 
   return (
     <div css={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
