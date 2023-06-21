@@ -1,4 +1,4 @@
-import { ErrorResponse, UserDetailsPayload } from './common.types';
+import { ErrorResponse, UserDetailsResponse } from './common.types';
 
 interface CreateUserProps {
   name: string,
@@ -24,7 +24,7 @@ const create = async ({ name, username, password }: CreateUserProps) => {
     const errorMessages = errorResponse.errors?.map((err) => err.message);
     throw new Error(errorMessages?.join(' '));
   } else {
-    const session = UserDetailsPayload.parse(responseJson).user;
+    const session = UserDetailsResponse.parse(responseJson).data.user;
     return session;
   }
 };
@@ -33,7 +33,7 @@ const fetchUserSession = async () => {
   const response = await fetch(
     `${backendUrl}/api/users/fetch-user`,
     {
-      method: 'POST',
+      method: 'GET',
       credentials: 'include',
     },
   );
@@ -43,7 +43,7 @@ const fetchUserSession = async () => {
     const errorMessages = errorResponse.errors?.map((err) => err.message);
     throw new Error(errorMessages?.join(' '));
   } else {
-    const userSessionInfo = UserDetailsPayload.parse(responseJson).user;
+    const userSessionInfo = UserDetailsResponse.parse(responseJson).data.user;
     return userSessionInfo;
   }
 };
