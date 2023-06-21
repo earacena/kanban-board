@@ -7,6 +7,7 @@ interface CreateProps {
   columnId: string,
   brief: string,
   body: string,
+  color: string,
 }
 
 interface FetchCardProps {
@@ -15,6 +16,10 @@ interface FetchCardProps {
 
 interface FetchCardsOfColumnProps {
   columnId: string,
+}
+
+interface FetchCardsOfUserProps {
+  userId: string,
 }
 
 interface UpdateProps {
@@ -40,6 +45,7 @@ const create = async ({
   columnId,
   brief,
   body,
+  color,
 }: CreateProps) => {
   const response = await fetch(`${backendUrl}/api/cards/`, {
     method: 'POST',
@@ -52,6 +58,7 @@ const create = async ({
       columnId,
       brief,
       body,
+      color,
     }),
   });
 
@@ -88,6 +95,26 @@ const fetchCardById = async ({ cardId }: FetchCardProps) => {
 
 const fetchCardsByColumnId = async ({ columnId }: FetchCardsOfColumnProps) => {
   const response = await fetch(`${backendUrl}/api/cards/column/${columnId}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include',
+  });
+
+  const responseJson = await response.json();
+  if (!responseJson.success) {
+    const errorResponse = ErrorResponse.parse(responseJson);
+    const errorMessages = errorResponse.errors?.map((err) => err.message);
+    throw new Error(errorMessages?.join(' '));
+  } else {
+    const fetchedCards = CardsResponse.parse(responseJson).data.cards;
+    return fetchedCards;
+  }
+};
+
+const fetchCardsByUserId = async ({ userId }: FetchCardsOfUserProps) => {
+  const response = await fetch(`${backendUrl}/api/cards/user/${userId}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -165,6 +192,7 @@ const cardServices = {
   create,
   fetchCardById,
   fetchCardsByColumnId,
+  fetchCardsByUserId,
   update,
   deleteCard,
   deleteCardsByColumnId,
