@@ -26,7 +26,7 @@ import {
   resetActiveCardId,
   setCards,
 } from '../Card';
-import { addColumn } from '../Column';
+import { addColumn, setColumns } from '../Column';
 import { Container } from '../Container';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { appStyle, globalStyle } from './styles/app.styles';
@@ -36,10 +36,15 @@ import { SideBar, CollapsableSideBar } from '../SideBar';
 import LoginForm from '../Login';
 import RegisterForm from '../Login/RegisterForm';
 import userService from '../../services/user.service';
-import columnService from '../../services/column.service';
 import { setIsFetching, setUser } from '../Auth';
 import { ErrorType } from '../Login/types/registerForm.types';
 import logger from '../../util/Logger';
+import boardServices from '../../services/board.service';
+import tagServices from '../../services/tag.service';
+import { setBoards } from '../Board';
+import { setTags } from '../Tag/stores/tag.slice';
+import columnServices from '../../services/column.service';
+import cardServices from '../../services/card.service';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -74,6 +79,30 @@ function App() {
 
     fetchSession();
   }, []);
+
+  // Retrieve all user boards, columns, cards, and tags
+  useEffect(() => {
+    const fetchAll = async () => {
+      if (session) {
+        try {
+          const fetchedBoards = await boardServices.fetchByUserId({ userId: session.id });
+          const fetchedColumns = await columnServices.fetchColumnsOfUser({ userId: session.id });
+          const fetchedCards = await cardServices.fetchCardsByUserId({ userId: session.id });
+          const fetchedTags = await tagServices.fetchUserTags({ userId: session.id });
+
+          dispatch(setBoards({ allBoards: fetchedBoards }));
+          dispatch(setColumns({ allColumns: fetchedColumns }));
+          dispatch(setCards({ allCards: fetchedCards }));
+          dispatch(setTags({ allTags: fetchedTags }));
+        } catch (err: unknown) {
+          const decoded = ErrorType.parse(err);
+          logger.logError(decoded);
+        }
+      }
+    };
+
+    fetchAll();
+  }, [session]);
 
   useEffect(() => {
     notifications.show({
@@ -133,7 +162,7 @@ function App() {
   const handleAddColumn = async () => {
     try {
       if (selectedBoardId && session) {
-        const newColumn = await columnService.create({
+        const newColumn = await columnServices.create({
           userId: session.id,
           label: 'New Board',
           boardId: selectedBoardId,
