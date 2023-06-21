@@ -13,6 +13,7 @@ import { setUser } from '../Auth';
 import { useAppDispatch } from '../../hooks';
 import userService from '../../services/user.service';
 import { ErrorType } from './types/registerForm.types';
+import logger from '../../util/Logger';
 
 interface NewUserCredentialInputs {
   name: string;
@@ -71,11 +72,14 @@ function RegisterForm() {
     } catch (error: unknown) {
       const decoded = ErrorType.parse(error);
       let message: string = '';
+
       if (decoded.message.includes('NetworkError')) {
         message = 'Unable to connect to server';
       } else if (decoded.message.includes('invalid credentials')) {
         message = 'Invalid credentials used, please try again.';
       }
+
+      logger.logError(decoded);
 
       notifications.show({
         title: 'Error trying to create a new account.',
