@@ -51,6 +51,7 @@ function CardForm({ columnId, setCardFormOpened }: CardFormProps) {
           columnId,
           brief: formData.brief,
           body: '',
+          color: '#0DD9FE',
         });
 
         dispatch(addCard({ card: newCard }));
