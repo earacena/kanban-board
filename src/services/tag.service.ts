@@ -26,7 +26,7 @@ const create = async ({
   const response = await fetch(`${backendUrl}/api/tags`, {
     method: 'POST',
     headers: {
-      'Content-Type:': 'application/json',
+      'Content-Type': 'application/json',
     },
     credentials: 'include',
     body: JSON.stringify({
@@ -52,7 +52,7 @@ const fetchUserTags = async ({ userId }: FetchUserTagsProps) => {
   const response = await fetch(`${backendUrl}/api/tags/user/${userId}`, {
     method: 'GET',
     headers: {
-      'Content-Type:': 'application/json',
+      'Content-Type': 'application/json',
     },
     credentials: 'include',
   });
@@ -72,7 +72,7 @@ const deleteTag = async ({ tagId }: DeleteTagProps) => {
   const response = await fetch(`${backendUrl}/api/tags/${tagId}`, {
     method: 'DELETE',
     headers: {
-      'Content-Type:': 'application/json',
+      'Content-Type': 'application/json',
     },
     credentials: 'include',
   });
