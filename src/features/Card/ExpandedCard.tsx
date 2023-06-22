@@ -13,7 +13,6 @@ import { TagPickerForm, Tags } from '../Tag';
 import CardActivityTimeline from './CardActivityTimeline';
 import CardSettingsMenu from './CardSettingsMenu';
 import CardBriefEditForm from './CardBriefEditForm';
-import logger from '../../util/Logger';
 
 type ExpandedCardProps = {
   id: string;
@@ -83,10 +82,7 @@ function ExpandedCard({
         <Divider css={{ marginLeft: '10px' }} orientation="vertical" />
         {!tagPickerOpened && <Tags cardId={id} size="xl" />}
         {tagPickerOpened && (
-          <TagPickerForm
-            cardId={id}
-            removeTagFromCards={(tagId: string) => logger.log(`removing tag with same label/color pair as tag: ${tagId}`)}
-          />
+          <TagPickerForm cardId={id} />
         )}
         <ActionIcon
           variant="filled"
