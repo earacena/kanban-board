@@ -16,7 +16,7 @@ function Tags({
   size,
 }: TagsProps) {
   const allTags = useAppSelector((state) => state.tags.allTags);
-  const cardTags = allTags.filter((t) => t.cardId === cardId);
+  const cardTags = allTags.filter((t) => t.cardIds.includes(cardId));
 
   return (
     <div css={tagContainerStyle}>
