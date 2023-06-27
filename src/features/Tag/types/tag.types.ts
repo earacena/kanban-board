@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 export const zTag = z.object({
   id: z.string(),
-  cardId: z.string(),
+  cardIds: z.array(z.string().uuid()),
   userId: z.string(),
   label: z.string(),
   color: z.string(),
@@ -23,4 +23,9 @@ export type AddTagPayload = {
 
 export type RemoveTagPayload = {
   tagId: string,
+};
+
+export type UpdateTagPayload = {
+  tagId: string,
+  tag: TagType,
 };
