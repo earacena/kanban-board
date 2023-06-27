@@ -1,6 +1,6 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { jsx } from '@emotion/react';
 import {
   Group, Text,
@@ -16,8 +16,6 @@ import { DeleteConfirmationModal } from '../../components';
 import { ErrorType } from '../Login/types/registerForm.types';
 import logger from '../../util/Logger';
 import cardServices from '../../services/card.service';
-import tagServices from '../../services/tag.service';
-import { setTags } from '../Tag/stores/tag.slice';
 
 type CardProps = {
   id: string;
@@ -37,22 +35,6 @@ function Card({
 
   const [cardModalOpened, setCardModalOpened] = useState(false);
   const [beingDeleted, setBeingDeleted] = useState<boolean>(false);
-
-  useEffect(() => {
-    const fetchTags = async () => {
-      try {
-        if (session) {
-          const fetchedTags = await tagServices.fetchUserTags({ userId: session.id });
-          dispatch(setTags({ allTags: fetchedTags }));
-        }
-      } catch (err: unknown) {
-        const decoded = ErrorType.parse(err);
-        logger.logError(decoded);
-      }
-    };
-
-    fetchTags();
-  });
 
   const handleDelete = async () => {
     if (session) {
