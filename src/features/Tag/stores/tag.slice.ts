@@ -5,6 +5,7 @@ import type {
   RemoveTagPayload,
   SetTagsPayload,
   TagArrayType,
+  UpdateTagPayload,
 } from '../types/tag.types';
 
 type TagsState = {
@@ -31,12 +32,18 @@ const tagsSlice = createSlice({
       ...state,
       allTags: state.allTags.filter((t) => t.id !== action.payload.tagId),
     }),
+    updateTag: (state: TagsState, action: PayloadAction<UpdateTagPayload>) => ({
+      ...state,
+      allTags: state.allTags.map(
+        (t) => (t.id === action.payload.tagId ? action.payload.tag : t),
+      ),
+    }),
     resetTags: () => initialState,
   },
 });
 
 export const {
-  setTags, addTag, removeTag, resetTags,
+  setTags, addTag, removeTag, resetTags, updateTag,
 } = tagsSlice.actions;
 
 export default tagsSlice.reducer;
