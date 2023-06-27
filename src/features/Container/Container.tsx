@@ -1,9 +1,10 @@
 /** @jsxRuntime classic */
-import React from 'react';
-import { DragOverlay } from '@dnd-kit/core';
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
+import React from 'react';
+import { DragOverlay } from '@dnd-kit/core';
 import { createPortal } from 'react-dom';
+
 import { Card } from '../Card';
 import { Columns } from '../Column';
 import { useAppSelector } from '../../hooks';
@@ -39,7 +40,6 @@ function Container() {
                   id={activeCard.id}
                   brief={activeCard.brief}
                   body={activeCard.body}
-                  tags={activeCard.tags}
                   columnLabel={activeCardColumn?.label ?? ''}
                 />
               </SortableItem>
