@@ -119,7 +119,7 @@ const addCardIdToTag = async ({ tagId, cardId }: AddCardIdToTagProps) => {
 };
 
 const removeCardIdFromTag = async ({ tagId, cardId }: RemoveCardIdFromTagProps) => {
-  const response = await fetch(`${backendUrl}/api/tags/${tagId}/card`, {
+  const response = await fetch(`${backendUrl}/api/tags/${tagId}/remove`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
