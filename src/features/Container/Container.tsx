@@ -16,8 +16,11 @@ import { sortableItemStyle } from '../Column/styles/column.styles';
 
 function Container() {
   const columns = useAppSelector((state) => state.columns.allColumns);
+  const columnsSorted = columns.slice().sort(
+    (a, b) => new Date(a.dateCreated).getTime() - new Date(b.dateCreated).getTime(),
+  );
   const selectedBoardId = useAppSelector((state) => state.boards.selectedBoardId);
-  const columnsInBoard = columns.filter((c) => c.boardId === selectedBoardId);
+  const columnsInBoard = columnsSorted.filter((c) => c.boardId === selectedBoardId);
   const activeCardId = useAppSelector((state) => state.cards.activeCardId);
   const activeCard = useAppSelector(
     (state) => state.cards.allCards.find((c) => c.id === activeCardId),
