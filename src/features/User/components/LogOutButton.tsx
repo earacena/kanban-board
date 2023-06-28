@@ -7,6 +7,10 @@ import loginService from '../../../services/login.service';
 import logger from '../../../util/Logger';
 import { resetUser } from '../../Auth';
 import { ErrorType } from '../../Login/types/registerForm.types';
+import { resetColumns } from '../../Column';
+import { resetBoards } from '../../Board';
+import { resetCards } from '../../Card';
+import { resetTags } from '../../Tag/stores/tag.slice';
 
 interface LogOutButtonProps {
   setModalOpened: (value: SetStateAction<boolean>) => void,
@@ -21,6 +25,10 @@ function LogOutButton({
     try {
       await loginService.logout();
       dispatch(resetUser());
+      dispatch(resetBoards());
+      dispatch(resetColumns());
+      dispatch(resetCards());
+      dispatch(resetTags());
       setModalOpened(false);
     } catch (err: unknown) {
       const decoded = ErrorType.parse(err);
