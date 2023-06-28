@@ -1,4 +1,4 @@
-import { ErrorResponse, UserDetailsPayload } from './common.types';
+import { ErrorResponse, UserDetailsResponse } from './common.types';
 
 interface LoginProps {
   username: string;
@@ -23,7 +23,7 @@ const login = async ({ username, password }: LoginProps) => {
     const errorMessages = errorResponse.errors?.map((err) => err.message);
     throw new Error(errorMessages?.join(' '));
   } else {
-    const session = UserDetailsPayload.parse(responseJson).user;
+    const session = UserDetailsResponse.parse(responseJson).data.user;
     return session;
   }
 };
