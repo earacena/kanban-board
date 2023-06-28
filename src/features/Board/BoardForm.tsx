@@ -89,7 +89,7 @@ function BoardForm({ setBoardFormOpened }: BoardFormProps) {
         type="submit"
         leftIcon={<BsPlus size={19} />}
       >
-        ADD NEW CARD
+        ADD NEW BOARD
       </Button>
       <Button
         variant="subtle"
