@@ -108,6 +108,7 @@ function CardForm({ columnId, setCardFormOpened }: CardFormProps) {
         color="red"
         leftIcon={<FcCancel size={19} />}
         onClick={() => setCardFormOpened(false)}
+        css={{ maxWidth: '130px', margin: 'auto' }}
       >
         CANCEL
       </Button>
