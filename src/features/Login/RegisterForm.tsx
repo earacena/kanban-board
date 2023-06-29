@@ -106,6 +106,7 @@ function RegisterForm() {
           backgroundColor: 'white',
           padding: '32px',
           borderRadius: '16px',
+          width: '350px',
         }}
       >
         <TextInput
